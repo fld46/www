@@ -14,13 +14,14 @@
   Private $_liens;
   Private $_fred;
   Private $_tristan;
+  Private $_jo;
 
 
   public function hydrate(array $donnees)
   {
   foreach ($donnees as $key => $value)
   {
-  // On récupère le nom du setter correspondant à l'attribut.
+  // On rÃ©cupÃ¨re le nom du setter correspondant Ã  l'attribut.
   $method = 'set'.ucfirst($key);
   // Si le setter correspondant existe.
   if (method_exists($this, $method))
@@ -81,6 +82,10 @@
   {
   return $this->_tristan;
   }
+  Public function jo()
+  {
+  return $this->_jo;
+  }
 
 
 //Mutateurs
@@ -106,7 +111,7 @@
   {
   if (!is_int($temps))
    //{
-   //trigger_error('La durée doit être un nombre entier', E_USER_WARNING);
+   //trigger_error('La durÃ©e doit Ãªtre un nombre entier', E_USER_WARNING);
    //return;
    //}
    $this->_temps = $temps;
@@ -115,12 +120,12 @@
   {
    //if (!is_int($difficulte))
    //{
-   //trigger_error('La difficulte doit être un nombre entier', E_USER_WARNING);
+   //trigger_error('La difficulte doit Ãªtre un nombre entier', E_USER_WARNING);
    //return;
    //}
    if ($difficulte > 10)
    {
-   trigger_error('La difficulté doit être inferieur ou egal à 10', E_USER_WARNING);
+   trigger_error('La difficultÃ© doit Ãªtre inferieur ou egal Ã  10', E_USER_WARNING);
    return;
    }
    $this->_difficulte = $difficulte;
@@ -160,6 +165,10 @@
   Public function setTristan($tristan)
   {
   return $this->_tristan = $tristan;
+  }
+  Public function setJo($jo)
+  {
+  return $this->_jo = $jo;
   }
  }
 ?>
