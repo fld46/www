@@ -7,3 +7,4 @@ while ($perso = $request->fetch(PDO::FETCH_ASSOC))
       }
 ?>
 
+// J'aime beaucoup ce que tu fais
