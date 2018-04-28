@@ -9,9 +9,9 @@ $this->setDb($db);
 }
 public function add(Jeux $jeux )
 {
-// Préparation de la requête d'insertion.
-// Assignation des valeurs pour le nom, la force, les dégâts,l'expérience et le niveau du personnage.
-// Exécution de la requête.
+// PrÃ©paration de la requÃªte d'insertion.
+// Assignation des valeurs pour le nom, la force, les dÃ©gÃ¢ts,l'expÃ©rience et le niveau du personnage.
+// ExÃ©cution de la requÃªte.
 $q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, fini = :fini');
 $q->bindValue(':titre', $jeux->titre());
 $q->bindValue(':temps', $jeux->temps(),PDO::PARAM_INT);
@@ -23,13 +23,13 @@ $q->execute();
 }
 public function delete(Jeux $perso)
 {
-// Exécute une requête de type DELETE.
+// ExÃ©cute une requÃªte de type DELETE.
 }
 public function get($id)
 {
-// Exécute une requête de type SELECT avec une clause WHERE, et retourne un objet Personnage.
+// ExÃ©cute une requÃªte de type SELECT avec une clause WHERE, et retourne un objet Personnage.
 $id = (int) $id;
-$q = $this->_db->query('SELECT id, titre, temps, difficulte, multi, fini FROM jeux WHERE id = '.$id);
+$q = $this->_db->query('SELECT id, titre, temps, difficulte, multi, fini, finit, ps4, ps3, psvita, liens, fred, tristan, jo FROM jeux WHERE id = '.$id);
 $donnees = $q->fetch(PDO::FETCH_ASSOC);
 return new Jeux($donnees);
 }
@@ -37,7 +37,7 @@ public function getList()
 {
 // Retourne la liste de tous les personnages.
 $jeux = array();
-$q = $this->_db->query('SELECT id, titre, temps, difficulte, multi, fini, finit, ps4, ps3, psvita, liens, fred, tristan FROM jeux WHERE '.$_SESSION['login'].'="oui" ORDER BY difficulte');
+$q = $this->_db->query('SELECT id, titre, temps, difficulte, multi, fini, finit, ps4, ps3, psvita, liens, fred, tristan, jo FROM jeux WHERE '.$_SESSION['login'].'="oui" ORDER BY difficulte');
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
 {
 $jeux = new Jeux();
@@ -46,15 +46,15 @@ $jeux->hydrate($donnees);
 //  print_r($donnees);
 // print_r($jeux);
 //echo "</pre>";
-echo '<tr><td><a href='.$jeux->liens().'>'.$jeux->titre().'</a></td><td>'.$jeux->temps().'</td><td>'.$jeux->difficulte().'</td><td>'.$jeux->multi().'</td><td>'.$jeux->fini().'</td><td>'.$jeux->ps4().'</td><td>'.$jeux->ps3().'</td><td>'.$jeux->psvita().'</td></tr>';
+echo '<tr><td><a href='.$jeux->liens().'>'.$jeux->titre().'</a></td><td>'.$jeux->temps().'</td><td>'.$jeux->difficulte().'</td><td>'.$jeux->multi().'</td><td>'.$jeux->fini().'</td><td>'.$jeux->finit().'</td><td>'.$jeux->ps4().'</td><td>'.$jeux->ps3().'</td><td>'.$jeux->psvita().'</td><td>'.$jeux->fred().'</td><td>'.$jeux->tristan().'</td><td>'.$jeux->jo().'</td></tr>';
 }
 return $jeux;
 }
 public function update(Jeux $perso)
 {
-// Prépare une requête de type UPDATE.
-// Assignation des valeurs à la requête.
-// Exécution de la requête.
+// PrÃ©pare une requÃªte de type UPDATE.
+// Assignation des valeurs Ã  la requÃªte.
+// ExÃ©cution de la requÃªte.
 }
 public function setDb(PDO $db)
 {
