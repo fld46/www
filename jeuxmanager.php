@@ -9,9 +9,7 @@ $this->setDb($db);
 }
 public function add(Jeux $jeux )
 {
-// Préparation de la requête d'insertion.
-// Assignation des valeurs pour le nom, la force, les dégâts,l'expérience et le niveau du personnage.
-// Exécution de la requête.
+
 $q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, fini = :fini');
 $q->bindValue(':titre', $jeux->titre());
 $q->bindValue(':temps', $jeux->temps(),PDO::PARAM_INT);
@@ -33,9 +31,10 @@ public function getList()
 {
 // Retourne la liste de tous les personnages.
 //$jeux = array();
-$q = $this->_db->query('SELECT * FROM jeux WHERE fred="oui"');
-while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
-{
+//$q = $this->_db->query('SELECT * FROM jeux WHERE fred="oui"');
+//while ($donnes = $q->fetch())
+//while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+//{
 //$jeux = new Jeux();
 //$jeux->hydrate($donnees);
 //echo "<pre>";
@@ -43,7 +42,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
 // print_r($jeux);
 //echo "</pre>";
 //echo '<tr><td><a href='.$jeux->liens().'>'.$jeux->titre().'</a></td><td>'.$jeux->temps().'</td><td>'.$jeux->difficulte().'</td><td>'.$jeux->multi().'</td><td>'.$jeux->fini().'</td><td>'.$jeux->ps4().'</td><td>'.$jeux->ps3().'</td><td>'.$jeux->psvita().'</td></tr>';
-}
+/}
 //return $jeux;
 }
 public function update(Jeux $perso)

@@ -37,8 +37,7 @@ public function getList()
 {
 // Retourne la liste de tous les personnages.
 $jeux = array();
-
-$q = $this->_db->query('SELECT id, titre, temps, difficulte, multi, fini, finit, ps4, ps3, psvita, liens, fred, tristan FROM jeux ORDER BY difficulte');
+$q = $this->_db->query('SELECT id, titre, temps, difficulte, multi, fini, finit, ps4, ps3, psvita, liens, fred, tristan FROM jeux WHERE fred="oui" ORDER BY difficulte');
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
 {
 $jeux = new Jeux();
