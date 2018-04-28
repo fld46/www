@@ -1,0 +1,32 @@
+<?php
+class User
+{
+private $_db; // Instance de PDO.
+private $_login;
+public function __construct($db)
+{
+$this->setDb($db);
+}
+public function setDb(PDO $db)
+{
+$this->_db = $db;
+}
+Public function setLogin($login, $password)
+  {
+  $q = $this->_db->query('SELECT id, login, password FROM users WHERE login = '.$login' && password = '.$password);
+  $donnees = $q->fetch(PDO::FETCH_ASSOC);
+  echo $donnees;
+  if (empty($login)||empty($password))
+   {
+   return;
+   }
+
+  $this->_login = $login;
+  }
+Public function login()
+  {
+  return $this->_login;
+  }
+}
+?>
+
