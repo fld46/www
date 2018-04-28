@@ -1,3 +1,6 @@
+<?php
+SESSION_start();
+?>
 <html>
 <head>
 </head>
