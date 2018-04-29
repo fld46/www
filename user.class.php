@@ -74,7 +74,7 @@ class USER
         session_destroy();
         unset($_SESSION['user_session']);
         unset($_SESSION['login']);
-        //return true;
+        return true;
    }
 }
 ?>

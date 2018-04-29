@@ -12,7 +12,7 @@ header("Location: loginform.php");
 </head>
 <body>
 <table border = 1 align=center >
-<tr><td>Ajouter</td><td>Modifier</td><td>Effacer</td><td><a href="deconnecter.php">Deconnecter</a></td></tr>
+<tr><td>Ajouter</td><td>Modifier</td><td><a href="effacer.php">Effacer</a></td><td><a href="deconnecter.php">Deconnecter</a></td></tr>
 </table>
 <br>
 <table border = 1 align=center >

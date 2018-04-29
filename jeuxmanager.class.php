@@ -21,10 +21,39 @@ $q->bindValue(':fini', $jeux->fini());
 $q->execute();
 
 }
-public function delete(Jeux $perso)
+public function delete()
+//public function delete(Jeux $perso)
 {
-// Exécute une requête de type DELETE.
+//if (isset($dtitre))
+//{
+//$q = $this->_db->prepare('DELETE FROM jeux WHERE titre='.$dtitre.'');
+//$q->execute();
+//echo 'lol';
+//}
+$jeux = array();
+$q = $this->_db->query('SELECT * FROM jeux ORDER BY titre');
+while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+{
+$jeux = new Jeux();
+$jeux->hydrate($donnees);
+echo '<option>'.$jeux->titre().'</option>';
 }
+return $jeux;
+}
+ public function deletej($dtitre)
+//public function delete(Jeux $perso)
+{
+if (isset($dtitre))
+{
+$q = $this->_db->prepare('DELETE FROM jeux WHERE titre="'.$dtitre.'"');
+$q->execute();
+
+}
+
+
+}
+
+
 public function get($id)
 {
 // Exécute une requête de type SELECT avec une clause WHERE, et retourne un objet Personnage.
@@ -35,17 +64,13 @@ return new Jeux($donnees);
 }
 public function getList()
 {
-// Retourne la liste de tous les personnages.
+
 $jeux = array();
 $q = $this->_db->query('SELECT * FROM jeux WHERE '.$_SESSION['login'].'="oui" ORDER BY difficulte');
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
 {
 $jeux = new Jeux();
 $jeux->hydrate($donnees);
-//echo "<pre>";
-//  print_r($donnees);
-// print_r($jeux);
-//echo "</pre>";
 echo '<tr><td><a href='.$jeux->liens().'>'.$jeux->titre().'</a></td><td>'.$jeux->temps().'</td><td>'.$jeux->difficulte().'</td><td>'.$jeux->multi().'</td><td>'.$jeux->fini().'</td><td>'.$jeux->finit().'</td><td>'.$jeux->ps4().'</td><td>'.$jeux->ps3().'</td><td>'.$jeux->psvita().'</td><td>'.$jeux->fred().'</td><td>'.$jeux->tristan().'</td><td>'.$jeux->jo().'</td></tr>';
 }
 return $jeux;
