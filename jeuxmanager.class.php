@@ -29,7 +29,7 @@ public function get($id)
 {
 // Exécute une requête de type SELECT avec une clause WHERE, et retourne un objet Personnage.
 $id = (int) $id;
-$q = $this->_db->query('SELECT id, titre, temps, difficulte, multi, fini, finit, ps4, ps3, psvita, liens, fred, tristan, jo FROM jeux WHERE id = '.$id);
+$q = $this->_db->query('SELECT * FROM jeux WHERE id = '.$id);
 $donnees = $q->fetch(PDO::FETCH_ASSOC);
 return new Jeux($donnees);
 }
@@ -37,7 +37,7 @@ public function getList()
 {
 // Retourne la liste de tous les personnages.
 $jeux = array();
-$q = $this->_db->query('SELECT id, titre, temps, difficulte, multi, fini, finit, ps4, ps3, psvita, liens, fred, tristan, jo FROM jeux WHERE '.$_SESSION['login'].'="oui" ORDER BY difficulte');
+$q = $this->_db->query('SELECT * FROM jeux WHERE '.$_SESSION['login'].'="oui" ORDER BY difficulte');
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
 {
 $jeux = new Jeux();
