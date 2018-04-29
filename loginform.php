@@ -31,7 +31,7 @@ if(isset($_POST['btn-login']))
 <div class="container" align=center>
      <div>
         <form method="post">
-            <h2>Sign in.</h2>
+            <h2>Identification.</h2>
             <?php
             if(isset($error))
             {

@@ -53,21 +53,90 @@ if (isset($dtitre))
 {
 $q = $this->_db->prepare('DELETE FROM jeux WHERE titre="'.$dtitre.'"');
 $q->execute();
-
 }
 
 
 }
 
-
-public function get($id)
+public function get($tjeux)
 {
-// Exécute une requête de type SELECT avec une clause WHERE, et retourne un objet Personnage.
-$id = (int) $id;
-$q = $this->_db->query('SELECT * FROM jeux WHERE id = '.$id);
-$donnees = $q->fetch(PDO::FETCH_ASSOC);
-return new Jeux($donnees);
+$jeux = array();
+$q = $this->_db->query('SELECT * FROM jeux WHERE titre="'.$tjeux.'"');
+while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+{
+$jeux = new Jeux();
+$jeux->hydrate($donnees);
+echo '
+<FORM method="post">
+ <p>
+        <input type="hidden" size="3" name="id"  value="'.$jeux->id().'"required/>
+</p>
+<p>
+        <label>Titre</label> : <input type="text" size="300" name="titre"  value="'.$jeux->titre().'"required/>
+</p>
+<p>
+        <label>Temps</label> : <input type="number" size="4" max="9999"  name="temps"  value="'.$jeux->temps().'"required />
+</p>
+<p>
+        <label>Difficulte</label> : <input type="number" min="1" max="10" name="difficulte" value="'.$jeux->difficulte().'" required/>
+</p>
+<p>
+        <label>Multi</label> : <input type="text" name="multi"  value="'.$jeux->multi().'"required/>
+</p>
+<p>
+        <label>Ps4</label> : <input type="text" name="ps4"  value="'.$jeux->ps4().'"required/>
+</p>
+<p>
+        <label>Ps3</label> : <input type="text" name="ps3"  value="'.$jeux->ps3().'"required/>
+</p>
+<p>
+        <label>Psvita</label> : <input type="text" name="psvita"  value="'.$jeux->psvita().'"required/>
+</p>
+<p>
+        <label>liens</label> : <input type="url" name="liens"  value="'.$jeux->liens().'"required/>
+</p>
+<p>
+        <label>Fred</label> : <input type="text" name="fred"  value="'.$jeux->fred().'"required/>
+</p>
+<p>
+        <label>Tristan</label> : <input type="text" name="tristan"  value="'.$jeux->tristan().'"required/>
+</p>
+<p>
+        <label>Jo</label> : <input type="text" name="jo" value="'.$jeux->jo().'"required/>
+</p>
+<button type="submit" name="modifierj" >
+modifier
+</button>
+
+</FORM>
+
+';
 }
+return $jeux;
+// Exécute une requête de type SELECT avec une clause WHERE, et retourne un objet Personnage.
+//$id =  (int)$id;
+//$q = $this->_db->query('SELECT * FROM jeux WHERE id = '.$id);
+//$donnees = $q->fetch(PDO::FETCH_ASSOC);
+//return new Jeux($donnees);
+}
+
+//public function get($id)
+//{
+// Exécute une requête de type SELECT avec une clause WHERE, et retourne un objet Personnage.
+//$id = (int) $id;
+//$q = $this->_db->query('SELECT * FROM jeux WHERE id = '.$id);
+//$donnees = $q->fetch(PDO::FETCH_ASSOC);
+//return new Jeux($donnees);
+//}
+public function updateJeux($idj)
+{
+
+$q = $this->_db->prepare('UPDATE jeux SET titre ="'.$_POST['titre'].'", temps ="'.$_POST['temps'].'", difficulte ="'.$_POST['difficulte'].'", multi ="'.$_POST['multi'].'", ps4 ="'.$_POST['ps4'].'", ps3 ="'.$_POST['ps3'].'", psvita="'.$_POST['psvita'].'", liens ="'.$_POST['liens'].'", fred ="'.$_POST['fred'].'", tristan ="'.$_POST['tristan'].'", jo ="'.$_POST['jo'].'" WHERE id="'.$idj.'"');
+$q->execute();
+
+
+}
+
 public function getList()
 {
 

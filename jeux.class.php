@@ -34,6 +34,10 @@
 
 
   //accesseurs
+  Public function id()
+  {
+  return $this->_id;
+  }
   Public function titre()
   {
   return $this->_titre;
