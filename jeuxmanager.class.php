@@ -12,12 +12,18 @@ public function add(Jeux $jeux )
 // Préparation de la requête d'insertion.
 // Assignation des valeurs pour le nom, la force, les dégâts,l'expérience et le niveau du personnage.
 // Exécution de la requête.
-$q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, fini = :fini');
+$q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, ps4 = :ps4, ps3 = :ps3, psvita= :psvita, liens = :liens, fred = :fred, tristan = :tristan, jo = :jo');
 $q->bindValue(':titre', $jeux->titre());
 $q->bindValue(':temps', $jeux->temps(),PDO::PARAM_INT);
 $q->bindValue(':difficulte', $jeux->difficulte(), PDO::PARAM_INT);
 $q->bindValue(':multi', $jeux->multi());
-$q->bindValue(':fini', $jeux->fini());
+$q->bindValue(':ps4', $jeux->ps4());
+$q->bindValue(':ps3', $jeux->ps3());
+$q->bindValue(':psvita', $jeux->psvita());
+$q->bindValue(':liens', $jeux->liens());
+$q->bindValue(':fred', $jeux->fred());
+$q->bindValue(':tristan', $jeux->tristan());
+$q->bindValue(':jo', $jeux->jo());
 $q->execute();
 
 }
