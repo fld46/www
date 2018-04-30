@@ -179,8 +179,9 @@ $q->execute();
 
 public function getList()
 {
-
+// ordre_var = (defiiculte, titre, ps4)
 $jeux = array();
+// $q = $this->_db->query('SELECT * FROM jeux WHERE '.$_SESSION['login'].'="oui" ORDER BY ordre_var(1) ORDER BY ordre_var(2) ORDER BY ordre_var(3)')
 $q = $this->_db->query('SELECT * FROM jeux WHERE '.$_SESSION['login'].'="oui" ORDER BY difficulte');
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
 {
