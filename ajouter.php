@@ -24,37 +24,37 @@ $manager->add($jeuxa);
 }?>
 <FORM method="post">
 <p>
-        <label>Titre</label> : <input type="text" size="300" name="titre" required/>
+        <label>Titre</label> : <input type="text" size="100" name="titre" required/>
 </p>
 <p>
-        <label>Temps</label> : <input type="number" size="4" max="9999"  name="temps" required />
+        <label>Temps</label> : <input type="number"  style="width:50px" maxlength="4" max="9999"  name="temps" required />
 </p>
 <p>
-        <label>Difficulte</label> : <input type="number" min="1" max="10" name="difficulte" required/>
+        <label>Difficulte</label> : <input type="number" style="width:35px" min="1" max="10" name="difficulte" required/>
 </p>
 <p>
-        <label>Multi</label> : <input type="text" name="multi" required/>
+        <label>Multi</label> : <input type="radio" name="multi" value="oui" required/>Oui<input type="radio" name="multi" value="non" required/>Non
 </p>
 <p>
-        <label>Ps4</label> : <input type="text" name="ps4" required/>
+        <label>Ps4</label> : <input type="radio" name="ps4" value="oui" required/>Oui<input type="radio" name="ps4" value="non" required/>Non
 </p>
 <p>
-        <label>Ps3</label> : <input type="text" name="ps3" required/>
+        <label>Ps3</label> : <input type="radio" name="ps3" value="oui" required/>Oui<input type="radio" name="ps3" value="non" required/>Non
 </p>
 <p>
-        <label>Psvita</label> : <input type="text" name="psvita" required/>
+        <label>Psvita</label> : <input type="radio" name="psvita" value="oui" required/>Oui<input type="radio" name="psvita" value="non" required/>
 </p>
 <p>
         <label>liens</label> : <input type="url" name="liens" required/>
 </p>
 <p>
-        <label>Fred</label> : <input type="text" name="fred" required/>
+        <label>Fred</label> : <input type="radio" name="fred" value="oui" required/>Oui<input type="radio" name="fred" value="non" required/>Non
 </p>
 <p>
-        <label>Tristan</label> : <input type="text" name="tristan" required/>
+        <label>Tristan</label> : <input type="radio" name="tristan" value="oui" required/>Oui<input type="radio" name="tristan" value="non" required/>Non
 </p>
 <p>
-        <label>Jo</label> : <input type="text" name="jo" required/>
+        <label>Jo</label> : <input type="radio" name="jo" value="oui" required/>Oui<input type="radio" name="jo" value="non" required/>
 </p>
 <button type="submit" name="ajouterj" >
 ajouter

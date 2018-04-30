@@ -9,10 +9,11 @@ header("Location: loginform.php");
 
 <html>
 <head>
+<link rel="stylesheet" href="style.css"type="text/css"/>
 </head>
 <body>
-<table border = 1 align=center >
-<tr><td><a href="ajouter.php">Ajouter</a></td><td><a href="modifier.php">Modifier</a></td><td><a href="effacer.php">Effacer</a></td><td><a href="deconnecter.php">Deconnecter</a></td></tr>
+<table  align=center >
+<tr><td><a href="ajouter.php" class="bouton-relief">Ajouter</a></td><td><a href="modifier.php" class="bouton-relief">Modifier</a></td><td><a href="effacer.php" class="bouton-relief">Effacer</a></td><td><a href="deconnecter.php" class="bouton-relief">Deconnecter</a></td></tr>
 </table>
 <br>
 <table border = 1 align=center >
