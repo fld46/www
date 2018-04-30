@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 require 'jeux.class.php';
 require 'jeuxmanager.class.php';
 require 'liens.class.php';
@@ -21,14 +23,14 @@ select
 if(isset($_POST['selectj']))
 {
  $mtitre = $_POST['titrejeux'];
- $manager->get($mtitre);
+ $manager->get($mtitre,$_SESSION['login'],$_SESSION['login']);
 
 }
 if(isset($_POST['modifierj']))
 {
  $idt = $_POST['id'];
  $manager->updateJeux($idt);
- header("Location: modifier.php");
+ //header("Location: modifier.php");
 
 
 }

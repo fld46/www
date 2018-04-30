@@ -1,7 +1,9 @@
 <?php
 class JeuxManager
 {
-private $_db; // Instance de PDO.
+private $_db;
+private $_login;
+
 
 public function __construct($db)
 {
@@ -58,10 +60,21 @@ $q->execute();
 
 }
 
-public function get($tjeux)
+
+public function get($tjeux, $login, $ident)
 {
+if ($login == 'fred'){
+   $login = 'fini';
+   $this->_login = $login;
+}
+if ($login == 'tristan'){
+   $login = 'finit';
+   $this->_login = $login;
+}
+    
 $jeux = array();
 $q = $this->_db->query('SELECT * FROM jeux WHERE titre="'.$tjeux.'"');
+
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
 {
 $jeux = new Jeux();
@@ -84,6 +97,9 @@ echo '
         <label>Multi</label> : <input type="text" name="multi"  value="'.$jeux->multi().'"required/>
 </p>
 <p>
+       <label>Fini </label> : <input type="text" name="'.$login.'" value="'.$jeux->$login().'"required/>
+</p>
+<p>
         <label>Ps4</label> : <input type="text" name="ps4"  value="'.$jeux->ps4().'"required/>
 </p>
 <p>
@@ -96,13 +112,7 @@ echo '
         <label>liens</label> : <input type="url" name="liens"  value="'.$jeux->liens().'"required/>
 </p>
 <p>
-        <label>Fred</label> : <input type="text" name="fred"  value="'.$jeux->fred().'"required/>
-</p>
-<p>
-        <label>Tristan</label> : <input type="text" name="tristan"  value="'.$jeux->tristan().'"required/>
-</p>
-<p>
-        <label>Jo</label> : <input type="text" name="jo" value="'.$jeux->jo().'"required/>
+        <label>Fred</label> : <input type="text" name="'.$ident.'"  value="'.$jeux->$ident().'"required/>
 </p>
 <button type="submit" name="modifierj" >
 modifier
@@ -130,11 +140,17 @@ return $jeux;
 //}
 public function updateJeux($idj)
 {
-
-$q = $this->_db->prepare('UPDATE jeux SET titre ="'.$_POST['titre'].'", temps ="'.$_POST['temps'].'", difficulte ="'.$_POST['difficulte'].'", multi ="'.$_POST['multi'].'", ps4 ="'.$_POST['ps4'].'", ps3 ="'.$_POST['ps3'].'", psvita="'.$_POST['psvita'].'", liens ="'.$_POST['liens'].'", fred ="'.$_POST['fred'].'", tristan ="'.$_POST['tristan'].'", jo ="'.$_POST['jo'].'" WHERE id="'.$idj.'"');
+if ($_SESSION['login'] == 'fred'){
+   $login = 'fini';
+   $this->_login = $login;
+}
+if ($_SESSION['login'] == 'tristan'){
+   $login = 'finit';
+   $this->_login = $login;
+}
+//$q = $this->_db->prepare('UPDATE jeux SET titre ="'.$_POST['titre'].'", temps ="'.$_POST['temps'].'", difficulte ="'.$_POST['difficulte'].'", multi ="'.$_POST['multi'].'", fini ="'.$_POST['fini'].'", finit ="'.$_POST['finit'].'", ps4 ="'.$_POST['ps4'].'", ps3 ="'.$_POST['ps3'].'", psvita="'.$_POST['psvita'].'", liens ="'.$_POST['liens'].'", fred ="'.$_POST['fred'].'", tristan ="'.$_POST['tristan'].'", jo ="'.$_POST['jo'].'" WHERE id="'.$idj.'"');
+$q = $this->_db->prepare('UPDATE jeux SET titre ="'.$_POST['titre'].'", temps ="'.$_POST['temps'].'", difficulte ="'.$_POST['difficulte'].'", multi ="'.$_POST['multi'].'", '. $this->_login.' ="'.$_POST[''.$this->_login.''].'", ps4 ="'.$_POST['ps4'].'", ps3 ="'.$_POST['ps3'].'", psvita="'.$_POST['psvita'].'", liens ="'.$_POST['liens'].'", '.$_SESSION['login'].' ="'.$_POST[''.$_SESSION['login'].''].'" WHERE id="'.$idj.'"');
 $q->execute();
-
-
 }
 
 public function getList()

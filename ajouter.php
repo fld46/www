@@ -42,10 +42,10 @@ $manager->add($jeuxa);
         <label>Ps3</label> : <input type="radio" name="ps3" value="oui" required/>Oui<input type="radio" name="ps3" value="non" required/>Non
 </p>
 <p>
-        <label>Psvita</label> : <input type="radio" name="psvita" value="oui" required/>Oui<input type="radio" name="psvita" value="non" required/>
+        <label>Psvita</label> : <input type="radio" name="psvita" value="oui" required/>Oui<input type="radio" name="psvita" value="non" required/>Non
 </p>
 <p>
-        <label>liens</label> : <input type="url" name="liens" required/>
+        <label>liens</label> : <input type="url" name="liens"/>
 </p>
 <p>
         <label>Fred</label> : <input type="radio" name="fred" value="oui" required/>Oui<input type="radio" name="fred" value="non" required/>Non
@@ -54,7 +54,7 @@ $manager->add($jeuxa);
         <label>Tristan</label> : <input type="radio" name="tristan" value="oui" required/>Oui<input type="radio" name="tristan" value="non" required/>Non
 </p>
 <p>
-        <label>Jo</label> : <input type="radio" name="jo" value="oui" required/>Oui<input type="radio" name="jo" value="non" required/>
+        <label>Jo</label> : <input type="radio" name="jo" value="oui" required/>Oui<input type="radio" name="jo" value="non" required/>Non
 </p>
 <button type="submit" name="ajouterj" >
 ajouter
