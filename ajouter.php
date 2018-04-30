@@ -3,6 +3,7 @@ session_start();
 require 'jeux.class.php';
 require 'jeuxmanager.class.php';
 require 'user.class.php';
+require 'liens.class.php';
 $db = new PDO('mysql:host=localhost;dbname=jeux', 'root' );
 $manager = new JeuxManager($db);
 if (isset($_POST['ajouterj']))
@@ -60,4 +61,7 @@ ajouter
 </button>
 
 </FORM>
-
+<?php
+$home = new Liens();
+$home->lien('home');
+?>

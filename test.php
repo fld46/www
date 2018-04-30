@@ -1,6 +1,6 @@
 <?php
-require 'jeux.class.php';
-$test = new Jeux();
-$test->setTitre('test');
-echo $test->titre();
+require 'liens.class.php';
+$lientest = new Liens();
+$lientest->lien('test');
+var_dump($lientest);
 ?>

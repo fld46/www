@@ -1,7 +1,7 @@
 <?php
 require 'jeux.class.php';
 require 'jeuxmanager.class.php';
-
+require 'liens.class.php';
 $db = new PDO('mysql:host=localhost;dbname=jeux', 'root' );
 $manager = new JeuxManager($db);
 if(!isset($_POST['selectj'])){
@@ -32,7 +32,8 @@ if(isset($_POST['modifierj']))
 
 
 }
-
+$home= new Liens();
+$home->lien('home');
 ?>
 
 
