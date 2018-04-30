@@ -62,7 +62,20 @@ $q->execute();
 
 }
 
-
+public function verifRadio(Jeux $radioj,$input)
+{
+if ($radioj->$input() == "oui"){
+echo'<p>
+        <label>'.$input.'</label> : <input type="radio" name="'.$input.'" value="oui" checked required/>Oui<input type="radio" name="'.$input.'" value="non" required/>Non
+</p>';    
+}
+if(($radioj->$input() == "non")||($radioj->$input() == "")){
+echo'<p>
+        <label>'.$input.'</label> : <input type="radio" name="'.$input.'" value="oui" required/>Oui<input type="radio" name="'.$input.'" value="non" checked required/>Non
+</p>';    
+}
+    
+}
 public function get($tjeux, $login, $ident)
 {
 if ($login == 'fred'){
@@ -101,22 +114,31 @@ echo '
 <p>
        <label>Fini </label> : <input type="text" name="'.$login.'" value="'.$jeux->$login().'"required/>
 </p>
-<p>
-        <label>Ps4</label> : <input type="text" name="ps4"  value="'.$jeux->ps4().'"required/>
-</p>
-<p>
+';
+  //      <p>
+    //    <label>Ps4</label> : <input type="text" name="ps4"  value="'.$jeux->ps4().'"required/>
+//</p>
+$this->verifRadio($jeux, 'ps4');
+$this->verifRadio($jeux, 'ps3');
+$this->verifRadio($jeux, 'psvita');
+$this->verifRadio($jeux, $ident);
+$this->verifRadio($jeux, $login);
+
+/*<p>
         <label>Ps3</label> : <input type="text" name="ps3"  value="'.$jeux->ps3().'"required/>
 </p>
 <p>
         <label>Psvita</label> : <input type="text" name="psvita"  value="'.$jeux->psvita().'"required/>
-</p>
+</p>*/
+echo'
 <p>
         <label>liens</label> : <input type="url" name="liens"  value="'.$jeux->liens().'"required/>
-</p>
-<p>
-        <label>Fred</label> : <input type="text" name="'.$ident.'"  value="'.$jeux->$ident().'"required/>
-</p>
-<button type="submit" name="modifierj" >
+</p>';
+
+//<p>
+//        <label>Fred</label> : <input type="text" name="'.$ident.'"  value="'.$jeux->$ident().'"required/>
+//</p>
+echo'<button type="submit" name="modifierj" >
 modifier
 </button>
 
