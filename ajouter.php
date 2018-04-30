@@ -6,6 +6,14 @@ require 'user.class.php';
 require 'liens.class.php';
 $db = new PDO('mysql:host=localhost;dbname=jeux', 'root' );
 $manager = new JeuxManager($db);
+if ($_SESSION['login'] == 'fred'){
+   $login = 'fini';
+   
+}
+if ($_SESSION['login']=='tristan'){
+   $login = 'finit';
+   
+}
 if (isset($_POST['ajouterj']))
 {
 $jeuxa = new Jeux();
@@ -13,6 +21,7 @@ $jeuxa->setTitre($_POST['titre']);
 $jeuxa->setTemps($_POST['temps']);
 $jeuxa->setDifficulte($_POST['difficulte']);
 $jeuxa->setMulti($_POST['multi']);
+$jeuxa->setFini($_POST['fini']);
 $jeuxa->setPs4($_POST['ps4']);
 $jeuxa->setPs3($_POST['ps3']);
 $jeuxa->setPsvita($_POST['psvita']);
@@ -20,7 +29,7 @@ $jeuxa->setLiens($_POST['liens']);
 $jeuxa->setFred($_POST['fred']);
 $jeuxa->setTristan($_POST['tristan']);
 $jeuxa->setJo($_POST['jo']);
-$manager->add($jeuxa);
+$manager->add($jeuxa, $login);
 }?>
 <FORM method="post">
 <p>
@@ -34,6 +43,9 @@ $manager->add($jeuxa);
 </p>
 <p>
         <label>Multi</label> : <input type="radio" name="multi" value="oui" required/>Oui<input type="radio" name="multi" value="non" required/>Non
+</p>
+<p>
+        <label>Fini</label> : <input type="radio" name="fini" value="oui" required/>Oui<input type="radio" name="fini" value="non" required/>Non
 </p>
 <p>
         <label>Ps4</label> : <input type="radio" name="ps4" value="oui" required/>Oui<input type="radio" name="ps4" value="non" required/>Non
