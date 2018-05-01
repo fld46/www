@@ -11,7 +11,7 @@ $this->setDb($db);
 }
 public function add(Jeux $jeux, $login)
 {
-$q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, '.$login.'=:fini, ps4 = :ps4, ps3 = :ps3, psvita= :psvita, liens = :liens, fred = :fred, tristan = :tristan, jo = :jo');
+$q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, '.$login.' = :fini, ps4 = :ps4, ps3 = :ps3, psvita= :psvita, liens = :liens, fred = :fred, tristan = :tristan, jo = :jo');
 $q->bindValue(':titre', $jeux->titre());
 $q->bindValue(':temps', $jeux->temps(),PDO::PARAM_INT);
 $q->bindValue(':difficulte', $jeux->difficulte(), PDO::PARAM_INT);
@@ -25,6 +25,8 @@ $q->bindValue(':fred', $jeux->fred());
 $q->bindValue(':tristan', $jeux->tristan());
 $q->bindValue(':jo', $jeux->jo());
 $q->execute();
+var_dump($q);
+
 
 }
 

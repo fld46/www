@@ -140,11 +140,11 @@
   }
   Public function setFini($fini)
   {
-  return $this->_fini = $fini;;
+  return $this->_fini = $fini;
   }
   Public function setFinit($finit)
   {
-  return $this->_finit = $finit;;
+  return $this->_finit = $finit;
   }
   Public function setPs4($ps4)
   {
