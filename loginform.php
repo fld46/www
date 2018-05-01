@@ -1,7 +1,7 @@
 
 <?php
 
-require_once 'dbconfig.php';
+require_once 'Dbconfig.php';
 if($user->is_loggedin()!="")
 {
  $user->redirect('home.php');
@@ -10,7 +10,7 @@ if($user->is_loggedin()!="")
 if(isset($_POST['btn-login']))
 {
  $lname = $_POST['txt_uname_email'];
- $umail = $_POST['txt_uname_email'];
+ //$umail = $_POST['txt_uname_email'];
  $upass = $_POST['txt_password'];
 
  if($user->login($lname,$upass))
