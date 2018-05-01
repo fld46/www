@@ -9,14 +9,8 @@ public function __construct($db)
 {
 $this->setDb($db);
 }
-public function add(Jeux $jeux, $login, $logini)
+public function add(Jeux $jeux, $login)
 {
-// Préparation de la requête d'insertion.
-// Assignation des valeurs pour le nom, la force, les dégâts,l'expérience et le niveau du personnage.
-// Exécution de la requête.
-
-if ($_SESSION['login']=="fred")
-{ 
 $q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, '.$login.'=:fini, ps4 = :ps4, ps3 = :ps3, psvita= :psvita, liens = :liens, fred = :fred, tristan = :tristan, jo = :jo');
 $q->bindValue(':titre', $jeux->titre());
 $q->bindValue(':temps', $jeux->temps(),PDO::PARAM_INT);
@@ -31,23 +25,7 @@ $q->bindValue(':fred', $jeux->fred());
 $q->bindValue(':tristan', $jeux->tristan());
 $q->bindValue(':jo', $jeux->jo());
 $q->execute();
-}
-else{
-$q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, '.$login.'=:fini, ps4 = :ps4, ps3 = :ps3, psvita= :psvita, liens = :liens, fred = :fred, '.$_SESSION['login'].' = :tristan, jo = :jo');
-$q->bindValue(':titre', $jeux->titre());
-$q->bindValue(':temps', $jeux->temps(),PDO::PARAM_INT);
-$q->bindValue(':difficulte', $jeux->difficulte(), PDO::PARAM_INT);
-$q->bindValue(':multi', $jeux->multi());
-$q->bindValue(':fini', $jeux->$login());
-$q->bindValue(':ps4', $jeux->ps4());
-$q->bindValue(':ps3', $jeux->ps3());
-$q->bindValue(':psvita', $jeux->psvita());
-$q->bindValue(':liens', $jeux->liens());
-$q->bindValue(':fred', $jeux->fred());
-$q->bindValue(':tristan', $jeux->$logini());
-$q->bindValue(':jo', $jeux->jo());
-$q->execute();
-}    
+
 }
 
 public function delete()
@@ -201,7 +179,7 @@ public function getList()
 // ordre_var = (defiiculte, titre, ps4)
 $jeux = array();
 // $q = $this->_db->query('SELECT * FROM jeux WHERE '.$_SESSION['login'].'="oui" ORDER BY ordre_var(1) ORDER BY ordre_var(2) ORDER BY ordre_var(3)')
-$q = $this->_db->query('SELECT * FROM jeux WHERE '.$_SESSION['login'].'="oui" ORDER BY difficulte');
+$q = $this->_db->query('SELECT * FROM jeux WHERE '.$_SESSION['login'].'="oui"');
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
 {
 $jeux = new Jeux();

@@ -8,12 +8,10 @@ $db = new PDO('mysql:host=localhost;dbname=jeux', 'root' );
 $manager = new JeuxManager($db);
 if ($_SESSION['login'] == 'fred'){
    $login = 'fini';
-   
 }
 if ($_SESSION['login']=='tristan'){
    $login = 'finit';
    //$col = 'setTristan($_POST[\'tristan\'])';
-   
 }
 if (isset($_POST['ajouterj']))
 {
@@ -30,8 +28,7 @@ $jeuxa->setLiens($_POST['liens']);
 $jeuxa->setFred($_POST['fred']);
 $jeuxa->setTristan($_POST['tristan']);
 $jeuxa->setJo($_POST['jo']);
-var_dump($jeuxa);
-$manager->add($jeuxa, $login, $_SESSION['login']);
+$manager->add($jeuxa, $login);
 }
 ?>
 <FORM method="post">
@@ -62,10 +59,7 @@ $manager->add($jeuxa, $login, $_SESSION['login']);
 <p>
         <label>liens</label> : <input type="url" name="liens"/>
 </p>
-<?php
-if($_SESSION['login']=="fred")
-{
-    echo '<p>
+<p>
         <label>Fred</label> : <input type="radio" name="fred" value="oui" required/>Oui<input type="radio" name="fred" value="non" required/>Non
 </p>
 <p>
@@ -73,23 +67,7 @@ if($_SESSION['login']=="fred")
 </p>
 <p>
         <label>Jo</label> : <input type="radio" name="jo" value="oui" />Oui<input type="radio" name="jo" value="non" />Non
-</p>';
-}   
-else
-{
- echo '
-<p>
-        <input type="hidden" name="fred" value="non" required/>
-</p>     
-<p>
-        <label>'.$_SESSION['login'].'</label> : <input type="radio" name="'.$_SESSION['login'].'" value="oui" required/>Oui<input type="radio" name="'.$_SESSION['login'].'" value="non" required/>Non
 </p>
-<p>
-        <input type="hidden" name="jo" value="non" required/>
-</p>
-';   
-} 
-?>        
 <button type="submit" name="ajouterj" >
 ajouter
 </button>
