@@ -180,7 +180,10 @@ public function getList()
 // ordre_var = (defiiculte, titre, ps4)
 $jeux = array();
 if ($_SESSION['tri']!=""){
+    
     $_SESSION['trieffectif']='ORDER BY '.$_SESSION['tri'];
+    $_SESSION['trieffectif']= rtrim($_SESSION['trieffectif'], ",");
+    
 }else{
     $_SESSION['trieffectif']='';
 }

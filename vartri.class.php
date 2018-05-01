@@ -78,7 +78,7 @@ class vartri {
         $_SESSION['tri']='jo ,'.$_SESSION['tri'];
         echo $_SESSION['tri'];
     }
-    $_SESSION['tri']= rtrim($_SESSION['tri'], ",");
+   //$_SESSION['tri']= rtrim($_SESSION['tri'], ",");
     echo'<br>'.$_SESSION['tri'];
     
     }
