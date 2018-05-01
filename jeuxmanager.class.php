@@ -9,12 +9,14 @@ public function __construct($db)
 {
 $this->setDb($db);
 }
-public function add(Jeux $jeux, $login)
+public function add(Jeux $jeux, $login, $logini)
 {
 // Préparation de la requête d'insertion.
 // Assignation des valeurs pour le nom, la force, les dégâts,l'expérience et le niveau du personnage.
 // Exécution de la requête.
 
+if ($_SESSION['login']=="fred")
+{ 
 $q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, '.$login.'=:fini, ps4 = :ps4, ps3 = :ps3, psvita= :psvita, liens = :liens, fred = :fred, tristan = :tristan, jo = :jo');
 $q->bindValue(':titre', $jeux->titre());
 $q->bindValue(':temps', $jeux->temps(),PDO::PARAM_INT);
@@ -28,9 +30,28 @@ $q->bindValue(':liens', $jeux->liens());
 $q->bindValue(':fred', $jeux->fred());
 $q->bindValue(':tristan', $jeux->tristan());
 $q->bindValue(':jo', $jeux->jo());
+//$q->execute();
+
+
+}
+else{
+$q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, '.$login.'=:fini, ps4 = :ps4, ps3 = :ps3, psvita= :psvita, liens = :liens, '.$_SESSION['login'].' = :clogin');
+$q->bindValue(':titre', $jeux->titre());
+$q->bindValue(':temps', $jeux->temps(),PDO::PARAM_INT);
+$q->bindValue(':difficulte', $jeux->difficulte(), PDO::PARAM_INT);
+$q->bindValue(':multi', $jeux->multi());
+$q->bindValue(':fini', $jeux->$login());
+$q->bindValue(':ps4', $jeux->ps4());
+$q->bindValue(':ps3', $jeux->ps3());
+$q->bindValue(':psvita', $jeux->psvita());
+$q->bindValue(':liens', $jeux->liens());
+$q->bindValue(':clogin', $jeux->$logini());
+//$q->execute();
+}    
 $q->execute();
 
 }
+
 public function delete()
 //public function delete(Jeux $perso)
 {
@@ -110,11 +131,11 @@ echo '
 </p>
 <p>
         <label>Multi</label> : <input type="text" name="multi"  value="'.$jeux->multi().'"required/>
-</p>
-<p>
-       <label>Fini </label> : <input type="text" name="'.$login.'" value="'.$jeux->$login().'"required/>
-</p>
-';
+</p>';
+//<p>
+//       <label>Fini </label> : <input type="text" name="'.$login.'" value="'.$jeux->$login().'"required/>
+//</p>
+
   //      <p>
     //    <label>Ps4</label> : <input type="text" name="ps4"  value="'.$jeux->ps4().'"required/>
 //</p>
