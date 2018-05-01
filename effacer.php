@@ -1,7 +1,7 @@
 <?php
 require 'jeux.class.php';
 require 'jeuxmanager.class.php';
-require 'liens.class.php';
+require 'Liens.class.php';
 $db = new PDO('mysql:host=localhost;dbname=jeux', 'root' );
 $manager = new JeuxManager($db);
 if(isset($_POST['deletej']))

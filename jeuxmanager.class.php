@@ -179,8 +179,13 @@ public function getList()
 {
 // ordre_var = (defiiculte, titre, ps4)
 $jeux = array();
+if ($_SESSION['tri']!=""){
+    $_SESSION['trieffectif']='ORDER BY '.$_SESSION['tri'];
+}else{
+    $_SESSION['trieffectif']='';
+}
 // $q = $this->_db->query('SELECT * FROM jeux WHERE '.$_SESSION['login'].'="oui" ORDER BY ordre_var(1) ORDER BY ordre_var(2) ORDER BY ordre_var(3)')
-$q = $this->_db->query('SELECT * FROM jeux WHERE '.$_SESSION['login'].'="oui"');
+$q = $this->_db->query('SELECT * FROM jeux WHERE '.$_SESSION['login'].'="oui" '.$_SESSION['trieffectif']);
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
 {
 $jeux = new Jeux();

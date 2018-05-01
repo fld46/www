@@ -42,6 +42,7 @@ class USER
              {
                 $_SESSION['user_session'] = $userRow['id'];
                 $_SESSION['login'] = $lname;
+                $_SESSION['tri'] = '';
                 return true;
              }
              else
