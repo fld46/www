@@ -1,4 +1,4 @@
-<?PHP
+<?php
 session_start();
 require 'jeux.class.php';
 require 'jeuxmanager.class.php';
@@ -6,13 +6,13 @@ require 'user.class.php';
 require 'Liens.class.php';
 $db = new PDO('mysql:host=localhost;dbname=jeux', 'root' );
 $manager = new JeuxManager($db);
-if ($_SESSION['login'] == 'fred'){
-   $login = 'fini';
-}
-if ($_SESSION['login']=='tristan'){
-   $login = 'finit';
-   //$col = 'setTristan($_POST[\'tristan\'])';
-}
+if ($_SESSION['login'] == 'fred'){                 //    if ($_SESSION['login'] == 'fred'){
+   $login = 'fini';                                //       $login = 'fini';
+}                                                  //    }
+if ($_SESSION['login']=='tristan'){                //    if ($_SESSION['login']=='tristan'){
+   $login = 'finit';                               //       $login = 'finit';
+   //$col = 'setTristan($_POST[\'tristan\'])';     //       //$col = 'setTristan($_POST[\'tristan\'])';
+}                                                  //    }
 if (isset($_POST['ajouterj']))
 {
 $jeuxa = new Jeux();
@@ -20,7 +20,7 @@ $jeuxa->setTitre($_POST['titre']);
 $jeuxa->setTemps($_POST['temps']);
 $jeuxa->setDifficulte($_POST['difficulte']);
 $jeuxa->setMulti($_POST['multi']);
-$jeuxa->setFini($_POST['fini']);
+$jeuxa->setFini($_POST['fini']);             // <----- /!\/!\/!\ WARNING /!\/!\/!\
 $jeuxa->setPs4($_POST['ps4']);
 $jeuxa->setPs3($_POST['ps3']);
 $jeuxa->setPsvita($_POST['psvita']);
