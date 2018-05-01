@@ -5,6 +5,10 @@ if(!isset($_SESSION['login']))
 {
 header("Location: loginform.php");
 }
+require 'vartri.class.php';
+$testvar = new vartri();
+$testvar->tri();
+
 ?>
 
 <html>
@@ -17,7 +21,7 @@ header("Location: loginform.php");
 </table>
 <br>
 <table border = 1 align=center >
-<tr><td>Titre</td><td>Temps</td><td>Difficulte</td><td>Multi</td><td>Fini</td><td>Finit</td><td>Ps4</td><td>Ps3</td><td>Psvita</td><td>Fred</td><td>Tristan</td><td>Jo</td>
+    <tr><td> <form method="post"><button type="submit" name="btn_titre">TITRE</button></form></td><td><form method="post"><button type="submit" name="btn_temps">Temps</button></td><td>Difficulte</td><td>Multi</td><td>Fini</td><td>Finit</td><td>Ps4</td><td>Ps3</td><td>Psvita</td><td>Fred</td><td>Tristan</td><td>Jo</td>
 <?php
 require 'jeux.class.php';
 require 'jeuxmanager.class.php';
