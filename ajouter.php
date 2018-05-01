@@ -27,18 +27,10 @@ $jeuxa->setPs4($_POST['ps4']);
 $jeuxa->setPs3($_POST['ps3']);
 $jeuxa->setPsvita($_POST['psvita']);
 $jeuxa->setLiens($_POST['liens']);
-if($_SESSION['login']=='fred')
-    {
 $jeuxa->setFred($_POST['fred']);
 $jeuxa->setTristan($_POST['tristan']);
 $jeuxa->setJo($_POST['jo']);
-}
-else
-{
- //$jeuxa->$col;   
-$jeuxa->setTristan($_POST['tristan']);
-    
-}
+var_dump($jeuxa);
 $manager->add($jeuxa, $login, $_SESSION['login']);
 }
 ?>
@@ -77,17 +69,25 @@ if($_SESSION['login']=="fred")
         <label>Fred</label> : <input type="radio" name="fred" value="oui" required/>Oui<input type="radio" name="fred" value="non" required/>Non
 </p>
 <p>
-        <label>Tristan</label> : <input type="radio" name="tristan" value="oui" required/>Oui<input type="radio" name="tristan" value="non" required/>Non
+        <label>Tristan</label> : <input type="radio" name="tristan" value="oui" />Oui<input type="radio" name="tristan" value="non" />Non
 </p>
 <p>
-        <label>Jo</label> : <input type="radio" name="jo" value="oui" required/>Oui<input type="radio" name="jo" value="non" required/>Non
+        <label>Jo</label> : <input type="radio" name="jo" value="oui" />Oui<input type="radio" name="jo" value="non" />Non
 </p>';
 }   
 else
 {
- echo '<p>
+ echo '
+<p>
+        <input type="hidden" name="fred" value="non" required/>
+</p>     
+<p>
         <label>'.$_SESSION['login'].'</label> : <input type="radio" name="'.$_SESSION['login'].'" value="oui" required/>Oui<input type="radio" name="'.$_SESSION['login'].'" value="non" required/>Non
-</p>';   
+</p>
+<p>
+        <input type="hidden" name="jo" value="non" required/>
+</p>
+';   
 } 
 ?>        
 <button type="submit" name="ajouterj" >

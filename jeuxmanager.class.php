@@ -30,12 +30,10 @@ $q->bindValue(':liens', $jeux->liens());
 $q->bindValue(':fred', $jeux->fred());
 $q->bindValue(':tristan', $jeux->tristan());
 $q->bindValue(':jo', $jeux->jo());
-//$q->execute();
-
-
+$q->execute();
 }
 else{
-$q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, '.$login.'=:fini, ps4 = :ps4, ps3 = :ps3, psvita= :psvita, liens = :liens, '.$_SESSION['login'].' = :clogin');
+$q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, '.$login.'=:fini, ps4 = :ps4, ps3 = :ps3, psvita= :psvita, liens = :liens, fred = :fred, '.$_SESSION['login'].' = :tristan, jo = :jo');
 $q->bindValue(':titre', $jeux->titre());
 $q->bindValue(':temps', $jeux->temps(),PDO::PARAM_INT);
 $q->bindValue(':difficulte', $jeux->difficulte(), PDO::PARAM_INT);
@@ -45,11 +43,11 @@ $q->bindValue(':ps4', $jeux->ps4());
 $q->bindValue(':ps3', $jeux->ps3());
 $q->bindValue(':psvita', $jeux->psvita());
 $q->bindValue(':liens', $jeux->liens());
-$q->bindValue(':clogin', $jeux->$logini());
-//$q->execute();
-}    
+$q->bindValue(':fred', $jeux->fred());
+$q->bindValue(':tristan', $jeux->$logini());
+$q->bindValue(':jo', $jeux->jo());
 $q->execute();
-
+}    
 }
 
 public function delete()
