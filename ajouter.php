@@ -6,12 +6,13 @@ require 'user.class.php';
 require 'Liens.class.php';
 $db = new PDO('mysql:host=localhost;dbname=jeux', 'root' );
 $manager = new JeuxManager($db);
-if ($_SESSION['login'] == 'fred'){
-   $login = 'fini';
-}
-if ($_SESSION['login']=='tristan'){
+
+if ($_SESSION['login'] == 'tristan'){
    $login = 'finit';
    //$col = 'setTristan($_POST[\'tristan\'])';
+}
+if ($_SESSION['login'] == 'fred'){
+   $login = 'fini';
 }
 if (isset($_POST['ajouterj']))
 {
@@ -20,14 +21,26 @@ $jeuxa->setTitre($_POST['titre']);
 $jeuxa->setTemps($_POST['temps']);
 $jeuxa->setDifficulte($_POST['difficulte']);
 $jeuxa->setMulti($_POST['multi']);
+if(isset($_POST['fini']))
+{
 $jeuxa->setFini($_POST['fini']);
+}
+if(isset($_POST['finit'])){
+$jeuxa->setFinit($_POST['finit']);
+}
+//$jeuxa->setFini($_POST['fini']);
 $jeuxa->setPs4($_POST['ps4']);
 $jeuxa->setPs3($_POST['ps3']);
 $jeuxa->setPsvita($_POST['psvita']);
 $jeuxa->setLiens($_POST['liens']);
+if (($_SESSION['login']== 'fred')){
 $jeuxa->setFred($_POST['fred']);
 $jeuxa->setTristan($_POST['tristan']);
 $jeuxa->setJo($_POST['jo']);
+}
+else{
+$jeuxa->setTristan($_POST['tristan']);    
+}
 $manager->add($jeuxa, $login);
 }
 ?>
@@ -44,9 +57,18 @@ $manager->add($jeuxa, $login);
 <p>
         <label>Multi</label> : <input type="radio" name="multi" value="oui" required/>Oui<input type="radio" name="multi" value="non" required/>Non
 </p>
-<p>
+<?php
+if (($_SESSION['login']) == "fred"){
+echo'<p>
         <label>Fini</label> : <input type="radio" name="fini" value="oui" required/>Oui<input type="radio" name="fini" value="non" required/>Non
-</p>
+</p>';
+}
+if (($_SESSION['login']) == "tristan"){
+echo'<p>
+        <label>Fini</label> : <input type="radio" name="finit" value="oui" required/>Oui<input type="radio" name="finit" value="non" required/>Non
+</p>';
+}        
+?>
 <p>
         <label>Ps4</label> : <input type="radio" name="ps4" value="oui" required/>Oui<input type="radio" name="ps4" value="non" required/>Non
 </p>
@@ -59,7 +81,9 @@ $manager->add($jeuxa, $login);
 <p>
         <label>liens</label> : <input type="url" name="liens"/>
 </p>
-<p>
+<?php
+if(($_SESSION['login'] == 'fred')){
+echo '<p>
         <label>Fred</label> : <input type="radio" name="fred" value="oui" required/>Oui<input type="radio" name="fred" value="non" required/>Non
 </p>
 <p>
@@ -67,7 +91,16 @@ $manager->add($jeuxa, $login);
 </p>
 <p>
         <label>Jo</label> : <input type="radio" name="jo" value="oui" />Oui<input type="radio" name="jo" value="non" />Non
-</p>
+</p>';
+}
+else{
+echo '<p>
+        <label>'.$_SESSION['login'].'</label> : <input type="radio" name="'.$_SESSION['login'].'" value="oui" />Oui<input type="radio" name="'.$_SESSION['login'].'" value="non" />Non
+</p>';
+
+}    
+
+?>        
 <button type="submit" name="ajouterj" >
 ajouter
 </button>

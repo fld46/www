@@ -22,7 +22,7 @@ $testvar->tri();
 </table>
 <br>
 <table border = 1 align=center >
-    <tr><td><form method="post"><button type="submit" name="btn_titre">TITRE</button></form></td><td><form method="post"><button type="submit" name="btn_temps">Temps</button></td><td><form method="post"><button type="submit" name="btn_difficulte">Difficulte</button></td><td><form method="post"><button type="submit" name="btn_multi">Multi</button></td><td><form method="post"><button type="submit" name="btn_fini">Fini</button></td><td><form method="post"><button type="submit" name="btn_finit">Finit</button></td><td><form method="post"><button type="submit" name="btn_ps4">Ps4</button></td><td><form method="post"><button type="submit" name="btn_ps3">Ps3</button></td><td><form method="post"><button type="submit" name="btn_psvita">Psvita</button></td><td><form method="post"><button type="submit" name="btn_fred">Fred</button></td><td><form method="post"><button type="submit" name="btn_tristan">Tristan</button></td><td><form method="post"><button type="submit" name="btn_jo">Jo</button></td>
+    <tr><td align="center"><form method="post" ><input type="submit" name="btn_titre" value="TITRE"></td><td><form method="post"><button type="submit" name="btn_temps">Temps</button></td><td><form method="post"><button type="submit" name="btn_difficulte">Difficulte</button></td><td><form method="post"><button type="submit" name="btn_multi">Multi</button></td><td><form method="post"><button type="submit" name="btn_fini">Fini</button></td><td><form method="post"><button type="submit" name="btn_finit">Finit</button></td><td><form method="post"><button type="submit" name="btn_ps4">Ps4</button></td><td><form method="post"><button type="submit" name="btn_ps3">Ps3</button></td><td><form method="post"><button type="submit" name="btn_psvita">Psvita</button></td><td><form method="post"><button type="submit" name="btn_fred">Fred</button></td><td><form method="post"><button type="submit" name="btn_tristan">Tristan</button></td><td><form method="post"><button type="submit" name="btn_jo">Jo</button></td>
 <?php
 require 'jeux.class.php';
 require 'jeuxmanager.class.php';
@@ -35,3 +35,4 @@ $manager->getList();
 //$manager->add($jeuxa);
 ?>
 </table>
+</html>

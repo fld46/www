@@ -11,6 +11,7 @@ $this->setDb($db);
 }
 public function add(Jeux $jeux, $login)
 {
+if(($_SESSION['login']) == 'fred');{
 $q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, '.$login.' = :fini, ps4 = :ps4, ps3 = :ps3, psvita= :psvita, liens = :liens, fred = :fred, tristan = :tristan, jo = :jo');
 $q->bindValue(':titre', $jeux->titre());
 $q->bindValue(':temps', $jeux->temps(),PDO::PARAM_INT);
@@ -25,9 +26,45 @@ $q->bindValue(':fred', $jeux->fred());
 $q->bindValue(':tristan', $jeux->tristan());
 $q->bindValue(':jo', $jeux->jo());
 $q->execute();
-
+}
+if(($_SESSION['login']) == 'tristan');{
+$q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, '.$login.' = :fini, ps4 = :ps4, ps3 = :ps3, psvita= :psvita, liens = :liens, '.$_SESSION['login'].' = :jeuxapp');
+$q->bindValue(':titre', $jeux->titre());
+$q->bindValue(':temps', $jeux->temps(),PDO::PARAM_INT);
+$q->bindValue(':difficulte', $jeux->difficulte(), PDO::PARAM_INT);
+$q->bindValue(':multi', $jeux->multi());
+$q->bindValue(':fini', $jeux->$login());
+$q->bindValue(':ps4', $jeux->ps4());
+$q->bindValue(':ps3', $jeux->ps3());
+$q->bindValue(':psvita', $jeux->psvita());
+$q->bindValue(':liens', $jeux->liens());
+$q->bindValue(':jeuxapp', $jeux->tristan());
+//var_dump($appj);
+//$var_dump($jeux);
+$q->execute();  
 }
 
+}
+public function listej()
+//public function delete(Jeux $perso)
+{
+//if (isset($dtitre))
+//{
+//$q = $this->_db->prepare('DELETE FROM jeux WHERE titre='.$dtitre.'');
+//$q->execute();
+//echo 'lol';
+//}
+$jeux = array();
+$q = $this->_db->query('SELECT * FROM jeux ORDER BY titre');
+while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+{
+$jeux = new Jeux();
+$jeux->hydrate($donnees);
+echo '<option value="'.$jeux->titre().'">';
+}
+return $jeux;
+}
+ 
 public function delete()
 //public function delete(Jeux $perso)
 {
@@ -61,14 +98,20 @@ $q->execute();
 
 public function verifRadio(Jeux $radioj,$input)
 {
+if ($input == 'finit'){
+    $inputlabel = 'Fini';
+}else{
+    $inputlabel = $input;
+    $inputlabel = ucfirst($inputlabel);
+}
 if ($radioj->$input() == "oui"){
 echo'<p>
-        <label>'.$input.'</label> : <input type="radio" name="'.$input.'" value="oui" checked required/>Oui<input type="radio" name="'.$input.'" value="non" required/>Non
+        <label>'.$inputlabel.'</label> : <input type="radio" name="'.$input.'" value="oui" checked required/>Oui<input type="radio" name="'.$input.'" value="non" required/>Non
 </p>';    
 }
 if(($radioj->$input() == "non")||($radioj->$input() == "")){
 echo'<p>
-        <label>'.$input.'</label> : <input type="radio" name="'.$input.'" value="oui" required/>Oui<input type="radio" name="'.$input.'" value="non" checked required/>Non
+        <label>'.$inputlabel.'</label> : <input type="radio" name="'.$input.'" value="oui" required/>Oui<input type="radio" name="'.$input.'" value="non" checked required/>Non
 </p>';    
 }
     
@@ -130,7 +173,7 @@ $this->verifRadio($jeux, $login);
 </p>*/
 echo'
 <p>
-        <label>liens</label> : <input type="url" name="liens"  value="'.$jeux->liens().'"/>
+        <label>Liens</label> : <input type="url" name="liens"  value="'.$jeux->liens().'"/>
 </p>';
 
 //<p>
@@ -180,7 +223,6 @@ public function getList()
 // ordre_var = (defiiculte, titre, ps4)
 $jeux = array();
 if ($_SESSION['tri']!=""){
-    
     $_SESSION['trieffectif']='ORDER BY '.$_SESSION['tri'];
     $_SESSION['trieffectif']= rtrim($_SESSION['trieffectif'], ",");
     
