@@ -26,38 +26,34 @@ if(isset($_POST['btn-login']))
 }
 ?>
 <html>
-<head></head>
+<head>
+ <link rel="stylesheet" href="style.css"type="text/css"/>   
+</head>
 <body>
-<div class="container" align=center>
-     <div>
-        <form method="post">
-            <h2>Identification.</h2>
-            <?php
-            if(isset($error))
-            {
-                  ?>
-                  <div class="alert alert-danger">
-                      <i class="glyphicon glyphicon-warning-sign"></i> &nbsp; <?php echo $error; ?> !
-                  </div>
-                  <?php
-            }
-            ?>
-            <div>
-             <input type="text"  name="txt_uname_email" placeholder="Username" required />
-            </div>
-            <div>
-             <input type="password"  name="txt_password" placeholder="Your Password" required />
-            </div>
-            <div></div>
-            <div>
-             <button type="submit" name="btn-login" >
-                 &nbsp;SIGN IN
-                </button>
-            </div>
-            <br />
-               <!-- <label>Don't have account yet ! <a href="sign-up.php">Sign Up</a></label>-->
-            </form>
-       </div>
-</div>
- </body>
+ <form method="post" class="ident" >
+ <fieldset>
+ <legend> Identification :</legend> 
+ <?php
+ if(isset($error))
+  {
+ ?>
+ <div class="alert alert-danger">
+  <i class="glyphicon glyphicon-warning-sign"></i> &nbsp; <?php echo $error; ?> !
+ </div>
+ <?php
+  }
+ ?>
+ <div>
+ <input type="text"  name="txt_uname_email" placeholder="Username" required />
+ </div>
+ <div>
+ <input type="password"  name="txt_password" placeholder="Your Password" required />
+ </div>
+ <div>
+ <button type="submit" name="btn-login" >&nbsp;LOGIN</button>
+ </div>
+ <br/>
+ </fieldset>
+ </form>
+</body>
 </html>
