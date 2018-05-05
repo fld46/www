@@ -32,7 +32,7 @@ if(isset($_POST['btn-login']))
 <body>
  <form method="post" class="ident" >
  <fieldset>
- <legend> Identification :</legend> 
+ <legend> Identification </legend> 
  <?php
  if(isset($error))
   {
