@@ -19,7 +19,7 @@
         </thead>
         <tr>
         <form method="post">
-        <td><input type="text" name="titre"/></td>
+            <td><input type="text" name="titre"/><br><input type="text" name="liens"/></td>
         <td><input type="number" name="temps"/></td>
         <td><input type="number" name="difficulte"/></td>
         <td><div>
