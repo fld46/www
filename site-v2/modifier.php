@@ -55,7 +55,7 @@
         </tr>
     </table>
     </div>
-    </div>
+    
     <button type="submit" class="modifier">Modifier</button>
 </body>
 </html>

@@ -1,3 +1,8 @@
+<?php
+require 'jeuxmanager.class.php';
+require 'jeux.class.php';
+//session_start();
+?>
 <html>
     <head>
         <link rel="stylesheet" href="style.css"type="text/css"/>
@@ -5,6 +10,7 @@
 <body>
     
     <div class ="gauche">
+        
         <form method="post">
             <fieldset><legend>Tri</legend>
             <br>tritre<br>temps<br>difficulte<br><br>
@@ -30,16 +36,20 @@
                     <th>User</th>
                 </tr>
         </thead>
-        <tr>
+        <?php
+        $db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
+        $manager = new JeuxManager($db);
+        $manager->getList();
+        ?><!--<tr>
         <td><a href=''>Titre</a></td>
         <td>Temps</td>
         <td>Difficulte</td>
         <td>Multi</td>
         <td><div>Console</div></td>
         <td>User</td>
-        </tr>
+        </tr>-->
     </table>
     </div>
-    </div>
+    
 </body>
 </html>

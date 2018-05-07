@@ -2,7 +2,8 @@
 require_once 'Dbconfig.php';
 if($user->is_loggedin()!="")
 {
- $user->redirect('index.php');
+  $_SESSION['page']='accueil.php'; 
+  $user->redirect('index.php');
 }
 
 if(isset($_POST['btn-login']))
@@ -12,7 +13,10 @@ if(isset($_POST['btn-login']))
 
  if($user->login($lname,$upass))
  {
+  $_SESSION['page']='accueil.php'; 
   $user->redirect('index.php');
+ 
+  
  }
  else
  {
@@ -25,6 +29,7 @@ if(isset($_POST['btn-login']))
  <link rel="stylesheet" href="style.css"type="text/css"/>   
 </head>
 <body>
+ <div class ="gauche">
  <form method="post" class="ident" >
  <fieldset>
  <legend> Identification </legend> 
@@ -50,6 +55,29 @@ if(isset($_POST['btn-login']))
  <br/>
  </fieldset>
  </form>
+ </div>     
+ <div class="droite">
+    <table class="bas">
+        <thead>
+                <tr class="titre">
+                    <th class="titre">TITRE</th>
+                    <th>Temps</th>
+                    <th>Difficulte</th>
+                    <th>Multi</th>
+                    <th>Console</th>
+                    <th>User</th>
+                </tr>
+        </thead>
+        <tr>
+        <td><a href=''>Titre</a></td>
+        <td>Temps</td>
+        <td>Difficulte</td>
+        <td>Multi</td>
+        <td><div>Console</div></td>
+        <td>User</td>
+        </tr>
+    </table>
+    </div>
 </body>
 </html>
 

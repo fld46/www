@@ -32,19 +32,20 @@ div.main{
 div.gauche{
       float: left;
       width:15%;
+      
  }
  /* partie droite*/
  div.droite{
-      
       margin-left:16%;
+      
  }
 /* Iframe Centre */
 
-iframe.centre {
-    display:block;
+div.centre {
+    overflow: auto;
+    display: block;
     margin: 0 auto;
     border: 0 ;
-    height: 90%;
     width: 90%;
 }
 /* tableau accueil*/

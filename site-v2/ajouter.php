@@ -42,7 +42,7 @@
     </table>
     </div>
     <button type="submit" class="ajouter">Ajouter</button>    
-    </div>
+    
 </body>
 </html>
 

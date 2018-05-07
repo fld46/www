@@ -4,7 +4,7 @@ require_once 'Dbconfig.php';
 
 if($user->is_loggedin()!="")
 {
-$user->logout();
+$_SESSION['page']='ajouter.php';
 $user->redirect('index.php');
 }
 ?>
