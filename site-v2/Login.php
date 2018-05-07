@@ -30,7 +30,7 @@ if(isset($_POST['btn-login']))
 </head>
 <body>
  <div class ="gauche">
- <form method="post" class="ident" >
+ <form method="post" >
  <fieldset>
  <legend> Identification </legend> 
  <?php

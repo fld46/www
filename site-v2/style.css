@@ -142,7 +142,31 @@ table.tri td {
       display: block;
       margin:auto;
   }
-  
+  /* image valide oui non */
+  img.valid{
+      max-width:30px;
+      max-height:30px;
+      
+  }
+  /* simbol consoles */
+  span.ps4{
+      font-size: 14px;
+      background-color: blue;
+      color: white;
+      border-radius: 10px;
+  }
+  span.ps3{
+      font-size: 14px;
+      background-color: black;
+      color: white;
+      border-radius: 10px;
+  }
+  span.psvita{
+      font-size: 14px;
+      background-color: blue;
+      color: white;
+      border-radius: 10px;
+  }
   
  
  

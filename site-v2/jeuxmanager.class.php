@@ -180,15 +180,39 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     {
     $jeux = new Jeux();
     $jeux->hydrate($donnees);
+   
+    if (($jeux->multi())=="oui"){
+        $multi='oui.png';
+    }else{
+        $multi='non.png';
+    }
+    if(($jeux->ps4())=="oui"){
+        $ps4='<span class="ps4">&nbsp;PS4&nbsp;</span>';
+    }
+    else{
+       $ps4=''; 
+    }
+    if(($jeux->ps3())=="oui"){
+        $ps3='<span class="ps3">&nbsp;PS3&nbsp;</span>';
+    }
+    else{
+       $ps3=''; 
+    }
+    if(($jeux->psvita())=="oui"){
+        $psvita='<span class="psvita">&nbsp;PS vita&nbsp;</span>';
+    }
+    else{
+       $psvita=''; 
+    }
     echo 
     '<tr>
      <td><a href='.$jeux->liens().'>'.$jeux->titre().'</a></td>
      <td>'.$jeux->temps().'</td>
      <td>'.$jeux->difficulte().'</td>
-     <td>'.$jeux->multi().'</td>
-     <td>'.$jeux->ps4().'&nbsp;
-     '.$jeux->ps3().'&nbsp;
-     '.$jeux->psvita().'
+     <td><img src='.$multi.' class="valid"></td>
+     <td>'.$ps4.'
+     '.$ps3.'
+     '.$psvita.'
      
      </tr>';
     }
