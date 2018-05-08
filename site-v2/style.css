@@ -22,6 +22,8 @@ a.onglet { /* style des liens se trouvant dans un onglet inactif */
    padding:7px 3px 7px 3px ; /* marges extérieures */  
    background-color:black} /* le fond de l'onglet actif est blanc*/
 /* partie main*/
+
+
 div.main{
       display:block;
       margin: 0 auto;
@@ -51,7 +53,7 @@ div.centre {
 /* tableau accueil*/
 
 table.bas{
-    width: 100%;
+    width: 900px;
     border : 1px black solid;
     border-collapse: collapse;
     }
@@ -79,7 +81,7 @@ table.bas thead th {
     height: 50px; 
 }
 table.bas thead th.titre {
-    width: 30%;
+    width: 50%;
 }
 tr.titre, tr.titre td{
     background: -moz-linear-gradient(top, #000000 0%,  #4E504F 80%);
@@ -149,23 +151,32 @@ table.tri td {
       
   }
   /* simbol consoles */
-  span.ps4{
+  div.ps4{
+      width:40%;
+      margin: auto;
       font-size: 14px;
-      background-color: blue;
+      background-color: #00A2FF;
       color: white;
       border-radius: 10px;
+      text-align: center;
   }
-  span.ps3{
+  div.ps3{
+      width:40%;
+      margin: auto;
       font-size: 14px;
-      background-color: black;
+      background-color:#000;
       color: white;
       border-radius: 10px;
+      text-align: center;
   }
-  span.psvita{
-      font-size: 14px;
-      background-color: blue;
+  div.psvita{
+      width:40%;
+      margin: auto;
+      font-size: 13px;
+      background-color:#100BFF;
       color: white;
       border-radius: 10px;
+      text-align: center;
   }
   
  

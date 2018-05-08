@@ -7,5 +7,8 @@ if($user->is_loggedin()!="")
 $user->logout();
 $user->redirect('index.php');
 }
+else{
+$user->redirect('index.php');    
+}
 ?>
 

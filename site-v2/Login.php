@@ -1,5 +1,9 @@
 <?php
 require_once 'Dbconfig.php';
+require 'jeuxmanager.class.php';
+require 'jeux.class.php';
+//session_start();
+
 if($user->is_loggedin()!="")
 {
   $_SESSION['page']='accueil.php'; 
@@ -68,14 +72,18 @@ if(isset($_POST['btn-login']))
                     <th>User</th>
                 </tr>
         </thead>
-        <tr>
+        <?php
+        $db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
+        $manager = new JeuxManager($db);
+        $manager->getListnonident();
+        ?><!--<tr>
         <td><a href=''>Titre</a></td>
         <td>Temps</td>
         <td>Difficulte</td>
         <td>Multi</td>
         <td><div>Console</div></td>
         <td>User</td>
-        </tr>
+        </tr>-->
     </table>
     </div>
 </body>

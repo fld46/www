@@ -166,16 +166,31 @@ $q->execute();
 public function getList()
 {
 $jeux = array();
-if ($_SESSION['tri']!="")
-    {
-    $_SESSION['trieffectif']='ORDER BY '.$_SESSION['tri'];
-    $_SESSION['trieffectif']= rtrim($_SESSION['trieffectif'], ",");
-    }
-else
-    {
-    $_SESSION['trieffectif']='';
-    }
-$q = $this->_db->query('SELECT * FROM jeux' );
+if(!isset($_SESSION['tri'])){
+  $_SESSION['tri']='';  
+}
+
+if((!isset($_SESSION['filtrec']))OR($_SESSION['filtrec'])==""){
+    $_SESSION['filtrec']='';
+}
+else{
+  $_SESSION['filtrec']="WHERE ".$_SESSION['filtrec'];  
+}
+
+
+//if ($_SESSION['tri']!="")
+//    {
+//    $_SESSION['trieffectif']='ORDER BY '.$_SESSION['tri'];
+//    $_SESSION['trieffectif']= rtrim($_SESSION['trieffectif'], ",");
+//    }
+//else
+//    {
+//    $_SESSION['trieffectif']='';
+//    }
+$q = $this->_db->query('SELECT * FROM jeux '.$_SESSION['filtrec'].$_SESSION['tri'].$_SESSION['ordretri']);
+//var_dump($_SESSION['filtrec']);
+//var_dump($_SESSION['tri']);
+
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     {
     $jeux = new Jeux();
@@ -187,19 +202,19 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
         $multi='non.png';
     }
     if(($jeux->ps4())=="oui"){
-        $ps4='<span class="ps4">&nbsp;PS4&nbsp;</span>';
+        $ps4='<div class="ps4">&nbsp;PS4&nbsp;</div>';
     }
     else{
        $ps4=''; 
     }
     if(($jeux->ps3())=="oui"){
-        $ps3='<span class="ps3">&nbsp;PS3&nbsp;</span>';
+        $ps3='<div class="ps3">&nbsp;PS3&nbsp;</div>';
     }
     else{
        $ps3=''; 
     }
     if(($jeux->psvita())=="oui"){
-        $psvita='<span class="psvita">&nbsp;PS vita&nbsp;</span>';
+        $psvita='<div class="psvita"> &nbsp;VITA&nbsp;</div>';
     }
     else{
        $psvita=''; 
@@ -213,7 +228,52 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
      <td>'.$ps4.'
      '.$ps3.'
      '.$psvita.'
+     <td></td>
      
+     </tr>';
+    }
+return $jeux;
+}
+public function getListnonident()
+{
+$jeux = array();
+$q = $this->_db->query('SELECT * FROM jeux ORDER BY RAND() LIMIT 5' );
+while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+    {
+    $jeux = new Jeux();
+    $jeux->hydrate($donnees);
+   
+    if (($jeux->multi())=="oui"){
+        $multi='oui.png';
+    }else{
+        $multi='non.png';
+    }
+    if(($jeux->ps4())=="oui"){
+        $ps4='<div class="ps4">&nbsp;PS4 &nbsp;</div>';
+    }
+    else{
+       $ps4=''; 
+    }
+    if(($jeux->ps3())=="oui"){
+        $ps3='<div class="ps3">&nbsp;PS3 &nbsp;</div>';
+    }
+    else{
+       $ps3=''; 
+    }
+    if(($jeux->psvita())=="oui"){
+        $psvita='<div class="psvita"> &nbsp;VITA &nbsp;</div>';
+    }
+    else{
+       $psvita=''; 
+    }
+    echo 
+    '<tr>
+     <td><a href='.$jeux->liens().'>'.$jeux->titre().'</a></td>
+     <td>'.$jeux->temps().'</td>
+     <td>'.$jeux->difficulte().'</td>
+     <td><img src='.$multi.' class="valid"></td>
+     <td>'.$ps4.''.$ps3.''.$psvita.'
+     <td></td>
      </tr>';
     }
 return $jeux;
