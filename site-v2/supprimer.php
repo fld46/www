@@ -1,3 +1,14 @@
+<?php
+
+
+require 'jeux.class.php';
+require 'jeuxmanager.class.php';
+require 'user.class.php';
+
+$db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
+$manager = new JeuxManager($db);
+if(!isset($_POST['selectj'])){
+?>    
 <html>
     <head>
         <link rel="stylesheet" href="style.css"type="text/css"/>
@@ -8,12 +19,11 @@
             <fieldset><legend>Selectionner</legend>
             <br><input list="titrejeu" type="text"  name="titrejeux"/>
                     <datalist id="titrejeu">
-                        <option>jeux 1</option>
-                        <option>jeux 2</option>
-                        <option>jeux 3</option>
+                        <?php $manager->listej(); ?>
                     </datalist>
+               
                 <br><br>
-                <button class="tri">SELECT<BUTTon>
+                <button class="tri" name="selectj">SELECT<BUTTon>
             </fieldset>
         </form>    
     </div>
@@ -26,35 +36,44 @@
                     <th>Difficulte</th>
                     <th>Multi</th>
                     <th>Console</th>
-                    <th>User</th>
+                    <!--<th>User</th>-->
                 </tr>
         </thead>
         <tr>
         <form method="post">
-        <td><input type="text" name="titre"/></td>
-        <td><input type="number" name="temps"/></td>
-        <td><input type="number" name="difficulte"/></td>
-        <td><div>
-                <input type="radio" name="multi" value="oui" /> <label>oui</label><br />
-                <input type="radio" name="multi" value="non" /> <label>non</label><br />
-            </div>
-        </td>
-        <td><div>
-                <input type="radio" name="console" value="psvivta" /> <label>Psvita</label><br />
-                <input type="radio" name="console" value="ps3" /> <label>Ps3</label><br />
-                <input type="radio" name="console" value="ps4" /> <label>Ps4</label><br />
-            </div></td>
-        <td>
-            <div>
-                    User
-            </div>   
-        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
         </form>
         </tr>
     </table>
     </div>
     </div>
-    <button type="submit" class="delete">Delete</button>
+    <script src="datalist-polyfill.min.js"></script>
 </body>
 </html>
+    
+<?php
+
+}
+
+
+if(isset($_POST['selectj']))
+   {
+    
+    $manager->get($_POST['titrejeux'],$_SESSION['login'],$_SESSION['login']);
+}
+if(isset($_POST['supj']))
+{
+  
+//$idt = $_POST['id'];
+ $manager->deletej($_POST['titrejeux']);
+
+ 
+}
+
+?>
+
 

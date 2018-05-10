@@ -12,36 +12,32 @@ $this->setDb($db);
 
 public function add(Jeux $jeux, $login)
 {
-if(($_SESSION['login']) == 'fred');{
-$q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, '.$login.' = :fini, ps4 = :ps4, ps3 = :ps3, psvita= :psvita, liens = :liens, fred = :fred, tristan = :tristan, jo = :jo');
+
+$q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi,  ps4 = :ps4, ps3 = :ps3, psvita= :psvita, liens = :liens');
 $q->bindValue(':titre', $jeux->titre());
 $q->bindValue(':temps', $jeux->temps(),PDO::PARAM_INT);
 $q->bindValue(':difficulte', $jeux->difficulte(), PDO::PARAM_INT);
 $q->bindValue(':multi', $jeux->multi());
-$q->bindValue(':fini', $jeux->$login());
 $q->bindValue(':ps4', $jeux->ps4());
 $q->bindValue(':ps3', $jeux->ps3());
 $q->bindValue(':psvita', $jeux->psvita());
 $q->bindValue(':liens', $jeux->liens());
-$q->bindValue(':fred', $jeux->fred());
-$q->bindValue(':tristan', $jeux->tristan());
-$q->bindValue(':jo', $jeux->jo());
 $q->execute();
-}
-if(($_SESSION['login']) == 'tristan');{
-$q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi, '.$login.' = :fini, ps4 = :ps4, ps3 = :ps3, psvita= :psvita, liens = :liens, '.$_SESSION['login'].' = :jeuxapp');
-$q->bindValue(':titre', $jeux->titre());
-$q->bindValue(':temps', $jeux->temps(),PDO::PARAM_INT);
-$q->bindValue(':difficulte', $jeux->difficulte(), PDO::PARAM_INT);
-$q->bindValue(':multi', $jeux->multi());
-$q->bindValue(':fini', $jeux->$login());
-$q->bindValue(':ps4', $jeux->ps4());
-$q->bindValue(':ps3', $jeux->ps3());
-$q->bindValue(':psvita', $jeux->psvita());
-$q->bindValue(':liens', $jeux->liens());
-$q->bindValue(':jeuxapp', $jeux->tristan());
-$q->execute();  
-}
+
+$q3 = $this->_db->query('SELECT * FROM jeux WHERE titre="'.$jeux->titre().'"');
+while ($donnees = $q3->fetch(PDO::FETCH_ASSOC))
+    {
+    $idjeux = $donnees['id'];
+    }
+$q2 = $this->_db->prepare('INSERT INTO maintable SET idjeux =:idjeux, idusers = :idusers, possede = :possede, fini = :fini');
+$q2->bindValue(':idusers', $_SESSION['user_session']);
+$q2->bindValue(':idjeux', $idjeux);
+$q2->bindValue(':possede', $jeux->possede());
+$q2->bindValue(':fini', $jeux->fini());
+$q2->execute();
+
+
+
 }
 public function listej()
 {
@@ -51,6 +47,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     {
     $jeux = new Jeux();
     $jeux->hydrate($donnees);
+    $_SESSION['idjeuxs']=$jeux->id();
     echo '<option value="'.$jeux->titre().'">';
     }
 return $jeux;
@@ -71,96 +68,251 @@ return $jeux;
 
 public function deletej($dtitre)
 {
-if (isset($dtitre))
+
+    if (isset($dtitre))
     {
-    $q = $this->_db->prepare('DELETE FROM jeux WHERE titre="'.$dtitre.'"');
-    $q->execute();
+    $q = $this->_db->query('SELECT * FROM jeux WHERE titre="'.$dtitre.'"');
+    while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+    {
+    $jeuxad = new Jeux();
+    $jeuxad->hydrate($donnees);
+    
+    }
+    $q2 = $this->_db->query('DELETE FROM maintable WHERE idjeux="'.$jeuxad->id().'"');
+    $q3 = $this->_db->query('DELETE FROM jeux WHERE titre="'.$jeuxad->titre().'"');
+    //$q = $this->_db->prepare('DELETE  FROM jeux WHERE titre="'.$dtitre.'"');
+    $q2->execute();
+    $q3->execute();
     }
 }
 
 public function verifRadio(Jeux $radioj,$input)
 {
-if ($input == 'finit')
-    {
-    $inputlabel = 'Fini';
-    }
-else{
     $inputlabel = $input;
     $inputlabel = ucfirst($inputlabel);
-}
+
 if ($radioj->$input() == "oui")
     {
-    echo'<p>
-    <label>'.$inputlabel.'</label> : <input type="radio" name="'.$input.'" value="oui" checked required/>Oui<input type="radio" name="'.$input.'" value="non" required/>Non
-    </p>';    
+    echo'
+    <input type="radio" name="'.$input.'" value="oui" checked required/>Oui<input type="radio" name="'.$input.'" value="non" required/>Non
+    ';    
     }
 if(($radioj->$input() == "non")||($radioj->$input() == ""))
     {
-    echo'<p>
-    <label>'.$inputlabel.'</label> : <input type="radio" name="'.$input.'" value="oui" required/>Oui<input type="radio" name="'.$input.'" value="non" checked required/>Non
-    </p>';    
+    echo'
+    <input type="radio" name="'.$input.'" value="oui" required/>Oui<input type="radio" name="'.$input.'" value="non" checked required/>Non
+    ';    
+    }
+}
+public function verifChkbox(Jeux $radioj,$input)
+{
+    $inputlabel = $input;
+    $inputlabel = ucfirst($inputlabel);
+
+if ($radioj->$input() == "oui")
+    {
+    echo'
+    <input type="checkbox" name="'.$input.'" value="oui" checked />
+    ';    
+    }
+if(($radioj->$input() == "non")||($radioj->$input() == ""))
+    {
+    echo'
+    <input type="checkbox" name="'.$input.'" value="oui"  />
+    ';    
     }
 }
 
-public function get($tjeux, $login, $ident)
+public function get($titre, $login, $ident)
 {
-if ($login == 'fred')
-    {
-   $login = 'fini';
-   $this->_login = $login;
-    }
-if ($login == 'tristan')
-        {
-   $login = 'finit';
-   $this->_login = $login;
-    }
+
 $jeux = array();
-$q = $this->_db->query('SELECT * FROM jeux WHERE titre="'.$tjeux.'"');
+$q = $this->_db->query('SELECT * FROM jeux WHERE titre="'.$titre.'"');
 
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     {
     $jeux = new Jeux();
     $jeux->hydrate($donnees);
+    if (($jeux->multi())=="oui"){
+        $multi='oui.png';
+    }else{
+        $multi='non.png';
+    }
+    if(($jeux->ps4())=="oui"){
+        $ps4='<div class="ps4">&nbsp;PS4&nbsp;</div>';
+    }
+    else{
+       $ps4=''; 
+    }
+    if(($jeux->ps3())=="oui"){
+        $ps3='<div class="ps3">&nbsp;PS3&nbsp;</div>';
+    }
+    else{
+       $ps3=''; 
+    }
+    if(($jeux->psvita())=="oui"){
+        $psvita='<div class="psvita">&nbsp;VITA&nbsp;</div>';
+    }
+    else{
+       $psvita=''; 
+    }
     echo'
-    <p>
-    <input type="hidden" size="3" name="id"  value="'.$jeux->id().'"required/>
-    </p>
-    <p>
-    <label>Titre</label> : <input type="text"  name="titre"  value="'.$jeux->titre().'"required/>
-    </p>
-    <p>
-    <label>Temps</label> : <input type="number" size="4" max="9999"  name="temps"  value="'.$jeux->temps().'" />
-    </p>
-    <p>
-    <label>Difficulte</label> : <input type="number"  max="10" name="difficulte" value="'.$jeux->difficulte().'" />
-    </p>';
-    $this->verifRadio($jeux, 'multi');
-    $this->verifRadio($jeux, 'ps4');
-    $this->verifRadio($jeux, 'ps3');
-    $this->verifRadio($jeux, 'psvita');
-    $this->verifRadio($jeux, $ident);
-    $this->verifRadio($jeux, $login);
-    echo '<p>
-    <label>Liens</label> : <input type="url" name="liens"  value="'.$jeux->liens().'"/>
-    </p>';
+    
+    <div class ="gauche">
+        <form method="post">
+            <fieldset><legend>Selectionner</legend>
+            <br><input list="titrejeu" type="text"  name="titrejeux"/>
+                    <datalist id="titrejeu">';
+                    $this->listej();   
+                    echo'</datalist>
+               
+                <br><br>
+                <button class="tri" name="selectj">SELECT<BUTTon>
+            </fieldset>
+        </form>    
+    </div>
+    <div class="droite">
+    <table class="bas">
+        <thead>
+                <tr class="titre">
+                    <th class="titre">TITRE</th>
+                    <th>Temps</th>
+                    <th>Difficulte</th>
+                    <th>Multi</th>
+                    <th>Console</th>
+                    <!--<th>User</th>-->
+                </tr>
+        </thead>
+        <tr>
+        <form method="post">
+        <td><input type="text" name="titrejeux" value="'.$jeux->titre().'"></td>
+        <td>'.$jeux->temps().'</td>
+        <td>'.$jeux->difficulte().'</td>
+        <td><img src='.$multi.' class="valid">
+        </td>
+        <td>'.$ps4.$ps3.$psvita.'</td>
+        
+        </tr>
+    </table>
+    </div>
+    </div>
+    <button type="submit" class="delete" name="supj" >Delete</button>
+    </form>
+    <script src="datalist-polyfill.min.js"></script>
+';
+             
+
+    }
+return $jeux;
+}
+public function getm($titre, $login, $ident)
+{
+
+$jeux = array();
+$q = $this->_db->query('SELECT * FROM jeux AS J,maintable AS M WHERE J.titre="'.$titre.'" AND M.idjeux=J.id');
+
+while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+    {
+    $jeux = new Jeux();
+    $jeux->hydrate($donnees);
+    //echo $jeux->possede();
+    //echo $jeux->fini();
+    if (($jeux->multi())=="oui"){
+        $multi='oui.png';
+    }else{
+        $multi='non.png';
+    }
+    if(($jeux->ps4())=="oui"){
+        $ps4='<div class="ps4">&nbsp;PS4&nbsp;</div>';
+    }
+    else{
+       $ps4=''; 
+    }
+    if(($jeux->ps3())=="oui"){
+        $ps3='<div class="ps3">&nbsp;PS3&nbsp;</div>';
+    }
+    else{
+       $ps3=''; 
+    }
+    if(($jeux->psvita())=="oui"){
+        $psvita='<div class="psvita"> &nbsp;VITA&nbsp;</div>';
+    }
+    else{
+       $psvita=''; 
+    }
+    echo'
+    
+    <div class ="gauche">
+        <form method="post">
+            <fieldset><legend>Selectionner</legend>
+            <br><input list="titrejeu" type="text"  name="titrejeux"/>
+                    <datalist id="titrejeu">';
+                    $this->listej();   
+                    echo'</datalist>
+               
+                <br><br>
+                <button class="tri" name="selectj">SELECT<BUTTon>
+            </fieldset>
+        </form>    
+    </div>
+    <div class="droite">
+    <table class="bas">
+        <thead>
+                <tr class="titre">
+                    <th class="titre">TITRE</th>
+                    <th>Temps</th>
+                    <th>Difficulte</th>
+                    <th>Multi</th>
+                    <th>Console</th>
+                    <!--<th>User</th>-->
+                </tr>
+        </thead>
+        <tr>
+        <form method="post">
+        <td><br><input type="text" name="titre" value="'.$jeux->titre().'"><br><input type="text" name="liens" value="'.$jeux->liens().'"><br>Possede ';$this->verifChkbox($jeux, 'possede');echo 'Fini :';$this->verifChkbox($jeux, 'fini');echo'</td>
+        <td><input type="number" name="temps" value="'.$jeux->temps().'"></td>
+        <td><input type="number" name="difficulte" value="'.$jeux->difficulte().'"></td>
+        <td>';
+                    $this->verifRadio($jeux, 'multi');                   
+        echo '</td>
+        <td><div class="modifierj">Psvita :';
+                   $this->verifChkbox($jeux, 'psvita');
+        echo '</div><div class="modifierj">Ps3 :';
+                   $this->verifChkbox($jeux, 'ps3');
+        echo '</div><div class="modifierj">Ps4 :';
+                   $this->verifChkbox($jeux, 'ps4');
+        echo '</div></td>
+        
+        </tr>
+    </table>
+    </div>
+    </div>
+    <button type="submit" class="delete" name="modifierj" >Modifier</button>
+    </form>     
+    <script src="datalist-polyfill.min.js"></script>
+';
+    $_SESSION['tjam']=$jeux->titre();    
     }
 return $jeux;
 }
 
+
 public function updateJeux($idj)
 {
-if ($_SESSION['login'] == 'fred')
+$q = $this->_db->query('SELECT * FROM jeux  WHERE titre="'.$idj.'" ');
+    while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     {
-   $login = 'fini';
-   $this->_login = $login;
+    $jeuxad = new Jeux();
+    $jeuxad->hydrate($donnees);
+    
     }
-if ($_SESSION['login'] == 'tristan')
-    {
-   $login = 'finit';
-   $this->_login = $login;
-    }
-$q = $this->_db->prepare('UPDATE jeux SET titre ="'.$_POST['titre'].'", temps ="'.$_POST['temps'].'", difficulte ="'.$_POST['difficulte'].'", multi ="'.$_POST['multi'].'", '. $this->_login.' ="'.$_POST[''.$this->_login.''].'", ps4 ="'.$_POST['ps4'].'", ps3 ="'.$_POST['ps3'].'", psvita="'.$_POST['psvita'].'", liens ="'.$_POST['liens'].'", '.$_SESSION['login'].' ="'.$_POST[''.$_SESSION['login'].''].'" WHERE id="'.$idj.'"');
-$q->execute();
+$q1 = $this->_db->prepare('UPDATE jeux SET titre ="'.$_POST['titre'].'", temps ="'.$_POST['temps'].'", difficulte ="'.$_POST['difficulte'].'", multi ="'.$_POST['multi'].'",  ps4 ="'.$_POST['ps4'].'", ps3 ="'.$_POST['ps3'].'", psvita="'.$_POST['psvita'].'", liens ="'.$_POST['liens'].'" WHERE id="'.$jeuxad->id().'"');
+$q2 = $this->_db->prepare('UPDATE maintable SET possede ="'.$_POST['possede'].'", fini ="'.$_POST['fini'].'" WHERE idjeux="'.$jeuxad->id().'" AND idusers="'.$_SESSION['user_session'].'" ');
+$q1->execute();
+$q2->execute();
+var_dump($q1);
+var_dump($q2);
+
 }
 
 public function getList()
@@ -227,8 +379,8 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
      <td><img src='.$multi.' class="valid"></td>
      <td>'.$ps4.'
      '.$ps3.'
-     '.$psvita.'
-     <td></td>
+     '.$psvita.'</td>
+     <!--<td></td>-->
      
      </tr>';
     }
@@ -273,7 +425,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
      <td>'.$jeux->difficulte().'</td>
      <td><img src='.$multi.' class="valid"></td>
      <td>'.$ps4.''.$ps3.''.$psvita.'
-     <td></td>
+     <!--<td></td>-->
      </tr>';
     }
 return $jeux;

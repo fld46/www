@@ -69,7 +69,7 @@ if(isset($_POST['btn-login']))
                     <th>Difficulte</th>
                     <th>Multi</th>
                     <th>Console</th>
-                    <th>User</th>
+                    <!--<th>User</th>-->
                 </tr>
         </thead>
         <?php

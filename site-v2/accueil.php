@@ -3,11 +3,7 @@ require 'jeuxmanager.class.php';
 require 'jeux.class.php';
 //session_start();
 ?>
-<html>
-    <head>
-        <link rel="stylesheet" href="style.css"type="text/css"/>
-    </head>
-<body>
+<
    <div class ="gauche">
         <form method="post">
             <fieldset><legend>Tri</legend>
@@ -87,7 +83,7 @@ require 'jeux.class.php';
         //echo $_SESSION['filtrec'];
         //verfif tri
         if((!isset($_POST['tri']))or($_POST['tri']=='')){
-                $tri="";
+                $tri=' ORDER BY titre';
                  }else{
                 if(($_POST['tri']=="temps")){
                 $tri=' ORDER BY '.$_POST['tri'].' ';
@@ -104,19 +100,21 @@ require 'jeux.class.php';
           $_SESSION['tri']= $tri;
           
           //ordre du tri
-          if( $_SESSION['tri']==''){
-              $_SESSION['ordretri']= $_SESSION['tri'];
-          }
+          //if( $_SESSION['tri']==''){
+            //  $_SESSION['ordretri']= $_SESSION['tri'];
+          //}
           if(!isset($_POST['ordretri'])){
               $_SESSION['ordretri']= " ASC";
-          }if ($_SESSION['tri']=="")
+          }
+           if ($_SESSION['tri']=="")
               {
               $_SESSION['ordretri'] = "";
               }
-          else{
+          if(($_SESSION['tri']!='')and(isset($_POST['ordretri']))){
               $_SESSION['ordretri'] = " ".$_POST['ordretri']; 
           }
-        ?>
+       
+       ?>
     </div>
     <div class="droite">
     <table class="bas">
@@ -127,7 +125,7 @@ require 'jeux.class.php';
                     <th>Difficulte</th>
                     <th>Multi</th>
                     <th>Console</th>
-                    <th>User</th>
+                    <!--<th>User</th>-->
                 </tr>
         </thead>
         <?php
@@ -145,5 +143,4 @@ require 'jeux.class.php';
     </table>
     </div>
     
-</body>
-</html>
+

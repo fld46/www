@@ -6,7 +6,8 @@
   Private $_temps;
   Private $_difficulte;
   Private $_multi;
-  
+  private $_possede;
+  private $_fini;
   Private $_ps4;
   Private $_ps3;
   Private $_psvita;
@@ -67,7 +68,14 @@
   {
   return $this->_liens;
   }
-  
+  Public function fini()
+  {
+  return $this->_fini;
+  }
+  Public function possede()
+  {
+  return $this->_possede;
+  }
 
 
 //Mutateurs
@@ -132,7 +140,15 @@
   {
   return $this->_liens = $liens;
   }
- }
+  Public function setFini($fini)
+  {
+  return $this->_fini = $fini;
+  }
+  Public function setPossede($possede)
+  {
+  return $this->_possede = $possede;
+  }
+}
 
  
 

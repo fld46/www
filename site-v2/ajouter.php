@@ -1,3 +1,30 @@
+<?php
+require 'jeux.class.php';
+require 'jeuxmanager.class.php';
+//require 'user.class.php';
+//require 'Liens.class.php';
+$db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
+$manager = new JeuxManager($db);
+
+if(isset($_POST['ajouterj']))
+{
+$jeuxa = new Jeux();
+$jeuxa->setTitre($_POST['titre']);
+$jeuxa->setTemps($_POST['temps']);
+$jeuxa->setDifficulte($_POST['difficulte']);
+$jeuxa->setMulti($_POST['multi']);
+$jeuxa->setPs4($_POST['ps4']);
+$jeuxa->setPs3($_POST['ps3']);
+$jeuxa->setPsvita($_POST['psvita']);
+$jeuxa->setFini($_POST['fini']);
+$jeuxa->setLiens($_POST['liens']);
+$jeuxa->setPossede($_POST['possede']);
+$manager->add($jeuxa, $_SESSION['user_session']);
+}
+
+
+
+?>
 <html>
     <head>
         <link rel="stylesheet" href="style.css"type="text/css"/>
@@ -14,12 +41,12 @@
                     <th>Difficulte</th>
                     <th>Multi</th>
                     <th>Console</th>
-                    <th>User</th>
+                    <!--<th>User</th>-->
                 </tr>
         </thead>
         <tr>
-        <form method="post">
-            <td><input type="text" name="titre"/><br><input type="text" name="liens"/></td>
+        <form   method="post" >
+        <td><label>Titre :</label><input type="text" name="titre" required/><br><label>Liens :</label><input type="text" name="liens"/></td>
         <td><input type="number" name="temps"/></td>
         <td><input type="number" name="difficulte"/></td>
         <td><div>
@@ -28,21 +55,33 @@
             </div>
         </td>
         <td><div>
-                <input type="radio" name="console" value="psvivta" /> <label>Psvita</label><br />
-                <input type="radio" name="console" value="ps3" /> <label>Ps3</label><br />
-                <input type="radio" name="console" value="ps4" /> <label>Ps4</label><br />
-            </div></td>
-        <td>
+                <input type="checkbox" name="psvita" value="oui" /><label>Psvita</label><br />
+                <input type="checkbox" name="ps3" value="oui" /><label>Ps3</label><br />
+                <input type="checkbox" name="ps4" value="oui" /><label>Ps4</label><br />
+            </div>
+        </td>
+        <!--<td>
             <div>
                     User
-            </div>   
-        </td>
-        </form>
+            </div>  
+        </td>-->
+        </tr>
+        <tr>
+            <td><input type="checkbox" name="possede" value="oui" /> <label>Possede</label>
+                <input type="checkbox" name="fini" value="oui" /> <label>Fini</label>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <!--<td></td>-->
+        </tr>
+        
         </tr>
     </table>
     </div>
-    <button type="submit" class="ajouter">Ajouter</button>    
-    
+    <button type="submit" name="ajouterj" class="ajouter">Ajouter</button>    
+</form>
 </body>
 </html>
 
