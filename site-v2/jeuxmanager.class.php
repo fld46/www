@@ -207,15 +207,22 @@ return $jeux;
 }
 public function getm($titre, $login, $ident)
 {
-
+$qv = $this->_db->query('SELECT COUNT(*) FROM jeux AS J,maintable AS M WHERE J.titre="'.$titre.'" AND M.idjeux=J.id');
+$testv = $qv->fetch();
+//var_dump($testv);
+if($testv['0'] =='0'){
+$q = $this->_db->query('SELECT * FROM jeux  WHERE titre="'.$titre.'"');    
+}else{
+$q = $this->_db->query('SELECT * FROM jeux AS J,maintable AS M WHERE J.titre="'.$titre.'" AND M.idjeux=J.id');   
+}
 $jeux = array();
-$q = $this->_db->query('SELECT * FROM jeux AS J,maintable AS M WHERE J.titre="'.$titre.'" AND M.idjeux=J.id');
+
 
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     {
     $jeux = new Jeux();
     $jeux->hydrate($donnees);
-    //echo $jeux->possede();
+    //var_dump($donnees);//echo $jeux->possede();
     //echo $jeux->fini();
     if (($jeux->multi())=="oui"){
         $multi='oui.png';
@@ -240,6 +247,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     else{
        $psvita=''; 
     }
+    //var_dump($jeux);
     echo'
     
     <div class ="gauche">
@@ -299,6 +307,9 @@ return $jeux;
 
 public function updateJeux($idj)
 {
+$qv = $this->_db->query('SELECT COUNT(*) FROM jeux AS J,maintable AS M WHERE J.titre="'.$idj.'" AND M.idjeux=J.id');
+$testv = $qv->fetch();
+//var_dump($testv);
 $q = $this->_db->query('SELECT * FROM jeux  WHERE titre="'.$idj.'" ');
     while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     {
@@ -306,12 +317,17 @@ $q = $this->_db->query('SELECT * FROM jeux  WHERE titre="'.$idj.'" ');
     $jeuxad->hydrate($donnees);
     
     }
+if($testv['0'] =='0'){
+$q2 = $this->_db->prepare('INSERT INTO maintable SET possede ="'.$_POST['possede'].'", fini ="'.$_POST['fini'].'", idjeux="'.$jeuxad->id().'" ,idusers="'.$_SESSION['user_session'].'" ');
+}else{
+$q2 = $this->_db->prepare('UPDATE maintable SET possede ="'.$_POST['possede'].'", fini ="'.$_POST['fini'].'" WHERE idjeux="'.$jeuxad->id().'" AND idusers="'.$_SESSION['user_session'].'" ');   
+}
 $q1 = $this->_db->prepare('UPDATE jeux SET titre ="'.$_POST['titre'].'", temps ="'.$_POST['temps'].'", difficulte ="'.$_POST['difficulte'].'", multi ="'.$_POST['multi'].'",  ps4 ="'.$_POST['ps4'].'", ps3 ="'.$_POST['ps3'].'", psvita="'.$_POST['psvita'].'", liens ="'.$_POST['liens'].'" WHERE id="'.$jeuxad->id().'"');
-$q2 = $this->_db->prepare('UPDATE maintable SET possede ="'.$_POST['possede'].'", fini ="'.$_POST['fini'].'" WHERE idjeux="'.$jeuxad->id().'" AND idusers="'.$_SESSION['user_session'].'" ');
+//$q2 = $this->_db->prepare('UPDATE maintable SET possede ="'.$_POST['possede'].'", fini ="'.$_POST['fini'].'" WHERE idjeux="'.$jeuxad->id().'" AND idusers="'.$_SESSION['user_session'].'" ');
 $q1->execute();
 $q2->execute();
-var_dump($q1);
-var_dump($q2);
+//var_dump($q1);
+//var_dump($q2);
 
 }
 

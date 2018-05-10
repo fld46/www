@@ -4,9 +4,23 @@
 require 'jeux.class.php';
 require 'jeuxmanager.class.php';
 require 'user.class.php';
-
+require 'Dbconfig.php';
 $db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
 $manager = new JeuxManager($db);
+if(isset($_POST['selectj']))
+   {
+    
+    $manager->get($_POST['titrejeux'],$_SESSION['login'],$_SESSION['login']);
+}
+if(isset($_POST['supj']))
+{
+  
+//$idt = $_POST['id'];
+ $manager->deletej($_POST['titrejeux']);
+$user->redirect('index.php');
+ 
+}
+
 if(!isset($_POST['selectj'])){
 ?>    
 <html>
@@ -60,19 +74,6 @@ if(!isset($_POST['selectj'])){
 }
 
 
-if(isset($_POST['selectj']))
-   {
-    
-    $manager->get($_POST['titrejeux'],$_SESSION['login'],$_SESSION['login']);
-}
-if(isset($_POST['supj']))
-{
-  
-//$idt = $_POST['id'];
- $manager->deletej($_POST['titrejeux']);
-
- 
-}
 
 ?>
 

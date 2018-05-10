@@ -3,7 +3,7 @@ require 'jeuxmanager.class.php';
 require 'jeux.class.php';
 //session_start();
 ?>
-<
+
    <div class ="gauche">
         <form method="post">
             <fieldset><legend>Tri</legend>

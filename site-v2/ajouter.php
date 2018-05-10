@@ -1,6 +1,7 @@
 <?php
 require 'jeux.class.php';
 require 'jeuxmanager.class.php';
+require 'Dbconfig.php';
 //require 'user.class.php';
 //require 'Liens.class.php';
 $db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
@@ -20,6 +21,8 @@ $jeuxa->setFini($_POST['fini']);
 $jeuxa->setLiens($_POST['liens']);
 $jeuxa->setPossede($_POST['possede']);
 $manager->add($jeuxa, $_SESSION['user_session']);
+$user->redirect('index.php');
+
 }
 
 
