@@ -78,7 +78,30 @@ class USER
         unset($_SESSION['page']);
         return true;
    }
+   public function getListUser()
+   {    
+    require 'userl.class.php';
+    $userl = array();
+    $q = $this->db->query('SELECT * FROM users ORDER BY login');
+    while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+    {
+    $userl = new USERL();
+    $userl->hydrate($donnees);
+    //var_dump($userl);
+    //var_dump($donnees);
+    echo '<div><input type="checkbox" name="user[]" value="'.$userl->id().'"/>'.$userl->login().'</div>';
+    }
+    echo '<div>Possede :<input type="checkbox" name="possede" value="oui"/> Fini :<input type="checkbox" name="fini" value="oui"/></div>';
+    $userl->makeFiltreConsole();
+    $userl->makeFiltreUser();
+    $userl->makeTri();
+    $userl->makeVarTriFiltre();
+    return $userl;
+
+    
+    }
+    
 }
-?>
+
 
 

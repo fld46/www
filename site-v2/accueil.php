@@ -1,6 +1,7 @@
 <?php
 require 'jeuxmanager.class.php';
 require 'jeux.class.php';
+require 'user.class.php';
 //session_start();
 ?>
 
@@ -35,85 +36,92 @@ require 'jeux.class.php';
             </p>
             </fieldset>
             <fieldset><legend>User</legend>
-            <br>user fini<br>
+            <?php
+            $db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
+            $userl = new USER($db);
+            $userl->getListUser();
+            ?>
             </fieldset>
             <button class="tri">ok</button>
         </form>
         <?php
         // verif console
-        if(!isset($_POST['ps4'])){
-                $ps4="";
-            }else{
-                $ps4='ps4="'.$_POST['ps4'].'" ';
-            }
+        //if(!isset($_POST['ps4'])){
+        //        $ps4="";
+        //    }else{
+        //        $ps4='J.ps4="'.$_POST['ps4'].'" ';
+        //    }
             
-        if(!isset($_POST['ps3'])){
-                $ps3="";
-            }else{
-                if(isset($_POST['ps4'])){
-                $ps3='AND ps3="'.$_POST['ps3'].'"';    
-                }else{
-                $ps3='ps3="'.$_POST['ps3'].'"';
-            }
-            }
+        //if(!isset($_POST['ps3'])){
+        //        $ps3="";
+        //    }else{
+        //        if((isset($_POST['ps4']))){
+        //        $ps3='AND J.ps3="'.$_POST['ps3'].'"';    
+        //        }else{
+        //        $ps3='J.ps3="'.$_POST['ps3'].'"';
+        //    }
+        //    }
             
-        if(!isset($_POST['psvita'])){
-                $psvita="";
-            }else{
-                if((isset($_POST['ps4']))OR(isset($_POST['ps3']))){
-                 $psvita='AND psvita="'.$_POST['psvita'].'"';  
-                }
-                else{            
-                $psvita='psvita="'.$_POST['psvita'].'"';
-            }
-            }
+        //if(!isset($_POST['psvita'])){
+        //        $psvita="";
+        //    }else{
+        //        if((isset($_POST['ps4']))OR(isset($_POST['ps3']))){
+        //         $psvita='AND J.psvita="'.$_POST['psvita'].'"';  
+        //        }
+        //        else{            
+          //      $psvita='J.psvita="'.$_POST['psvita'].'"';
+          //  }
+          //  }
             
-        if(!isset($_POST['multi'])){
-                $multi="";
-            }else{
-                if((isset($_POST['ps4']))OR(isset($_POST['ps3']))OR(isset($_POST['psvita']))){
-                $multi='AND multi="'.$_POST['multi'].'"';  
-                }
-                else{            
-                $multi='multi="'.$_POST['multi'].'"';
-            }
-            }
+        //if(!isset($_POST['multi'])){
+          //      $multi="";
+          //  }else{
+          //      if((isset($_POST['ps4']))OR(isset($_POST['ps3']))OR(isset($_POST['psvita']))){
+          //      $multi='AND J.multi="'.$_POST['multi'].'"';  
+          //      }
+          //      else{            
+          //      $multi='J.multi="'.$_POST['multi'].'"';
+          //  }
+          //  }
             
-        $_SESSION['filtrec']= $ps4.$ps3.$psvita.$multi;
+        //$_SESSION['filtrec']= $ps4.$ps3.$psvita.$multi;
+       // if(($_SESSION['filtrec']=="")AND($_SESSION['filtreuser']!="")){
+       // $_SESSION['filtreuser']='WHERE '.$_SESSION['filtreuser'];
+        //}
         //echo $_SESSION['filtrec'];
         //verfif tri
-        if((!isset($_POST['tri']))or($_POST['tri']=='')){
-                $tri=' ORDER BY titre';
-                 }else{
-                if(($_POST['tri']=="temps")){
-                $tri=' ORDER BY '.$_POST['tri'].' ';
-                }
-                if(($_POST['tri'])=="difficulte"){
-                $tri=' ORDER BY '.$_POST['tri'].' ';
-                }
-                if(($_POST['tri'])=="titre"){
-                $tri='ORDER BY '.$_POST['tri'].' ';
-                }
+        //if((!isset($_POST['tri']))or($_POST['tri']=='')){
+          //      $tri=' ORDER BY titre';
+          //       }else{
+          //      if(($_POST['tri']=="temps")){
+          //      $tri=' ORDER BY '.$_POST['tri'].' ';
+          //      }
+          //      if(($_POST['tri'])=="difficulte"){
+          //      $tri=' ORDER BY '.$_POST['tri'].' ';
+          //      }
+          //      if(($_POST['tri'])=="titre"){
+          //      $tri='ORDER BY '.$_POST['tri'].' ';
+          //      }
                 //echo 'toto'.$_SESSION['filtrec'];
                 //echo $tri;
-            }
-          $_SESSION['tri']= $tri;
+          //  }
+          //$_SESSION['tri']= $tri;
           
           //ordre du tri
           //if( $_SESSION['tri']==''){
             //  $_SESSION['ordretri']= $_SESSION['tri'];
           //}
-          if(!isset($_POST['ordretri'])){
-              $_SESSION['ordretri']= " ASC";
-          }
-           if ($_SESSION['tri']=="")
-              {
-              $_SESSION['ordretri'] = "";
-              }
-          if(($_SESSION['tri']!='')and(isset($_POST['ordretri']))){
-              $_SESSION['ordretri'] = " ".$_POST['ordretri']; 
-          }
-       
+          //if(!isset($_POST['ordretri'])){
+          //    $_SESSION['ordretri']= " ASC";
+          //}
+          // if ($_SESSION['tri']=="")
+          //    {
+          //    $_SESSION['ordretri'] = "";
+          //    }
+          //if(($_SESSION['tri']!='')and(isset($_POST['ordretri']))){
+          //    $_SESSION['ordretri'] = " ".$_POST['ordretri']; 
+          //}
+          
        ?>
     </div>
     <div class="droite">

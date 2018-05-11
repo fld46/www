@@ -20,6 +20,8 @@ a.onglet { /* style des liens se trouvant dans un onglet inactif */
    border-bottom:solid 3px black ; /* le trait inférieur est effacé */
    margin:0px 0px 0px 0px ; /* marges intérieures */
    padding:7px 3px 7px 3px ; /* marges extérieures */  
+   color: white;
+   text-decoration:none;
    background-color:black} /* le fond de l'onglet actif est blanc*/
 /* partie main*/
 
@@ -32,14 +34,16 @@ div.main{
  }
 /* partie gauche*/
 div.gauche{
+      position:fixed;
       float: left;
-      width:15%;
+      width:14%;
       
  }
  /* partie droite*/
  div.droite{
-      margin-left:16%;
       
+      margin-left:16%;
+      min-width:84%;
  }
 /* Iframe Centre */
 
@@ -48,7 +52,7 @@ div.centre {
     display: block;
     margin: 0 auto;
     border: 0 ;
-    width: 90%;
+    min-width: 90%;
 }
 /* tableau accueil*/
 

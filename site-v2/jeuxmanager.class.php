@@ -207,13 +207,13 @@ return $jeux;
 }
 public function getm($titre, $login, $ident)
 {
-$qv = $this->_db->query('SELECT COUNT(*) FROM jeux AS J,maintable AS M WHERE J.titre="'.$titre.'" AND M.idjeux=J.id');
+$qv = $this->_db->query('SELECT COUNT(*) FROM jeux AS J,maintable AS M WHERE J.titre="'.$titre.'" AND M.idjeux=J.id AND M.idusers="'.$_SESSION['user_session'].'"');
 $testv = $qv->fetch();
 //var_dump($testv);
 if($testv['0'] =='0'){
 $q = $this->_db->query('SELECT * FROM jeux  WHERE titre="'.$titre.'"');    
 }else{
-$q = $this->_db->query('SELECT * FROM jeux AS J,maintable AS M WHERE J.titre="'.$titre.'" AND M.idjeux=J.id');   
+$q = $this->_db->query('SELECT * FROM jeux AS J,maintable AS M WHERE J.titre="'.$titre.'" AND M.idjeux=J.id AND M.idusers="'.$_SESSION['user_session'].'"');   
 }
 $jeux = array();
 
@@ -307,7 +307,7 @@ return $jeux;
 
 public function updateJeux($idj)
 {
-$qv = $this->_db->query('SELECT COUNT(*) FROM jeux AS J,maintable AS M WHERE J.titre="'.$idj.'" AND M.idjeux=J.id');
+$qv = $this->_db->query('SELECT COUNT(*) FROM jeux AS J,maintable AS M WHERE J.titre="'.$idj.'" AND M.idjeux=J.id AND M.idusers="'.$_SESSION['user_session'].'"');
 $testv = $qv->fetch();
 //var_dump($testv);
 $q = $this->_db->query('SELECT * FROM jeux  WHERE titre="'.$idj.'" ');
@@ -326,25 +326,39 @@ $q1 = $this->_db->prepare('UPDATE jeux SET titre ="'.$_POST['titre'].'", temps =
 //$q2 = $this->_db->prepare('UPDATE maintable SET possede ="'.$_POST['possede'].'", fini ="'.$_POST['fini'].'" WHERE idjeux="'.$jeuxad->id().'" AND idusers="'.$_SESSION['user_session'].'" ');
 $q1->execute();
 $q2->execute();
-//var_dump($q1);
-//var_dump($q2);
+var_dump($q1);
+var_dump($q2);
 
 }
 
 public function getList()
 {
 $jeux = array();
-if(!isset($_SESSION['tri'])){
-  $_SESSION['tri']='';  
+//if(!isset($_SESSION['tri'])){
+//  $_SESSION['tri']='';  
+//}
+//if((!isset($_SESSION['filtrec']))OR($_SESSION['filtrec'])==""){
+//    $_SESSION['filtrec']='';
+//}
+//else{
+//  $_SESSION['filtrec']="WHERE ".$_SESSION['filtrec'];  
+//}
+//if($_SESSION['filtreuser']=="")
+//{
+//    $trifiltre=$_SESSION['filtrec'].$_SESSION['filtreuser'].$_SESSION['tri'].$_SESSION['ordretri'];
+//   $q = $this->_db->query('SELECT * FROM jeux AS J '.$trifiltre.'');    
+//}else {
+//   $trifiltre=$_SESSION['filtrec'].$_SESSION['filtreuser'].$_SESSION['tri'].$_SESSION['ordretri'];
+if(($_SESSION['filtrec']=="")and($_SESSION['filtreuser']=="")){
+$q = $this->_db->query('SELECT * FROM jeux '.$_SESSION['trifiltre'].'');     
 }
-
-if((!isset($_SESSION['filtrec']))OR($_SESSION['filtrec'])==""){
-    $_SESSION['filtrec']='';
+else if(($_SESSION['filtrec']!="")and($_SESSION['filtreuser']=="")){
+$q = $this->_db->query('SELECT * FROM jeux AS J '.$_SESSION['trifiltre'].'');        
+}else{
+$q = $this->_db->query('SELECT * FROM jeux AS J, maintable AS M '.$_SESSION['trifiltre'].'');     
 }
-else{
-  $_SESSION['filtrec']="WHERE ".$_SESSION['filtrec'];  
-}
-
+//$trifiltre=$_SESSION['filtrec'].$_SESSION['filtreuser'].$_SESSION['tri'].$_SESSION['ordretri'];
+//$q = $this->_db->query('SELECT * FROM jeux AS J, maintable AS M '.$trifiltre.'');    
 
 //if ($_SESSION['tri']!="")
 //    {
@@ -355,10 +369,12 @@ else{
 //    {
 //    $_SESSION['trieffectif']='';
 //    }
-$q = $this->_db->query('SELECT * FROM jeux '.$_SESSION['filtrec'].$_SESSION['tri'].$_SESSION['ordretri']);
+//$q = $this->_db->query('SELECT * FROM jeux AS J, maintable AS M '.$trifiltre.'');
+//$q = $this->_db->query('SELECT * FROM jeux');
 //var_dump($_SESSION['filtrec']);
 //var_dump($_SESSION['tri']);
-
+//$test= 'SELECT * FROM jeux AS J, maintable AS M '.$_SESSION['trifiltre'];     
+var_dump($q);
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     {
     $jeux = new Jeux();
@@ -389,7 +405,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     }
     echo 
     '<tr>
-     <td><a href='.$jeux->liens().'>'.$jeux->titre().'</a></td>
+     <td><a href='.$jeux->liens().' target="new">'.$jeux->titre().'</a></td>
      <td>'.$jeux->temps().'</td>
      <td>'.$jeux->difficulte().'</td>
      <td><img src='.$multi.' class="valid"></td>
@@ -400,6 +416,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
      
      </tr>';
     }
+    $_SESSION['trifiltre']="";
 return $jeux;
 }
 public function getListnonident()
