@@ -57,7 +57,7 @@ a.onglet { /* style des liens se trouvant dans un onglet inactif */
   
   background: green;
   width:900px;
-  height:800px;
+  height:724px;
   position:relative;
   overflow:hidden;
   
@@ -137,5 +137,29 @@ tr.titre, tr.titre td{
     background: -webkit-linear-gradient(top, #000000 0%, #4E504F 80%);
     background: linear-gradient(to bottom, #000000 0%, #4E504F 80%);
     color: White;    
+}
+.fixe{
+    
+    position:fixed;
+    z-index: 3;
+    width: 900px;
+   
+}
+.fixe th, .fixeb td{
+    width:112px;
+   
+}
+.fixe th.titre, .fixeb td.titre{
+    width:450px;
+}
+.fixeb{
+    display:block;
+    position:relative;
+    top:62px;
+    width:  900px;
+   
+    
+    
+  
 }
 

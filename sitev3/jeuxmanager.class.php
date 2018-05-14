@@ -373,7 +373,7 @@ public function getList()
     echo'<div class="droite">  
             <div class="droiteint">
             <table class="droit">
-                <thead>
+                <thead class="fixe">
                     <tr class="titre">
                         <th class="titre" scope="col" >TITRE</th>
                         <th class="temps" >Temps</th>
@@ -382,7 +382,7 @@ public function getList()
                         <th class="console" >Console</th>
                     </tr>
                 </thead>
-            <tbody>'; 
+            <tbody class="fixeb">'; 
 
 
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
