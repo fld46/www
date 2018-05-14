@@ -2,7 +2,6 @@
 require_once 'Dbconfig.php';
 require 'jeuxmanager.class.php';
 require 'jeux.class.php';
-//session_start();
 
 if($user->is_loggedin()!="")
 {
@@ -32,8 +31,8 @@ $manager = new JeuxManager($db);
 ?>
 
  <div class ="menu_gauche">
- <form method="post"class="form_ident" >
- <fieldset>
+ <form method="post" class="form_ident" >
+     <fieldset>
  <legend> Identification </legend> 
  <?php
  if(isset($error))
@@ -46,39 +45,35 @@ $manager = new JeuxManager($db);
   }
  ?>
  <br>
- <div>
+ <div > 
  <input class="formin" type="text"  name="txt_uname_email" placeholder="Username" required />
- </div>
- 
- <div>
  <input class="formin" type="password"  name="txt_password" placeholder="Your Password" required />
  </div>
-
- <div>
- <button type="submit" name="btn-login" >&nbsp;LOGIN</button>
- </div>
+  <button type="submit" name="btn-login" >&nbsp;LOGIN</button>
  <br/>
  </fieldset>
  </form>
  </div>     
- <div class="droite">
-    <table >
-        <thead >
-                <tr >
-                    <th >TITRE</th>
-                    <th>Temps</th>
-                    <th>Difficulte</th>
-                    <th>Multi</th>
+ <div class="droitec">
+     <div class="droiteint">
+        <table class="droit">
+        <thead class="fixe">
+                <tr class="titre">
+                    <th class="titre">TITRE</th>
+                    <th class="temps">Temps</th>
+                    <th class="">Difficulte</th>
+                    <th >Multi</th>
                     <th>Console</th>
                     <!--<th>User</th>-->
                 </tr>
         </thead>
-        <tbody >
+        <tbody class="fixec">
         <?php
         $manager->getListnonident();
         ?>
         </tbody>
     </table>
     </div>
+ </div>
 </body>
 </html>

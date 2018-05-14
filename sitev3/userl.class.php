@@ -109,26 +109,20 @@
     {
         $_SESSION['filtreuser'] ="";      
         $_SESSION['boubou'] ="";
-        //reset filtreuser
-      //if($_SESSION['filtrec']=="") //si pas de filtre console
-       // {
-       //   $_SESSION['filtreuser'] =" J.id=M.idjeux AND "; 
-       // }else{
-        //  $_SESSION['filtreuser'] =" AND J.id=M.idjeux AND ";   
-        //}
-      if(isset($_POST['user'])){ //si user selectionné
+      
+      if(isset($_POST['user'])){ 
         
         $nbl=count($_POST['user'])-1;
-        //$nbl2=$nbl - $nbl +1; 
+        
             foreach ($_POST['user'] as $key => $value) { //remplissage de la variable filtreuser en fonction du nombre de user trouvé
                 if ($key<1){
                 $_SESSION['boubou'] = 'SELECT J.* ,M.idjeux ,M.idusers ,M.possede ,M.fini FROM jeux AS J, maintable AS M WHERE M.idusers='.$value.' AND J.id=M.idjeux';
-                //$_SESSION['filtreuser'] = $_SESSION['filtreuser'].' M.idusers='.$value.' AND ';   
+                
                 $_SESSION['filtreuser'] = $_SESSION['boubou'];
                 
                 }else {
                 $_SESSION['boubou'] = 'SELECT R.* FROM ('.$_SESSION['boubou'].') AS R, (SELECT J.* ,M.idjeux ,M.idusers ,M.possede ,M.fini FROM jeux AS J, maintable AS M WHERE M.idusers='.$value.' AND J.id=M.idjeux) AS S WHERE R.idjeux=S.idjeux' ;
-                //$_SESSION['filtreuser'] = $_SESSION['filtreuser'].' M.idusers='.$value.' AND J.id=M.idjeux ';     
+                    
                 $_SESSION['filtreuser'] = $_SESSION['boubou'];
                 
                 }
@@ -136,11 +130,11 @@
             //var_dump($_SESSION['filtreuser']);
         }
         //var_dump($_SESSION['boubou']);
-        if(isset($_POST['possede']))
+        if(isset($_POST['possede'])and($_SESSION['filtreuser']!=''))
         {
             $_SESSION['filtreuser']= $_SESSION['filtreuser'].' AND M.possede="oui"';   
         }
-        if(isset($_POST['fini']))
+        if(isset($_POST['fini'])and($_SESSION['filtreuser']!=''))
         {
             $_SESSION['filtreuser']= $_SESSION['filtreuser'].' AND M.fini="oui"';   
         }
