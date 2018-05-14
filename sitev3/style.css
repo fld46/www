@@ -34,7 +34,7 @@ a.onglet { /* style des liens se trouvant dans un onglet inactif */
   padding-bottom:7px ; /* marge intérieure basse */
   position:absolute;
   top:14px;
-  left:200px;
+  left:205px;
   display:block;
 }
 .centre {
@@ -56,10 +56,12 @@ a.onglet { /* style des liens se trouvant dans un onglet inactif */
 .droite{
   
   background: green;
-  width:900px;
+  width:895px;
   height:724px;
   position:relative;
+  left:5px;
   overflow:hidden;
+  border: 1px solid black;
   
 }
 .droiteint{
@@ -95,14 +97,14 @@ a.onglet { /* style des liens se trouvant dans un onglet inactif */
     cursor:pointer;
     }
     .form_ident input[type=radio] {
-    background-color:#C0C0C0;
+    background-color:#E6E7E7;
     box-shadow:none;
     width:20px;
     }
     
     /* tableau droite*/
 table.droit {
-    width: 900px;
+    width: 895px;
     border-collapse: collapse;
     
 }
@@ -142,7 +144,7 @@ tr.titre, tr.titre td{
     
     position:fixed;
     z-index: 3;
-    width: 900px;
+    width: 895px;
    
 }
 .fixe th, .fixeb td{
@@ -156,7 +158,7 @@ tr.titre, tr.titre td{
     display:block;
     position:relative;
     top:62px;
-    width:  900px;
+    width:  895px;
    
     
     
