@@ -108,7 +108,8 @@
   public function makeFiltreUser()
     {
         $_SESSION['filtreuser'] ="";      
-//reset filtreuser
+        $_SESSION['boubou'] ="";
+        //reset filtreuser
       //if($_SESSION['filtrec']=="") //si pas de filtre console
        // {
        //   $_SESSION['filtreuser'] =" J.id=M.idjeux AND "; 
@@ -118,16 +119,23 @@
       if(isset($_POST['user'])){ //si user selectionné
         
         $nbl=count($_POST['user'])-1;
+        //$nbl2=$nbl - $nbl +1; 
             foreach ($_POST['user'] as $key => $value) { //remplissage de la variable filtreuser en fonction du nombre de user trouvé
-                if ($key!=$nbl){
-                $_SESSION['filtreuser'] = $_SESSION['filtreuser'].' M.idusers='.$value.' AND ';   
+                if ($key<1){
+                $_SESSION['boubou'] = 'SELECT J.* ,M.idjeux ,M.idusers ,M.possede ,M.fini FROM jeux AS J, maintable AS M WHERE M.idusers='.$value.' AND J.id=M.idjeux';
+                //$_SESSION['filtreuser'] = $_SESSION['filtreuser'].' M.idusers='.$value.' AND ';   
+                $_SESSION['filtreuser'] = $_SESSION['boubou'];
+                
                 }else {
-                $_SESSION['filtreuser'] = $_SESSION['filtreuser'].' M.idusers='.$value.' AND J.id=M.idjeux ';     
+                $_SESSION['boubou'] = 'SELECT R.* FROM ('.$_SESSION['boubou'].') AS R, (SELECT J.* ,M.idjeux ,M.idusers ,M.possede ,M.fini FROM jeux AS J, maintable AS M WHERE M.idusers='.$value.' AND J.id=M.idjeux) AS S WHERE R.idjeux=S.idjeux' ;
+                //$_SESSION['filtreuser'] = $_SESSION['filtreuser'].' M.idusers='.$value.' AND J.id=M.idjeux ';     
+                $_SESSION['filtreuser'] = $_SESSION['boubou'];
+                
                 }
             }
             //var_dump($_SESSION['filtreuser']);
         }
-      
+        //var_dump($_SESSION['boubou']);
         if(isset($_POST['possede']))
         {
             $_SESSION['filtreuser']= $_SESSION['filtreuser'].' AND M.possede="oui"';   
@@ -173,18 +181,20 @@
     }
     public function makeVarTriFiltre(){
         if(($_SESSION['filtrec']!="")and($_SESSION['filtreuser'])==''){
-        $_SESSION['trifiltre']='WHERE '.$_SESSION['filtrec'].$_SESSION['tri'].$_SESSION['ordretri'];    
+        $_SESSION['trifiltre']='SELECT * FROM jeux AS J WHERE  '.$_SESSION['filtrec'].$_SESSION['tri'].$_SESSION['ordretri'];    
         }
         else if(($_SESSION['filtrec']=="")and($_SESSION['filtreuser'])!=''){
-        $_SESSION['trifiltre']='WHERE '.$_SESSION['filtreuser'].$_SESSION['tri'].$_SESSION['ordretri'];   
+        $_SESSION['trifiltre']=$_SESSION['filtreuser'].$_SESSION['tri'].$_SESSION['ordretri'];   
         }
         else if(($_SESSION['filtrec']=="")and($_SESSION['filtreuser'])==''){
-        $_SESSION['trifiltre']=$_SESSION['tri'].$_SESSION['ordretri'];     
+        $_SESSION['trifiltre']='SELECT * FROM jeux AS J '.$_SESSION['tri'].$_SESSION['ordretri'];     
         }
         else if(($_SESSION['filtrec']!="")and($_SESSION['filtreuser'])!=""){
-        $_SESSION['trifiltre']='WHERE '.$_SESSION['filtrec'].' AND '.$_SESSION['filtreuser'].$_SESSION['tri'].$_SESSION['ordretri'];
-        var_dump($_SESSION['trifiltre']);
+        $_SESSION['trifiltre']=$_SESSION['filtreuser'].' AND '.$_SESSION['filtrec'].$_SESSION['tri'].$_SESSION['ordretri'];
+        
+        
         
         }
+        //var_dump($_SESSION['trifiltre']);
         }
 }

@@ -52,6 +52,19 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     }
 return $jeux;
 }
+public function listejsafari()
+{
+$jeux = array();
+$q = $this->_db->query('SELECT * FROM jeux ORDER BY titre');
+while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+    {
+    $jeux = new Jeux();
+    $jeux->hydrate($donnees);
+    $_SESSION['idjeuxs']=$jeux->id();
+    echo '<option value="'.$jeux->titre().'">'.$jeux->titre().'</option>';
+    }
+return $jeux;
+}
  
 public function delete()
 {
@@ -159,21 +172,23 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     echo'
     
     <div class ="gauche">
-        <form method="post">
+        <form method="post" class="form_ident">
             <fieldset><legend>Selectionner</legend>
-            <br><input list="titrejeu" type="text"  name="titrejeux"/>
-                    <datalist id="titrejeu">';
-                    $this->listej();   
-                    echo'</datalist>
+            <br>';
+                        $liste=new Datalist();
+                        $liste->verifNav();
+                        
                
-                <br><br>
-                <button class="tri" name="selectj">SELECT<BUTTon>
+                echo'<br><br>
+                <button type="submit" name="selectj">SELECT</button>
             </fieldset>
         </form>    
     </div>
-    <div class="droite">
+    <div class="droitemmd">
+    <form method="post" class="form_rempli">    
     <table class="bas">
-        <thead>
+        
+        <thead class="fixe">
                 <tr class="titre">
                     <th class="titre">TITRE</th>
                     <th>Temps</th>
@@ -183,9 +198,10 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
                     <!--<th>User</th>-->
                 </tr>
         </thead>
+        <tbody class="fixeb">
         <tr>
-        <form method="post">
-        <td><input type="text" name="titrejeux" value="'.$jeux->titre().'"></td>
+        
+        <td class="titre"><input type="text" name="titrejeux" readonly value="'.$jeux->titre().'"></td>
         <td>'.$jeux->temps().'</td>
         <td>'.$jeux->difficulte().'</td>
         <td><img src='.$multi.' class="valid">
@@ -193,10 +209,14 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
         <td>'.$ps4.$ps3.$psvita.'</td>
         
         </tr>
+        <tr><td colspan="5"><button type="submit" class="delete" name="supj" >Delete</button></td></tr>
+        </tbody>
     </table>
+    
     </div>
+    
     </div>
-    <button type="submit" class="delete" name="supj" >Delete</button>
+    
     </form>
     <script src="datalist-polyfill.min.js"></script>
 ';
@@ -251,21 +271,23 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     echo'
     
     <div class ="gauche">
-        <form method="post">
+        <form method="post" class="form_ident">
             <fieldset><legend>Selectionner</legend>
-            <br><input list="titrejeu" type="text"  name="titrejeux"/>
-                    <datalist id="titrejeu">';
-                    $this->listej();   
-                    echo'</datalist>
+            <br> ';
+                        $liste=new Datalist();
+                        $liste->verifNav();
+                        
                
-                <br><br>
-                <button class="tri" name="selectj">SELECT<BUTTon>
+               
+                echo'<br><br>
+                <button  type="submit" name="selectj">SELECT</button>
             </fieldset>
         </form>    
     </div>
-    <div class="droite">
+    <div class="droitea">
+    <form method="post" class="form_rempli">
     <table class="bas">
-        <thead>
+        <thead class="fixe">
                 <tr class="titre">
                     <th class="titre">TITRE</th>
                     <th>Temps</th>
@@ -275,27 +297,39 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
                     <!--<th>User</th>-->
                 </tr>
         </thead>
+        <tbody class="fixeb">
         <tr>
-        <form method="post">
-        <td><br><input type="text" name="titre" value="'.$jeux->titre().'"><br><input type="text" name="liens" value="'.$jeux->liens().'"><br>Possede ';$this->verifChkbox($jeux, 'possede');echo 'Fini :';$this->verifChkbox($jeux, 'fini');echo'</td>
+        
+        <td class="titre"><br><input type="text" name="titre" value="'.$jeux->titre().'"><br><input type="text" name="liens" value="'.$jeux->liens().'"></td>
         <td><input type="number" name="temps" value="'.$jeux->temps().'"></td>
         <td><input type="number" name="difficulte" value="'.$jeux->difficulte().'"></td>
         <td>';
                     $this->verifRadio($jeux, 'multi');                   
         echo '</td>
-        <td><div class="modifierj">Psvita :';
+        <td><div class="modifierj">Psvita ';
                    $this->verifChkbox($jeux, 'psvita');
-        echo '</div><div class="modifierj">Ps3 :';
+        echo '</div><div class="modifierj">Ps3 ';
                    $this->verifChkbox($jeux, 'ps3');
-        echo '</div><div class="modifierj">Ps4 :';
+        echo '</div><div class="modifierj">Ps4 ';
                    $this->verifChkbox($jeux, 'ps4');
         echo '</div></td>
         
         </tr>
+        
+        <tr><td classe="titre">
+        Possede ';
+        $this->verifChkbox($jeux, 'possede');
+        echo 'Fini :';
+        $this->verifChkbox($jeux, 'fini');
+        echo'
+        </td><td colspan="4"><button type="submit" class="delete" name="modifierj" >Modifier</button></td>
+        </tr>
+        </tbody>
     </table>
+    
     </div>
     </div>
-    <button type="submit" class="delete" name="modifierj" >Modifier</button>
+    
     </form>     
     <script src="datalist-polyfill.min.js"></script>
 ';
@@ -333,48 +367,37 @@ var_dump($q2);
 
 public function getList()
 {
-$jeux = array();
-//if(!isset($_SESSION['tri'])){
-//  $_SESSION['tri']='';  
-//}
-//if((!isset($_SESSION['filtrec']))OR($_SESSION['filtrec'])==""){
-//    $_SESSION['filtrec']='';
-//}
-//else{
-//  $_SESSION['filtrec']="WHERE ".$_SESSION['filtrec'];  
-//}
-//if($_SESSION['filtreuser']=="")
-//{
-//    $trifiltre=$_SESSION['filtrec'].$_SESSION['filtreuser'].$_SESSION['tri'].$_SESSION['ordretri'];
-//   $q = $this->_db->query('SELECT * FROM jeux AS J '.$trifiltre.'');    
-//}else {
-//   $trifiltre=$_SESSION['filtrec'].$_SESSION['filtreuser'].$_SESSION['tri'].$_SESSION['ordretri'];
-if(($_SESSION['filtrec']=="")and($_SESSION['filtreuser']=="")){
-$q = $this->_db->query('SELECT * FROM jeux '.$_SESSION['trifiltre'].'');     
-}
-else if(($_SESSION['filtrec']!="")and($_SESSION['filtreuser']=="")){
-$q = $this->_db->query('SELECT * FROM jeux AS J '.$_SESSION['trifiltre'].'');        
-}else{
-$q = $this->_db->query('SELECT * FROM jeux AS J, maintable AS M '.$_SESSION['trifiltre'].'');     
-}
-//$trifiltre=$_SESSION['filtrec'].$_SESSION['filtreuser'].$_SESSION['tri'].$_SESSION['ordretri'];
-//$q = $this->_db->query('SELECT * FROM jeux AS J, maintable AS M '.$trifiltre.'');    
 
-//if ($_SESSION['tri']!="")
-//    {
-//    $_SESSION['trieffectif']='ORDER BY '.$_SESSION['tri'];
-//    $_SESSION['trieffectif']= rtrim($_SESSION['trieffectif'], ",");
-//    }
-//else
-//    {
-//    $_SESSION['trieffectif']='';
-//    }
-//$q = $this->_db->query('SELECT * FROM jeux AS J, maintable AS M '.$trifiltre.'');
-//$q = $this->_db->query('SELECT * FROM jeux');
-//var_dump($_SESSION['filtrec']);
-//var_dump($_SESSION['tri']);
-//$test= 'SELECT * FROM jeux AS J, maintable AS M '.$_SESSION['trifiltre'];     
-var_dump($q);
+    $jeux = array();
+
+$q = $this->_db->query($_SESSION['trifiltre']);     
+
+    $_SESSION['result']=$q->rowCount();
+    if(($_SESSION['result']>=13)OR(!isset($_SESSION['result']))){
+        echo'<div class="droite">';
+    }else{
+      echo'<div class="droitec">';  
+    }
+    echo'
+        <table class="bas">
+        
+        <thead class="fixe">
+              
+            <tr class="titre">
+                    
+                <th class="titre" scope="col" >TITRE</th>
+                    <th class="temps" >Temps</th>
+                    <th class="difficulte" >Difficulte</th>
+                    <th class="multi" >Multi</th>
+                    <th class="console" >Console</th>
+                    
+                    <!--<th>User</th>-->
+                </tr>
+            
+        </thead>
+        <tbody class="fixeb">'; 
+
+
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     {
     $jeux = new Jeux();
@@ -403,18 +426,30 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     else{
        $psvita=''; 
     }
+    if($jeux->liens()==""){
+        $liens='';
+    }else{
+       $liens= '<a href='.$jeux->liens().' target="new"><img src="guide.png" class="validg">';
+    }
     echo 
-    '<tr>
-     <td><a href='.$jeux->liens().' target="new">'.$jeux->titre().'</a></td>
-     <td>'.$jeux->temps().'</td>
-     <td>'.$jeux->difficulte().'</td>
-     <td><img src='.$multi.' class="valid"></td>
-     <td>'.$ps4.'
+    '
+    
+    <div class="tableaug">    
+    <tr>
+     <td class="titre">'.$liens.$jeux->titre().'</a></td>
+     <td class="temps">'.$jeux->temps().'</td>
+     <td class="difficulte">'.$jeux->difficulte().'</td>
+     <td class="multi"><img src='.$multi.' class="valid"></td>
+     <td class="console">'.$ps4.'
      '.$ps3.'
      '.$psvita.'</td>
      <!--<td></td>-->
      
-     </tr>';
+     </tr>
+     </div>
+     ';
+    
+    
     }
     $_SESSION['trifiltre']="";
 return $jeux;
@@ -452,14 +487,16 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
        $psvita=''; 
     }
     echo 
-    '<tr>
-     <td><a href='.$jeux->liens().'>'.$jeux->titre().'</a></td>
+    '
+        <tr>
+     <td class="titre"><a href='.$jeux->liens().'>'.$jeux->titre().'</a></td>
      <td>'.$jeux->temps().'</td>
      <td>'.$jeux->difficulte().'</td>
      <td><img src='.$multi.' class="valid"></td>
      <td>'.$ps4.''.$ps3.''.$psvita.'
      <!--<td></td>-->
-     </tr>';
+     </tr>
+     ';
     }
 return $jeux;
 }

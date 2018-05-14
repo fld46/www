@@ -91,7 +91,7 @@ class USER
     //var_dump($donnees);
     echo '<div><input type="checkbox" name="user[]" value="'.$userl->id().'"/>'.$userl->login().'</div>';
     }
-    echo '<div>Possede :<input type="checkbox" name="possede" value="oui"/> Fini :<input type="checkbox" name="fini" value="oui"/></div>';
+    echo '<div>Possede <input type="checkbox" name="possede" value="oui"/> Fini <input type="checkbox" name="fini" value="oui"/></div>';
     $userl->makeFiltreConsole();
     $userl->makeFiltreUser();
     $userl->makeTri();

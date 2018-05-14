@@ -28,16 +28,11 @@ $user->redirect('index.php');
 
 
 ?>
-<html>
-    <head>
-        <link rel="stylesheet" href="style.css"type="text/css"/>
-    </head>
-<body>
-    <div class ="gauche">
-    </div>
-    <div class="droite">
+
+<div class="droitea">
+    <form  method="post" class="form_rempli">
     <table class="bas">
-        <thead>
+        <thead class="fixe" >
                 <tr class="titre">
                     <th class="titre">TITRE</th>
                     <th>Temps</th>
@@ -47,44 +42,37 @@ $user->redirect('index.php');
                     <!--<th>User</th>-->
                 </tr>
         </thead>
-        <tr>
-        <form   method="post" >
-        <td><label>Titre :</label><input type="text" name="titre" required/><br><label>Liens :</label><input type="text" name="liens"/></td>
-        <td><input type="number" name="temps"/></td>
-        <td><input type="number" name="difficulte"/></td>
-        <td><div>
-                <input type="radio" name="multi" value="oui" /> <label>oui</label><br />
-                <input type="radio" name="multi" value="non" /> <label>non</label><br />
-            </div>
-        </td>
-        <td><div>
-                <input type="checkbox" name="psvita" value="oui" /><label>Psvita</label><br />
-                <input type="checkbox" name="ps3" value="oui" /><label>Ps3</label><br />
-                <input type="checkbox" name="ps4" value="oui" /><label>Ps4</label><br />
-            </div>
-        </td>
-        <!--<td>
-            <div>
-                    User
-            </div>  
-        </td>-->
-        </tr>
-        <tr>
-            <td><input type="checkbox" name="possede" value="oui" /> <label>Possede</label>
-                <input type="checkbox" name="fini" value="oui" /> <label>Fini</label>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <!--<td></td>-->
-        </tr>
+        <tbody class="fixeb">
+        <tr >
         
+            <td class="titre"><p><input type="text" name="Titre" placeholder="titre" required/><br><input type="text" name="liens" placeholder="liens"/></p></td>
+        <td><input type="number" name="temps" step="1" min="0" max="10000"/></td>
+        <td><input type="number" name="difficulte" step="1" min="0" max="10"/></td>
+        <td>
+            <p><label>oui</label><input type="radio" name="multi" value="oui" /> <br>
+                <label>non</label><input type="radio" name="multi" value="non" /> </p>
+            
+        </td>
+        <td>
+            <label>Psvita</label><input type="checkbox" name="psvita" value="oui" /><br>
+            <label>Ps3</label><input type="checkbox" name="ps3" value="oui" /><br>
+            <label>Ps4</label><input type="checkbox" name="ps4" value="oui" />
+        
+        </td>
         </tr>
+        <tr class="inputaj">
+            <td><label>Possede</label><input type="checkbox" name="possede" value="oui" />
+                <label>Fini</label><input type="checkbox" name="fini" value="oui" /> 
+            </td>
+            <td><button type="submit" name="ajouterj" >Ajouter</button></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+     
     </table>
-    </div>
-    <button type="submit" name="ajouterj" class="ajouter">Ajouter</button>    
+     
 </form>
-</body>
-</html>
+</div>
 

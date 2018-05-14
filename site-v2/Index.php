@@ -13,8 +13,6 @@ else{
     </head>
     <body>
         <div class="main">
-        <div class="gauche"></div>
-        <div class="droite">
         <div class="menu1"> <!-- début de la boite contenant les onglets -->
         <?php
         switch ($i) {
@@ -57,7 +55,7 @@ else{
         ?>
         
         </div>
-        </div>
+        
         
         <div class="centre">
             <?php

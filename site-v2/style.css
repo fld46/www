@@ -1,11 +1,3 @@
-
-.menu1 { /* boite qui contient le menu (les onglets) */
-  float:left;
-  padding-top:12px ; /* marge intérieure haute */
-  padding-bottom:7px ; /* marge intérieure basse */
-  
- } 
-
 .onglet { /* style des onglets inactifs */
   border:solid 1px black ; /* encadrement */
   margin:0px 0px 0px 0px ; /* marge extérieure */
@@ -24,44 +16,136 @@ a.onglet { /* style des liens se trouvant dans un onglet inactif */
    text-decoration:none;
    background-color:black} /* le fond de l'onglet actif est blanc*/
 /* partie main*/
+/*body{
+    min-height: 101%;
+}*/
 
-
+table.bas a{
+    text-decoration: none;
+    color:black;
+    
+}
 div.main{
+      position: relative;
       display:block;
-      margin: 0 auto;
+      margin: 50px auto;
       border: 0 ;
-      width:90%;
- }
-/* partie gauche*/
-div.gauche{
-      position:fixed;
-      float: left;
-      width:14%;
+      padding: 0 ;
+      width:1100px;
       
  }
- /* partie droite*/
- div.droite{
-      
-      margin-left:16%;
-      min-width:84%;
- }
-/* Iframe Centre */
+ 
+ .menu1 { /* boite qui contient le menu (les onglets) */
+  display: block;
+  position:fixed;
+  top:14px;
+  margin-left: 205px;
+  padding-top:12px ; /* marge intérieure haute */
+  padding-bottom:7px ; /* marge intérieure basse */
+  z-index: 3;
+  width:800px;
+ } 
 
 div.centre {
-    overflow: auto;
+    position:relative;
     display: block;
-    margin: 0 auto;
     border: 0 ;
-    min-width: 90%;
-}
+    height: 700px;
+    overflow: hidden;
+    
+    }
+div.gauche {
+    
+    float: left;
+    overflow: hidden;
+    position:fixed;
+    width: 200px;
+    border: 0;
+    
+    
+    }
+
+div.droitec {
+    margin-left: 205px;
+    display: block;
+    overflow: auto;
+    border-top: 1px solid black;
+    border-bottom : 1px black solid;
+    
+    width:100% ;
+    padding: 0;
+    }
+div.droite {
+    margin-left: 205px;
+    display: block;
+    overflow: auto;
+    border-top: 1px solid black;
+    border-bottom : 1px black solid;
+    height:698px;
+    width:100% ;
+    padding: 0;
+    }
+div.droitea {
+    margin-left: 205px;
+    display: block;
+    overflow: auto;
+    border-top: 1px solid black;
+    border-bottom : 1px black solid;
+    height:165px;
+    width:100% ;
+    padding: 0;
+    }
+div.droitem {
+    margin-left: 205px;
+    display: block;
+    overflow: auto;
+    border-top: 1px solid black;
+    border-bottom : 1px black solid;
+    height:103px;
+    width:100% ;
+    padding: 0;
+    }    
+div.droitemm {
+    margin-left: 205px;
+    display: block;
+    overflow: auto;
+    border-top: 1px solid black;
+    border-bottom : 1px black solid;
+    height:185px;
+    width:100% ;
+    padding: 0;
+    }
+div.droitemmd {
+    margin-left: 205px;
+    display: block;
+    overflow: auto;
+    border-top: 1px solid black;
+    border-bottom : 1px black solid;
+    height:153px;
+    width:100% ;
+    padding: 0;
+    } 
+div.droitel {
+    margin-left: 205px;
+    display: block;
+    overflow: auto;
+    border-top: 1px solid black;
+    border-bottom : 1px black solid;
+    height:303px;
+    width:100% ;
+    padding: 0;
+    }        
 /* tableau accueil*/
 
-table.bas{
-    width: 900px;
-    border : 1px black solid;
+table.bas {
+    width: 800px;
+    
     border-collapse: collapse;
+    
+    
+    
     }
- 
+   
 table.bas tr:nth-child(odd) {
     background-color: #E6E7E7;
    }
@@ -69,24 +153,32 @@ table.bas tr:nth-child(even) {
     background-color: #EEEFF1;
     }
 table.bas tr{
+    
     height: 50px;
 }
 table.bas td {
    text-align: center;
+  
    
 }
 
 table.bas thead{
     background: #1C6EA4;
-    border-bottom: 2px solid #444444;    
+    border-bottom: 2px solid #444444;
+    
+    
 }
 table.bas thead th {
     padding: 5px;
-    height: 50px; 
+    height: 50px;
+    
+    
 }
 table.bas thead th.titre {
     width: 50%;
+    
 }
+
 tr.titre, tr.titre td{
     background: -moz-linear-gradient(top, #000000 0%,  #4E504F 80%);
     background: -webkit-linear-gradient(top, #000000 0%, #4E504F 80%);
@@ -96,36 +188,48 @@ tr.titre, tr.titre td{
 input[type=number]{
     display: block;
     max-width: 50px;
-   margin: auto;
+    margin: auto;
     
 }
-/* tableau accueil*/
-table.tri{
-    
-    margin-left:15%;
-    width: 75%;
-    border : 1px black solid;
-    border-collapse: collapse;
-}
-table.tri thead{
-    background: #1C6EA4;
-    border-bottom: 2px solid #444444;    
-}
-table.tri thead th {
-    padding: 5px;
-    height: 15px; 
-}
-table.tri td {
-   text-align: center;
-   border:1px black dashed;
-   background-color: #E6E7E7;
- }
- 
- *{
-     margin: 0;
-     padding: 0;
-  }
 
+    
+
+.formin{
+       max-width: 150px;
+}
+.fixe{
+    
+    position:fixed;
+    z-index: 3;
+    width: 893px;
+    border:1px solid black;
+}
+.fixe th{
+    width:111px;
+   
+}
+.fixe th.titre{
+    width:447px;
+}
+
+
+.fixeb{
+    display:block;
+    position:relative;
+    top:52px;
+    width:  893px;
+    border: 1px solid black;
+    border-bottom: 0px;
+    
+  
+}
+.fixeb td{
+    width:111px;
+    
+}
+.fixeb td.titre{
+    width:447px;
+}
   /* bouton delete */
   button.delete{
       position:relative;
@@ -156,6 +260,14 @@ table.tri td {
       max-height:30px;
       
   }
+  img.validg{
+      display:block;
+      position:relative;
+      float:left;
+      max-width:30px;
+      max-height:20px;
+      
+  }
   /* simbol consoles */
   div.ps4{
       width:40%;
@@ -184,6 +296,63 @@ table.tri td {
       border-radius: 10px;
       text-align: center;
   }
-  
- 
- 
+  /* formulaire login */
+    .form_ident {
+    
+    background-color:#E6E7E7;
+    padding:10px;
+    border: 1px solid black;
+    }
+    .form_ident legend {
+    color:black;
+    font-weight:bold
+    }
+    .form_ident input {
+    background-color:#EEEFF1;
+    box-shadow:1px 1px 2px #C0C0C0 inset;
+    }
+    .form_ident button[type=submit], input[type=reset] {
+    display: block;
+    width:100px;
+    margin: 0 auto;
+    box-shadow:1px 1px 1px #C0C0C0;
+    cursor:pointer;
+    }
+    .form_ident input[type=radio] {
+    background-color:#C0C0C0;
+    box-shadow:none;
+    width:20px;
+    }
+ /* formulaire rempli */
+    .form_rempli {
+        
+    }
+    .form_rempli legend {
+    color:black;
+    font-weight:bold
+    }
+    .form_rempli input {
+    background-color:#EEEFF1;
+    box-shadow:1px 1px 2px #C0C0C0 inset;
+    }
+    .form_rempli button[type=submit], input[type=reset] {
+    display: block;
+    width:100px;
+    margin: 0 auto;
+    box-shadow:1px 1px 1px #C0C0C0;
+    cursor:pointer;
+    }
+    .form_rempli input[type=radio] {
+    background-color:#C0C0C0;
+    width:20px;
+    box-shadow:none;
+    }
+    .radio{
+    float:left;
+    
+   
+    
+        
+    }
+     
+    

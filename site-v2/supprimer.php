@@ -5,6 +5,7 @@ require 'jeux.class.php';
 require 'jeuxmanager.class.php';
 require 'user.class.php';
 require 'Dbconfig.php';
+require 'datalist.class.php';
 $db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
 $manager = new JeuxManager($db);
 if(isset($_POST['selectj']))
@@ -23,27 +24,23 @@ $user->redirect('index.php');
 
 if(!isset($_POST['selectj'])){
 ?>    
-<html>
-    <head>
-        <link rel="stylesheet" href="style.css"type="text/css"/>
-    </head>
-<body>
+
     <div class ="gauche">
-        <form method="post">
+        <form method="post" class="form_ident">
             <fieldset><legend>Selectionner</legend>
-            <br><input list="titrejeu" type="text"  name="titrejeux"/>
-                    <datalist id="titrejeu">
-                        <?php $manager->listej(); ?>
-                    </datalist>
+            <br> <?php
+                        $liste=new Datalist();
+                        $liste->verifNav();
+                        ?>
                
                 <br><br>
-                <button class="tri" name="selectj">SELECT<BUTTon>
+                <button type="submit" name="selectj">SELECT</button>
             </fieldset>
         </form>    
     </div>
-    <div class="droite">
+    <div class="droitem">
     <table class="bas">
-        <thead>
+        <thead class="fixe">
                 <tr class="titre">
                     <th class="titre">TITRE</th>
                     <th>Temps</th>
@@ -53,27 +50,27 @@ if(!isset($_POST['selectj'])){
                     <!--<th>User</th>-->
                 </tr>
         </thead>
+        <tbody class="fixeb">
         <tr>
         <form method="post">
-        <td></td>
+        <td class="titre"></td>
         <td></td>
         <td></td>
         <td></td>
         <td></td>
         </form>
         </tr>
+    </tbody>
     </table>
     </div>
-    </div>
+    
     <script src="datalist-polyfill.min.js"></script>
-</body>
-</html>
+
+
     
 <?php
 
 }
-
-
 
 ?>
 

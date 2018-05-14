@@ -34,7 +34,7 @@ if(isset($_POST['btn-login']))
 </head>
 <body>
  <div class ="gauche">
- <form method="post" >
+ <form method="post" class="form_ident">
  <fieldset>
  <legend> Identification </legend> 
  <?php
@@ -47,12 +47,15 @@ if(isset($_POST['btn-login']))
  <?php
   }
  ?>
+ <br>
  <div>
- <input type="text"  name="txt_uname_email" placeholder="Username" required />
+ <input class="formin" type="text"  name="txt_uname_email" placeholder="Username" required />
  </div>
+ 
  <div>
- <input type="password"  name="txt_password" placeholder="Your Password" required />
+ <input class="formin" type="password"  name="txt_password" placeholder="Your Password" required />
  </div>
+
  <div>
  <button type="submit" name="btn-login" >&nbsp;LOGIN</button>
  </div>
@@ -60,9 +63,9 @@ if(isset($_POST['btn-login']))
  </fieldset>
  </form>
  </div>     
- <div class="droite">
+ <div class="droitel">
     <table class="bas">
-        <thead>
+        <thead class="fixe">
                 <tr class="titre">
                     <th class="titre">TITRE</th>
                     <th>Temps</th>
@@ -72,6 +75,7 @@ if(isset($_POST['btn-login']))
                     <!--<th>User</th>-->
                 </tr>
         </thead>
+        <tbody class="fixeb">
         <?php
         $db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
         $manager = new JeuxManager($db);
@@ -84,6 +88,7 @@ if(isset($_POST['btn-login']))
         <td><div>Console</div></td>
         <td>User</td>
         </tr>-->
+        </tbody>
     </table>
     </div>
 </body>
