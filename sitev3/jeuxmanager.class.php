@@ -369,8 +369,16 @@ public function getList()
 {
 
     $jeux = array();
-    $q = $this->_db->query($_SESSION['trifiltre']);     
-    echo'<div class="droite">  
+    $q = $this->_db->query($_SESSION['trifiltre']);
+    $_SESSION['result']=$q->rowCount();
+    if(($_SESSION['result']>=13)OR(!isset($_SESSION['result']))){
+        $tableb='fixeb';
+        echo'<div class="droite">';
+    }else{
+        $tableb='fixec';
+        echo'<div class="droitec">';  
+    }
+    echo '
             <div class="droiteint">
             <table class="droit">
                 <thead class="fixe">
@@ -382,7 +390,7 @@ public function getList()
                         <th class="console" >Console</th>
                     </tr>
                 </thead>
-            <tbody class="fixeb">'; 
+            <tbody class="'.$tableb.'">'; 
 
 
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))

@@ -23,13 +23,13 @@ a.onglet { /* style des liens se trouvant dans un onglet inactif */
    display:block;
    width:1100px;
    margin: 30px auto;
-   background: grey;
+   
    height:800px;
    
    
 }
 .menu_haut{
-  background: #00A2FF;
+  
   padding-top:12px ; /* marge intérieure haute */
   padding-bottom:7px ; /* marge intérieure basse */
   position:absolute;
@@ -38,7 +38,7 @@ a.onglet { /* style des liens se trouvant dans un onglet inactif */
   display:block;
 }
 .centre {
- background: red;
+ 
  width:1100px;
  height:800px;
  position:relative;
@@ -47,7 +47,7 @@ a.onglet { /* style des liens se trouvant dans un onglet inactif */
  }
 
  .menu_gauche{
-  background: yellow;
+  
   width:200px;
   float:left;
   
@@ -55,14 +55,26 @@ a.onglet { /* style des liens se trouvant dans un onglet inactif */
 
 .droite{
   
-  background: green;
+  
   width:895px;
   height:724px;
   position:relative;
   left:5px;
   overflow:hidden;
-  border: 1px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
   
+}
+.droitec{
+  
+  
+  width:895px;
+  height:724px;
+  position:relative;
+  left:5px;
+  overflow:hidden;
+  border-top: 1px solid black;
+    
 }
 .droiteint{
     position: absolute;
@@ -147,21 +159,29 @@ tr.titre, tr.titre td{
     width: 895px;
    
 }
-.fixe th, .fixeb td{
+.fixe th, .fixeb td, .fixec td{
     width:112px;
    
 }
-.fixe th.titre, .fixeb td.titre{
+.fixe th.titre, .fixeb td.titre, .fixec td.titre{
     width:450px;
 }
 .fixeb{
     display:block;
     position:relative;
     top:62px;
-    width:  895px;
-   
-    
-    
-  
+    width:  893px;
+    border-top:1px solid black;
+    border-left:1px solid black;
+    border-right:1px solid black;
+ 
+}
+.fixec{
+    display:block;
+    position:relative;
+    top:62px;
+    width:  893px;
+    border:1px solid black;
+ 
 }
 
