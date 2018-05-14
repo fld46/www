@@ -1,0 +1,141 @@
+.onglet { /* style des onglets inactifs */
+  border:solid 1px black ; /* encadrement */
+  margin:0px 0px 0px 0px ; /* marge extérieure */
+  padding:7px 3px 7px 3px;} /* marge intérieure */
+
+a.onglet { /* style des liens se trouvant dans un onglet inactif */
+  background-color:#E7E4E4 ; /* le fond de l'onglet est gris */
+  text-decoration:none;} /* les liens ne sont pas soulignés */
+
+.onglet-actif { /* style de l'onglet de la page active */
+   border:solid 2px black ; /* l'encadrement est porté à 2 pixels */
+   border-bottom:solid 3px black ; /* le trait inférieur est effacé */
+   margin:0px 0px 0px 0px ; /* marges intérieures */
+   padding:7px 3px 7px 3px ; /* marges extérieures */  
+   color: white;
+   text-decoration:none;
+   background-color:black} /* le fond de l'onglet actif est blanc*/
+
+.main{
+   border: 0 ;
+   padding: 0 ;
+   position:relative;
+   display:block;
+   width:1100px;
+   margin: 30px auto;
+   background: grey;
+   height:800px;
+   
+   
+}
+.menu_haut{
+  background: #00A2FF;
+  padding-top:12px ; /* marge intérieure haute */
+  padding-bottom:7px ; /* marge intérieure basse */
+  position:absolute;
+  top:14px;
+  left:200px;
+  display:block;
+}
+.centre {
+ background: red;
+ width:1100px;
+ height:800px;
+ position:relative;
+ display:block;
+ top:50px;
+ }
+
+ .menu_gauche{
+  background: yellow;
+  width:200px;
+  float:left;
+  
+}
+
+.droite{
+  
+  background: green;
+  width:900px;
+  height:800px;
+  position:relative;
+  overflow:hidden;
+  
+}
+.droiteint{
+    position: absolute;
+    width:1100px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: -15px; /* Il faut varier cette variable en fonction du navigateur utilisé (la barre de défilement n'a pas toujours la même largeur) */
+    overflow: auto;
+}
+
+/* formulaire login */
+    .form_ident {
+    
+    background-color:#E6E7E7;
+    padding:10px;
+    border: 1px solid black;
+    }
+    .form_ident legend {
+    color:black;
+    font-weight:bold
+    }
+    .form_ident input {
+    background-color:#EEEFF1;
+    box-shadow:1px 1px 2px #C0C0C0 inset;
+    }
+    .form_ident button[type=submit], input[type=reset] {
+    display: block;
+    width:100px;
+    margin: 0 auto;
+    box-shadow:1px 1px 1px #C0C0C0;
+    cursor:pointer;
+    }
+    .form_ident input[type=radio] {
+    background-color:#C0C0C0;
+    box-shadow:none;
+    width:20px;
+    }
+    
+    /* tableau droite*/
+table.droit {
+    width: 900px;
+    border-collapse: collapse;
+    
+}
+table.droit tr:nth-child(odd) {
+    background-color: #E6E7E7;
+   }
+table.droit tr:nth-child(even) {
+    background-color: #EEEFF1;
+    }
+table.droit tr{
+    height: 50px;
+}
+table.droit thead{
+    background: #1C6EA4;
+    border-bottom: 2px solid #444444;
+    
+    
+}
+table.droit thead th {
+    padding: 5px;
+    height: 50px;
+    
+    
+}
+table.droit thead th.titre {
+    width: 50%;
+    
+}
+
+tr.titre, tr.titre td{
+    background: -moz-linear-gradient(top, #000000 0%,  #4E504F 80%);
+    background: -webkit-linear-gradient(top, #000000 0%, #4E504F 80%);
+    background: linear-gradient(to bottom, #000000 0%, #4E504F 80%);
+    color: White;    
+}
+
