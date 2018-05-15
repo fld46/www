@@ -51,7 +51,7 @@ $manager = new JeuxManager($db);
  <input class="formin" type="password"  name="txt_password" placeholder="Your Password" />
  </div>
   <button type="submit" name="btn-login" >&nbsp;LOGIN</button>
-  <a href="registers.php">register</a>
+  <a href="register.php">register</a>
  <br/>
  </fieldset>
  </form>

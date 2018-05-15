@@ -9,6 +9,8 @@ $_SESSION['menu']=0;
 $user->redirect('index.php');
 }
 else{
+$_SESSION['page']='login.php';
+$_SESSION['menu']=0;
 $user->redirect('index.php');    
 }
 ?>
