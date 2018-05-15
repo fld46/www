@@ -7,15 +7,16 @@ else{
  $i= 0;   
 }
 ?>
-<!DOCTYPE html>
+
 <html>
     <head>
         <title>test de presentation</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
         <link rel="stylesheet" href="style.css" type="text/css">
     </head>
-    <body>
+    <body >
+        <div class="maincenter">
         <div class="main">
             <div class="menu_haut">
                 <?php include('menu_haut.php');?>
@@ -28,6 +29,7 @@ else{
                 include($_SESSION['page']);    
                 }
                 ?>
+        </div>
         </div>
         </div>
         

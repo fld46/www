@@ -29,7 +29,7 @@ $user->redirect('index.php');
 ?>
 
 
-<div class="droit">
+<div class="droitec">
     <div class="droiteint">
     <form  method="post" class="form_rempli">
     <table class="droit">
@@ -44,7 +44,7 @@ $user->redirect('index.php');
                     <!--<th>User</th>-->
                 </tr>
         </thead>
-        <tbody class="fixeb">
+        <tbody class="fixec">
         <tr >
         
             <td class="titre"><p><input type="text" name="Titre" placeholder="titre" required/><br><input type="text" name="liens" placeholder="liens"/></p></td>

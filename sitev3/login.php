@@ -18,14 +18,15 @@ if(isset($_POST['btn-login']))
  {
   $_SESSION['page']='accueil.php'; 
   $user->redirect('index.php');
- 
+  }
   
- }
  else
  {
   $error = "Mauvais identifiant/mot de passe !";
  }
 }
+
+
 $db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
 $manager = new JeuxManager($db);
 ?>
@@ -46,10 +47,11 @@ $manager = new JeuxManager($db);
  ?>
  <br>
  <div > 
- <input class="formin" type="text"  name="txt_uname_email" placeholder="Username" required />
- <input class="formin" type="password"  name="txt_password" placeholder="Your Password" required />
+ <input class="formin" type="text"  name="txt_uname_email" placeholder="Username" />
+ <input class="formin" type="password"  name="txt_password" placeholder="Your Password" />
  </div>
   <button type="submit" name="btn-login" >&nbsp;LOGIN</button>
+  <a href="registers.php">register</a>
  <br/>
  </fieldset>
  </form>

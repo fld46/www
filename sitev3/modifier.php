@@ -37,7 +37,7 @@ if(!isset($_POST['selectj'])){
             </form>    
     </div>
     
-    <div class="droite">
+    <div class="droitec">
         <div class="droiteint">
         <table class="droit">
         <thead class="fixe">
@@ -49,7 +49,7 @@ if(!isset($_POST['selectj'])){
                     <th>Console</th>
                 </tr>
         </thead>
-        <tbody class="fixeb">
+        <tbody class="fixec">
         <tr>
         <form method="post">
         <td class="titre"></td>

@@ -171,7 +171,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     }
     echo'
     
-    <div class ="gauche">
+    <div class ="menu_gauche">
         <form method="post" class="form_ident">
             <fieldset><legend>Selectionner</legend>
             <br>';
@@ -184,9 +184,9 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
             </fieldset>
         </form>    
     </div>
-    <div class="droitemmd">
+    <div class="droitec">
     <form method="post" class="form_rempli">    
-    <table class="bas">
+    <table class="droit">
         
         <thead class="fixe">
                 <tr class="titre">
@@ -198,7 +198,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
                     <!--<th>User</th>-->
                 </tr>
         </thead>
-        <tbody class="fixeb">
+        <tbody class="fixec">
         <tr>
         
         <td class="titre"><input type="text" name="titrejeux" readonly value="'.$jeux->titre().'"></td>
@@ -270,7 +270,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     //var_dump($jeux);
     echo'
     
-    <div class ="gauche">
+    <div class ="menu_gauche">
         <form method="post" class="form_ident">
             <fieldset><legend>Selectionner</legend>
             <br> ';
@@ -284,9 +284,9 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
             </fieldset>
         </form>    
     </div>
-    <div class="droitea">
+    <div class="droitec">
     <form method="post" class="form_rempli">
-    <table class="bas">
+    <table class="droit">
         <thead class="fixe">
                 <tr class="titre">
                     <th class="titre">TITRE</th>
@@ -297,7 +297,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
                     <!--<th>User</th>-->
                 </tr>
         </thead>
-        <tbody class="fixeb">
+        <tbody class="fixec">
         <tr>
         
         <td class="titre"><br><input type="text" name="titre" value="'.$jeux->titre().'"><br><input type="text" name="liens" value="'.$jeux->liens().'"></td>
@@ -422,19 +422,19 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
        $psvita=''; 
     }
     if($jeux->liens()==""){
-        $liens='';
+        $liens=$jeux->titre();
     }else{
-       $liens= '<a href='.$jeux->liens().' target="new"><img src="guide.png" class="validg">';
+       $liens= '<a href='.$jeux->liens().' target="new"><img src="guide.png" class="validg" alt=""/>'.$jeux->titre().'</a>';
     }
     echo 
     '
     
        
     <tr>
-     <td class="titre">'.$liens.$jeux->titre().'</a></td>
+     <td class="titre">'.$liens.'</td>
      <td class="temps">'.$jeux->temps().'</td>
      <td class="difficulte">'.$jeux->difficulte().'</td>
-     <td class="multi"><img src='.$multi.' class="valid"></td>
+     <td class="multi"><img src='.$multi.' class="valid"/></td>
      <td class="console">'.$ps4.'
      '.$ps3.'
      '.$psvita.'</td>
@@ -482,10 +482,15 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     else{
        $psvita=''; 
     }
+    if($jeux->liens()!=""){
+       $liens= '<a href='.$jeux->liens().'>'.$jeux->titre().'</a>';
+    }else{
+       $liens= $jeux->titre(); 
+    }
     echo 
     '
         <tr>
-     <td class="titre"><a href='.$jeux->liens().'>'.$jeux->titre().'</a></td>
+     <td class="titre">'.$liens.'</td>
      <td>'.$jeux->temps().'</td>
      <td>'.$jeux->difficulte().'</td>
      <td><img src='.$multi.' class="valid"></td>
