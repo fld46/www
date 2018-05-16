@@ -1,0 +1,252 @@
+.onglet { /* style des onglets inactifs */
+  border:solid 1px black ; /* encadrement */
+  margin:0px 0px 0px 0px ; /* marge extérieure */
+  padding:7px 3px 7px 3px;} /* marge intérieure */
+
+a.onglet { /* style des liens se trouvant dans un onglet inactif */
+  background-color:#E7E4E4 ; /* le fond de l'onglet est gris */
+  text-decoration:none;} /* les liens ne sont pas soulignés */
+
+.onglet-actif { /* style de l'onglet de la page active */
+   border:solid 2px black ; /* l'encadrement est porté à 2 pixels */
+   border-bottom:solid 3px black ; /* le trait inférieur est effacé */
+   margin:0px 0px 0px 0px ; /* marges intérieures */
+   padding:7px 3px 7px 3px ; /* marges extérieures */  
+   color: white;
+   text-decoration:none;
+   background-color:black} /* le fond de l'onglet actif est blanc*/
+
+a{
+    text-decoration: none;
+    color:black;
+    
+}
+body{
+    overflow: hidden;
+    }
+
+.main{
+   border: 0 ;
+   padding: 0 ;
+   position:relative;
+   display:block;
+   width:1100px;
+   margin:30px auto;
+   height:700px;
+  
+    
+}
+.menu_haut{
+  
+  padding-top:12px ; /* marge intérieure haute */
+  padding-bottom:7px ; /* marge intérieure basse */
+  top:16px;
+  left:205px;
+  display:block;
+  position: absolute;
+  overflow: hidden;
+  width:895px;
+}
+.centre {
+ 
+ width:1100px;
+ height:700px;
+ position:relative;
+ display:block;
+ top:50px;
+ 
+ 
+ }
+
+ .menu_gauche{
+  position:fixed;  
+  width:200px;
+  float:left;
+  
+}
+
+.droite{
+  
+  
+  width:896px;
+  height:700px;
+  position:relative;
+  left:205px;
+  overflow:hidden;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  
+}
+.droitec{
+  
+  
+  width:896px;
+  height:724px;
+  position:relative;
+  left:205px;
+  overflow:hidden;
+  border-top: 1px solid black;
+    
+}
+.droiteint{
+    position: absolute;
+    width:1100px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: -15px; /* Il faut varier cette variable en fonction du navigateur utilisé (la barre de défilement n'a pas toujours la même largeur) */
+    overflow: auto;
+}
+
+/* formulaire login */
+    .form_ident {
+    
+    background-color:#E6E7E7;
+    padding:10px;
+    border: 1px solid black;
+    }
+    .form_ident legend {
+    color:black;
+    font-weight:bold
+    }
+    .form_ident input {
+    background-color:#EEEFF1;
+    box-shadow:1px 1px 2px #C0C0C0 inset;
+    }
+    .form_ident button[type=submit], input[type=reset] {
+    display: block;
+    width:100px;
+    margin: 0 auto;
+    box-shadow:1px 1px 1px #C0C0C0;
+    cursor:pointer;
+    }
+    .form_ident input[type=radio] {
+    background-color:#E6E7E7;
+    box-shadow:none;
+    width:20px;
+    }
+    .formin{
+       max-width: 150px;
+    }
+    
+    
+    /* tableau droite*/
+table.droit {
+    width: 895px;
+    border-collapse: collapse;
+    
+}
+table.droit tr:nth-child(odd) {
+    background-color: #E6E7E7;
+   }
+table.droit tr:nth-child(even) {
+    background-color: #EEEFF1;
+    }
+table.droit tr{
+    height: 50px;
+}
+table.droit thead{
+    background: #1C6EA4;
+    border-bottom: 2px solid #444444;
+    
+    
+}
+table.droit thead th {
+    padding: 5px;
+    height: 50px;
+    
+    
+}
+table.droit thead th.titre {
+    width: 50%;
+    
+}
+table.droit tr{
+    height: 50px;
+    
+}
+table.droit td {
+  text-align: center;
+}
+
+
+tr.titre, tr.titre td{
+    background: -moz-linear-gradient(top, #000000 0%,  #4E504F 80%);
+    background: -webkit-linear-gradient(top, #000000 0%, #4E504F 80%);
+    background: linear-gradient(to bottom, #000000 0%, #4E504F 80%);
+    color: White;    
+}
+.fixe{
+    
+    position:fixed;
+    z-index: 3;
+    width: 895px;
+   
+}
+.fixe th, .fixeb td, .fixec td{
+    width:112px;
+   
+}
+.fixe th.titre, .fixeb td.titre, .fixec td.titre{
+    width:450px;
+}
+.fixeb{
+    display:block;
+    position:relative;
+    top:50px;
+    width:  893px;
+    border-top:1px solid black;
+    border-left:1px solid black;
+    border-right:1px solid black;
+ 
+ 
+}
+.fixec{
+    display:block;
+    position:absolute;
+    top:50px;
+    width:  893px;
+    border:1px solid black;
+ 
+}
+ img.valid{
+      max-width:30px;
+      max-height:30px;
+      
+  }
+  img.validg{
+      display:block;
+      position:relative;
+      float:left;
+      max-width:30px;
+      max-height:20px;
+      
+  }
+  div.ps4{
+      width:40%;
+      margin: auto;
+      font-size: 14px;
+      background-color: #00A2FF;
+      color: white;
+      border-radius: 10px;
+      text-align: center;
+  }
+  div.ps3{
+      width:40%;
+      margin: auto;
+      font-size: 14px;
+      background-color:#000;
+      color: white;
+      border-radius: 10px;
+      text-align: center;
+  }
+  div.psvita{
+      width:40%;
+      margin: auto;
+      font-size: 12px;
+      background-color:#100BFF;
+      color: white;
+      border-radius: 10px;
+      text-align: center;
+  }
+
