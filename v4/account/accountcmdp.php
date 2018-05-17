@@ -1,8 +1,6 @@
 <?php
-require'../inc/bootstrap.php';
 $auth= App::getAuth();
 $auth->restrict(Session::getInstance());
-
 if(!empty($_POST)){
 
     if(empty($_POST['password']) || $_POST['password'] != $_POST['password_confirm']){
@@ -14,21 +12,12 @@ if(!empty($_POST)){
         $pdo->prepare('UPDATE users SET password = ? WHERE id = ?')->execute([$password,$user_id]);
         $_SESSION['flash']['success'] = "Votre mot de passe a bien été mis à jour";
     }
-
 }
 ?>
-<html>
-    <head>
-        <title>changer le mot de passe</title>
-        <meta charset="UTF-8">
         
-        <link rel="stylesheet" href="style.css" type="text/css">
-    </head>
-    <body >
-        <div class="maincenter">
-        <div class="main">
+        
             
-            <div class="centre">
+            <div class="droiteaccount">
                 <?php if(!empty($errors)):?>
                 <div>
                     <p> Vous n'avez pas rempli le formulaire correctement !</p>
@@ -48,9 +37,8 @@ if(!empty($_POST)){
                 </form>
                 
         </div>
-        </div>
-        </div>
         
-    </body>
-</html>
+       
+        
+   
 

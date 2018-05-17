@@ -1,6 +1,6 @@
 <?php
 require 'function.php';
-require"../inc/bootstrap.php";
+//require"../inc/bootstrap.php";
 
 
 if (!empty($_POST)){

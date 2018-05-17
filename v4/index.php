@@ -1,11 +1,15 @@
 <?php
-session_start();
+require 'inc/bootstrap.php';
+
+$user= new Auth(Session::getInstance());
+
 if(isset($_SESSION['menu'])){
   $i= $_SESSION['menu']; 
 }
 else{
  $i= 0;   
 }
+
 ?>
 
 <html>
@@ -19,15 +23,21 @@ else{
         <div class="maincenter">
         <div class="main">
             <div class="menu_haut">
-                <?php include('menu_haut.php');?>
+                <?php include('inc/menu_haut.php');?>
             </div>
             <div class="centre">
                 <?php
-                if(!isset($_SESSION['page'])){
+                if(!$user->user()){
                 include('login.php');
                 }else{
                 include($_SESSION['page']);    
                 }
+                
+                //if(!isset($_SESSION['page'])){
+                //include('login.php');
+                //}else{
+                //include($_SESSION['page']);    
+                //}
                 ?>
         </div>
         </div>

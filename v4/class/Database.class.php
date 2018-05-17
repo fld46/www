@@ -32,7 +32,8 @@ class Database {
     }
         return $req;
     }
-
+    
+    
     public function lastInsertId(){
         return $this->pdo->lastInsertId();
     }

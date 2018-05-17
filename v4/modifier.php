@@ -1,23 +1,17 @@
 <?php
-
-require 'jeux.class.php';
-require 'jeuxmanager.class.php';
-require 'Dbconfig.php';
-require 'datalist.class.php';
-$db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
+$db = App::getDatabase();
 $manager = new JeuxManager($db);
 if(isset($_POST['selectj']))
    {
     
-    $manager->getm($_POST['titrejeux'],$_SESSION['login'],$_SESSION['login']);
+    $manager->getm($_POST['titrejeux'],$_SESSION['auth']->id,$_SESSION['auth']->id);
 }
 if(isset($_POST['modifierj']))
 {
  $idt = $_SESSION['tjam'];
  $manager->updateJeux($idt);
- $user->redirect('index.php');
- 
- 
+ App::redirect('modifier.php');
+  
 }
 if(!isset($_POST['selectj'])){
 ?>    
@@ -66,10 +60,9 @@ if(!isset($_POST['selectj'])){
     
    <script src="datalist-polyfill.min.js"></script>
 
-    
-<?php
-
+ <?php
 }
+
 
 
 

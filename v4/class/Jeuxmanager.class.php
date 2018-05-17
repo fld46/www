@@ -10,31 +10,18 @@ public function __construct($db)
 $this->setDb($db);
 }
 
-public function add(Jeux $jeux, $login)
+public function add(Jeux $jeux, $user_id)
 {
+ $this->_db->query('INSERT INTO jeux SET titre = ?, temps = ?, difficulte = ?, multi = ?,  ps4 = ?, ps3 = ?, psvita= ?, liens = ?',[$jeux->titre(),$jeux->temps(),$jeux->difficulte(),$jeux->multi(), $jeux->ps4(),$jeux->ps3(),$jeux->psvita(),$jeux->liens()]);
+ $q3=$this->_db->query('SELECT * FROM jeux WHERE titre="'.$jeux->titre().'"');
 
-$q = $this->_db->prepare('INSERT INTO jeux SET titre =:titre, temps = :temps, difficulte = :difficulte, multi = :multi,  ps4 = :ps4, ps3 = :ps3, psvita= :psvita, liens = :liens');
-$q->bindValue(':titre', $jeux->titre());
-$q->bindValue(':temps', $jeux->temps(),PDO::PARAM_INT);
-$q->bindValue(':difficulte', $jeux->difficulte(), PDO::PARAM_INT);
-$q->bindValue(':multi', $jeux->multi());
-$q->bindValue(':ps4', $jeux->ps4());
-$q->bindValue(':ps3', $jeux->ps3());
-$q->bindValue(':psvita', $jeux->psvita());
-$q->bindValue(':liens', $jeux->liens());
-$q->execute();
-
-$q3 = $this->_db->query('SELECT * FROM jeux WHERE titre="'.$jeux->titre().'"');
-while ($donnees = $q3->fetch(PDO::FETCH_ASSOC))
+    while ($donnees = $q3->fetch(PDO::FETCH_ASSOC))
     {
     $idjeux = $donnees['id'];
     }
-$q2 = $this->_db->prepare('INSERT INTO maintable SET idjeux =:idjeux, idusers = :idusers, possede = :possede, fini = :fini');
-$q2->bindValue(':idusers', $_SESSION['user_session']);
-$q2->bindValue(':idjeux', $idjeux);
-$q2->bindValue(':possede', $jeux->possede());
-$q2->bindValue(':fini', $jeux->fini());
-$q2->execute();
+
+ $this->_db->query('INSERT INTO maintable SET idjeux =?, idusers = ?, possede = ?, fini = ?',[$idjeux,$user_id,$jeux->possede(),$jeux->fini()]);
+App::redirect('ajouter.php');
 
 
 
@@ -91,11 +78,9 @@ public function deletej($dtitre)
     $jeuxad->hydrate($donnees);
     
     }
-    $q2 = $this->_db->query('DELETE FROM maintable WHERE idjeux="'.$jeuxad->id().'"');
-    $q3 = $this->_db->query('DELETE FROM jeux WHERE titre="'.$jeuxad->titre().'"');
-    //$q = $this->_db->prepare('DELETE  FROM jeux WHERE titre="'.$dtitre.'"');
-    $q2->execute();
-    $q3->execute();
+    $this->_db->query('DELETE FROM maintable WHERE idjeux= ?',[$jeuxad->id()]);
+    $this->_db->query('DELETE FROM jeux WHERE titre= ?',[$jeuxad->titre()]);
+    
     }
 }
 
@@ -136,12 +121,11 @@ if(($radioj->$input() == "non")||($radioj->$input() == ""))
     }
 }
 
-public function get($titre, $login, $ident)
+public function get($titre)
 {
 
 $jeux = array();
-$q = $this->_db->query('SELECT * FROM jeux WHERE titre="'.$titre.'"');
-
+$q = $this->_db->query('SELECT * FROM jeux  WHERE titre=?',[$titre]);
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     {
     $jeux = new Jeux();
@@ -227,23 +211,21 @@ return $jeux;
 }
 public function getm($titre, $login, $ident)
 {
-$qv = $this->_db->query('SELECT COUNT(*) FROM jeux AS J,maintable AS M WHERE J.titre="'.$titre.'" AND M.idjeux=J.id AND M.idusers="'.$_SESSION['user_session'].'"');
-$testv = $qv->fetch();
-//var_dump($testv);
-if($testv['0'] =='0'){
-$q = $this->_db->query('SELECT * FROM jeux  WHERE titre="'.$titre.'"');    
-}else{
-$q = $this->_db->query('SELECT * FROM jeux AS J,maintable AS M WHERE J.titre="'.$titre.'" AND M.idjeux=J.id AND M.idusers="'.$_SESSION['user_session'].'"');   
+
+$testv = $this->_db->query('SELECT * FROM jeux AS J,maintable AS M WHERE J.titre= ? AND M.idjeux=J.id AND M.idusers= ?',[$titre,$login]);
+//$testv->fetch();
+if($testv->rowCount()==0){
+$q = $this->_db->query('SELECT * FROM jeux  WHERE titre= ?',[$titre]);    
+}else{ 
+$q = $this->_db->query('SELECT * FROM jeux AS J,maintable AS M WHERE J.titre= ? AND M.idjeux=J.id AND M.idusers=?',[$titre,$login]);   
 }
 $jeux = array();
-
 
 while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     {
     $jeux = new Jeux();
     $jeux->hydrate($donnees);
-    //var_dump($donnees);//echo $jeux->possede();
-    //echo $jeux->fini();
+    
     if (($jeux->multi())=="oui"){
         $multi='oui.png';
     }else{
@@ -341,28 +323,21 @@ return $jeux;
 
 public function updateJeux($idj)
 {
-$qv = $this->_db->query('SELECT COUNT(*) FROM jeux AS J,maintable AS M WHERE J.titre="'.$idj.'" AND M.idjeux=J.id AND M.idusers="'.$_SESSION['user_session'].'"');
-$testv = $qv->fetch();
-//var_dump($testv);
-$q = $this->_db->query('SELECT * FROM jeux  WHERE titre="'.$idj.'" ');
+$testv=$this->_db->query('SELECT * FROM jeux AS J,maintable AS M WHERE J.titre= ? AND M.idjeux=J.id AND M.idusers= ?',[$idj,$_SESSION['auth']->id]);
+
+$q = $this->_db->query('SELECT * FROM jeux  WHERE titre=? ',[$idj]);
     while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     {
     $jeuxad = new Jeux();
     $jeuxad->hydrate($donnees);
     
     }
-if($testv['0'] =='0'){
-$q2 = $this->_db->prepare('INSERT INTO maintable SET possede ="'.$_POST['possede'].'", fini ="'.$_POST['fini'].'", idjeux="'.$jeuxad->id().'" ,idusers="'.$_SESSION['user_session'].'" ');
+if($testv->rowCount() =='0'){
+$this->_db->query('INSERT INTO maintable SET possede = ?, fini = ?, idjeux= ? ,idusers= ? ',[$_POST['possede'],$_POST['fini'],$jeuxad->id(),$_SESSION['auth']->id]);
 }else{
-$q2 = $this->_db->prepare('UPDATE maintable SET possede ="'.$_POST['possede'].'", fini ="'.$_POST['fini'].'" WHERE idjeux="'.$jeuxad->id().'" AND idusers="'.$_SESSION['user_session'].'" ');   
+$this->_db->query('UPDATE maintable SET possede = ?, fini =? WHERE idjeux= ? AND idusers= ? ',[$_POST['possede'],$_POST['fini'],$jeuxad->id(),$_SESSION['auth']->id]);  
 }
-$q1 = $this->_db->prepare('UPDATE jeux SET titre ="'.$_POST['titre'].'", temps ="'.$_POST['temps'].'", difficulte ="'.$_POST['difficulte'].'", multi ="'.$_POST['multi'].'",  ps4 ="'.$_POST['ps4'].'", ps3 ="'.$_POST['ps3'].'", psvita="'.$_POST['psvita'].'", liens ="'.$_POST['liens'].'" WHERE id="'.$jeuxad->id().'"');
-//$q2 = $this->_db->prepare('UPDATE maintable SET possede ="'.$_POST['possede'].'", fini ="'.$_POST['fini'].'" WHERE idjeux="'.$jeuxad->id().'" AND idusers="'.$_SESSION['user_session'].'" ');
-$q1->execute();
-$q2->execute();
-var_dump($q1);
-var_dump($q2);
-
+$this->_db->query('UPDATE jeux SET titre = ?, temps = ?, difficulte = ?, multi = ?,  ps4 = ?, ps3 = ?, psvita= ?, liens = ? WHERE id= ?',[$_POST['titre'],$_POST['temps'],$_POST['difficulte'],$_POST['multi'],$_POST['ps4'],$_POST['ps3'],$_POST['psvita'],$_POST['liens'],$jeuxad->id()]);
 }
 
 public function getList()
@@ -502,7 +477,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
 return $jeux;
 }
 
-public function setDb(PDO $db)
+public function setDb( $db)
 {
 $this->_db = $db;
 }

@@ -1,14 +1,14 @@
 <?php
-session_start();
-require_once 'Dbconfig.php';
-if($user->is_loggedin2()!="")
+require_once 'inc/bootstrap.php';
+$user= new Auth(Session::getInstance());
+if($user->user())
 {
-$_SESSION['page']='ajouter.php';
+
 $_SESSION['menu']=1;
-$user->redirect('index.php');
+App::redirect('ajouter.php');
 }
 else{
-$user->redirect('index.php');    
+App::redirect('');
+        
 }
-?>
 

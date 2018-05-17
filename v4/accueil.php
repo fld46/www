@@ -1,9 +1,5 @@
 <?php
-require 'inc/bootstrap.php';
-//require 'jeuxmanager.class.php';
-//require 'jeux.class.php';
-//require 'user.class.php';
-$db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
+$db = App::getDatabase();
 $userl = new User($db);
 $manager = new JeuxManager($db);
 ?>
@@ -35,7 +31,7 @@ $manager = new JeuxManager($db);
   
     <?php
     $manager->getList();
-    ?>
+    
   
     
     

@@ -29,7 +29,9 @@ class App {
     }
     
     static function redirect($page){
-        header("location: $page");
+        
+        $_SESSION['page']= $page;
+        header("location: /v4/index.php");
         exit();
     }
     

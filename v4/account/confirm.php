@@ -14,7 +14,7 @@ if(App::getAuth()->confirm($db,$_GET['id'],$_GET['token'], Session::getInstance(
 }else{
      
      Session::getInstance()->setFlash('danger', "Ce token n'est plus valide");
-     App::redirect('index.php');
+     App::redirect('account.php');
 }
 
 ?>

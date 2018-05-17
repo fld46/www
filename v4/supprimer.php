@@ -1,24 +1,14 @@
 <?php
-
-
-require 'jeux.class.php';
-require 'jeuxmanager.class.php';
-require 'user.class.php';
-require 'Dbconfig.php';
-require 'datalist.class.php';
-$db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
+$db = App::getDatabase();
 $manager = new JeuxManager($db);
 if(isset($_POST['selectj']))
    {
-    
-    $manager->get($_POST['titrejeux'],$_SESSION['login'],$_SESSION['login']);
+    $manager->get($_POST['titrejeux']);
 }
 if(isset($_POST['supj']))
 {
-  
-//$idt = $_POST['id'];
- $manager->deletej($_POST['titrejeux']);
-$user->redirect('index.php');
+$manager->deletej($_POST['titrejeux']);
+App::redirect('supprimer.php');
  
 }
 

@@ -1,15 +1,8 @@
 <?php
-session_start();
-require_once 'Dbconfig.php';
+require 'inc/bootstrap.php';
+App::getAuth()->logout();
+Session::getInstance()->setFlash('success','Vous êtes maintenant déconnecté');
+app::redirect('');
 
-if($user->is_loggedin2()!="")
-{
-$user->logout();
-$_SESSION['menu']=4;
-$user->redirect('index.php');
-}
-else{
-$user->redirect('index.php');    
-}
-?>
+
 

@@ -1,33 +1,23 @@
 <?php
-require_once 'Dbconfig.php';
-require 'jeuxmanager.class.php';
-require 'jeux.class.php';
-
-if($user->is_loggedin2()!="")
-{
-  $_SESSION['page']='accueil.php'; 
-  $user->redirect('index.php');
+$auth = App::getAuth();
+$db = App::getDatabase();
+$auth->connectFromCookie($db);
+if($auth->user()){
+    App::redirect('accueil.php');
 }
 
-if(isset($_POST['btn-login']))
-{
- $lname = $_POST['txt_uname_email'];
- $upass = $_POST['txt_password'];
-
- if($user->login2($lname,$upass))
- {
-  $_SESSION['page']='accueil.php'; 
-  $user->redirect('index.php');
-  }
-  
- else
- {
-  $error = "Mauvais identifiant/mot de passe !";
- }
+if(!empty($_POST) && !empty($_POST['username']) && !empty($_POST['password'])){
+ $user = $auth->login($db,$_POST['username'], $_POST['password'], isset($_POST['remember']));
+$session = session::getInstance(); 
+ if($user){
+     $session->setFlash('success', 'Vous êtes maintenant connecté' );
+     App::redirect('accueil.php');       
+ }else{
+    $session->setFlash('danger', 'Identifiant ou mot de passe incorrecte' );
+    }
 }
 
 
-$db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
 $manager = new JeuxManager($db);
 ?>
 
@@ -47,12 +37,12 @@ $manager = new JeuxManager($db);
  ?>
  <br>
  <div > 
- <input class="formin" type="text"  name="txt_uname_email" placeholder="Username" />
- <input class="formin" type="password"  name="txt_password" placeholder="Your Password" />
+ <input class="formin" type="text"  name="username" placeholder="Username" />
+ <input class="formin" type="password"  name="password" placeholder="Your Password" />
  </div>
   <button type="submit" name="btn-login" >&nbsp;LOGIN</button>
-  <a href="register.php">register</a><br>
-  <a href="perdumdp.php">perdu mon mdp</a>
+  <a href="account/register.php">register</a><br>
+  <a href="account/perdumdp.php">perdu mon mdp</a>
  <br/>
  </fieldset>
  </form>

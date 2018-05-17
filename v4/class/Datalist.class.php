@@ -9,7 +9,7 @@ class Datalist {
          echo'<select name="titrejeux" class="formin">';
          $manager->listejsafari();
          echo'</select>';
-     }else{
+        }else{
          echo '<input list="titrejeu" type="text"  class="formin" name="titrejeux"/>
                     <datalist id="titrejeu">';
                          $manager->listej(); 

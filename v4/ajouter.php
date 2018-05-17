@@ -1,26 +1,18 @@
 <?php
-require 'jeux.class.php';
-require 'jeuxmanager.class.php';
-require 'Dbconfig.php';
 
-$db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
+
+$db = App::getDatabase();
 $manager = new JeuxManager($db);
 
 if(isset($_POST['ajouterj']))
 {
-$jeuxa = new Jeux();
-$jeuxa->setTitre($_POST['titre']);
-$jeuxa->setTemps($_POST['temps']);
-$jeuxa->setDifficulte($_POST['difficulte']);
-$jeuxa->setMulti($_POST['multi']);
-$jeuxa->setPs4($_POST['ps4']);
-$jeuxa->setPs3($_POST['ps3']);
-$jeuxa->setPsvita($_POST['psvita']);
-$jeuxa->setFini($_POST['fini']);
-$jeuxa->setLiens($_POST['liens']);
-$jeuxa->setPossede($_POST['possede']);
-$manager->add($jeuxa, $_SESSION['user_session']);
-$user->redirect('index.php');
+
+$jeuxb = new Jeux();
+$jeuxb->hydrate($_POST);
+$jeuxb->setFini($_POST['fini']);
+$jeuxb->setPossede($_POST['possede']);
+var_dump($jeuxb);
+$manager->add($jeuxb, $_SESSION['auth']->id);
 
 }
 

@@ -66,8 +66,6 @@ body{
 }
 
 .droite{
-  
-  
   width:896px;
   height:700px;
   position:relative;
@@ -88,6 +86,14 @@ body{
   border-top: 1px solid black;
     
 }
+.droiteaccount{
+  width:896px;
+  height:724px;
+  position:relative;
+  left:205px;
+  overflow:hidden;
+  }
+  
 .droiteint{
     position: absolute;
     width:1100px;
@@ -209,6 +215,24 @@ tr.titre, tr.titre td{
     border:1px solid black;
  
 }
+.bodyaccount{
+    display:block;
+    position:absolute;
+    top:50px;
+    width:  893px;
+    border:1px solid black;  
+}
+.titreaccount{
+    
+    position:fixed;
+    z-index: 3;
+    width: 895px;
+   
+}
+.titreaccount th, .titreaccount td, .bodyaccount td {
+    width:297px;
+ }
+
  img.valid{
       max-width:30px;
       max-height:30px;
@@ -247,6 +271,14 @@ tr.titre, tr.titre td{
       background-color:#100BFF;
       color: white;
       border-radius: 10px;
+      text-align: center;
+  }
+  .liens_account{
+      display:block;
+      height: 300px;
+      border: 1px solid black;
+      padding: 10px;
+      background-color:  #EEEFF1;
       text-align: center;
   }
 
