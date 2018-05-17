@@ -12,6 +12,11 @@ $this->setDb($db);
 
 public function add(Jeux $jeux, $user_id)
 {
+ $q3=$this->_db->query('SELECT * FROM jeux WHERE titre="'.$jeux->titre().'"');
+  $exist=$q3->rowCount();
+ 
+ if($exist==0)
+ {
  $this->_db->query('INSERT INTO jeux SET titre = ?, temps = ?, difficulte = ?, multi = ?,  ps4 = ?, ps3 = ?, psvita= ?, liens = ?',[$jeux->titre(),$jeux->temps(),$jeux->difficulte(),$jeux->multi(), $jeux->ps4(),$jeux->ps3(),$jeux->psvita(),$jeux->liens()]);
  $q3=$this->_db->query('SELECT * FROM jeux WHERE titre="'.$jeux->titre().'"');
 
@@ -22,6 +27,9 @@ public function add(Jeux $jeux, $user_id)
 
  $this->_db->query('INSERT INTO maintable SET idjeux =?, idusers = ?, possede = ?, fini = ?',[$idjeux,$user_id,$jeux->possede(),$jeux->fini()]);
 App::redirect('ajouter.php');
+ }else{
+   App::redirect('ajouter.php');  
+ }
 
 
 

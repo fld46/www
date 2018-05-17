@@ -1,4 +1,5 @@
 <?php
+
 $auth = App::getAuth();
 $db = App::getDatabase();
 $auth->connectFromCookie($db);
@@ -40,9 +41,9 @@ $manager = new JeuxManager($db);
  <input class="formin" type="text"  name="username" placeholder="Username" />
  <input class="formin" type="password"  name="password" placeholder="Your Password" />
  </div>
+ <div class="register"><a  href="account/register.php" target="register">register</a></div>
+ <div class="perdu"><a  href="account/perdumdp.php" target="perdu">perdu mon mdp</a></div>
   <button type="submit" name="btn-login" >&nbsp;LOGIN</button>
-  <a href="account/register.php">register</a><br>
-  <a href="account/perdumdp.php">perdu mon mdp</a>
  <br/>
  </fieldset>
  </form>

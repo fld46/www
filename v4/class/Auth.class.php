@@ -123,12 +123,11 @@ class Auth {
      
      public function resetPassword($db, $email){
          
-        $user = $db->query('SELECT * FROM users WHERE email = ? AND confirmed_at IS NOT NULL',['email'])->fetch();
+        $user = $db->query('SELECT * FROM users WHERE email = ? AND confirmed_at IS NOT NULL',[$email])->fetch();
         if($user){
         
         $reset_token = Str::random(60);
         $db->query('UPDATE users SET reset_token = ?, reset_at = NOW() WHERE id = ?',[$reset_token, $user->id]);
-       
         mail($_POST['email'], 'Réinitiatilisation de votre mot de passe', "Afin de réinitialiser votre mot de passe merci de cliquer sur ce lien\n\nhttp://192.168.0.1/sitev3/reset.php?id={$user->id}&token=$reset_token");
         return $user;
         }

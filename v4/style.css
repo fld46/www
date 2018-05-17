@@ -126,11 +126,34 @@ body{
     box-shadow:1px 1px 1px #C0C0C0;
     cursor:pointer;
     }
+            
     .form_ident input[type=radio] {
     background-color:#E6E7E7;
     box-shadow:none;
     width:20px;
     }
+   /* formulaire ajouter et autre */
+   .form_rempli input  {
+    
+       background-color:#EEEFF1;
+       box-shadow:1px 1px 2px #C0C0C0 inset;
+   
+    }
+    
+    .form_rempli input[type=radio] {
+    background-color:#E6E7E7;
+    box-shadow:none;
+    width:20px;
+    }
+    
+   .form_rempli input[type=number] {
+    display: block;
+    width:50px;
+    margin: 0 auto;
+    box-shadow:1px 1px 1px #C0C0C0;
+    
+    }
+
     .formin{
        max-width: 150px;
     }
@@ -281,4 +304,19 @@ tr.titre, tr.titre td{
       background-color:  #EEEFF1;
       text-align: center;
   }
-
+  .perdu{
+    font-size: 12px;
+    float:right;
+  }
+  .register{
+      font-size: 12px;
+      float:left;
+      
+  }
+  
+  
+  .radios{
+      display:inline-block;
+      float:left;
+      width:10px;
+  }

@@ -1,6 +1,6 @@
 <?php
-require 'function.php';
-//require"../inc/bootstrap.php";
+//require 'function.php';
+require "../inc/bootstrap.php";
 
 
 if (!empty($_POST)){
@@ -24,19 +24,13 @@ if (!empty($_POST)){
         
         App::getAuth()->register($db,$_POST['login'], $_POST['password'], $_POST['email']);
        Session::getInstance()->setFlash('success', "Un email de confirmation vous a été envoyé pour valider votre compte" );
-        App::redirect('../account/register.php');
+        App::redirect('login.php');
     }else{
        $errors = $validator->getErrors(); 
     }
 }
 ?>
-<?php if(Session::getInstance()->hasFlashes()):?>
-                <?php foreach(Session::getInstance()->getFlashes() as $type => $message): ?>
-                <div class=''>
-                    <?= $message;?>
-                </div>
-                <?php endforeach; ?>
-                <?php endif;?>
+
 <html>
     <head>
         <title>test de presentation</title>

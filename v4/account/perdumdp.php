@@ -1,12 +1,12 @@
 <?php
-//require '../inc/bootstrap.php';
+require '../inc/bootstrap.php';
 if(!empty($_POST) && !empty($_POST['email'])){
     $db = App::getDatabase();
     $auth = App::getAuth();
     $session = Session::getInstance();
     if($auth->resetPassword($db, $_POST['email'])){
       $session->setFlash('success','Les instructions du rappel de mot de passe vous ont été envoyées par email');
-      App::redirect('../index.php');         
+      App::redirect('index.php');         
     }else{
       $session->setFlash('danger','Aucun compte ne correspond a cette adresse'); 
     }
@@ -18,7 +18,7 @@ if(!empty($_POST) && !empty($_POST['email'])){
         <title>Reinitialiser le mdp</title>
         <meta charset="UTF-8">
         
-        <link rel="stylesheet" href="style.css" type="text/css">
+        <link rel="stylesheet" href="../style.css" type="text/css">
     </head>
     <body >
         <div class="maincenter">

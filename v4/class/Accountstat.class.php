@@ -33,7 +33,7 @@ class Accountstat {
                 
     }
     public function getNbjeuxSuggere(){
-        $req = $this->_db->query('SELECT * FROM jeux AS J,maintable AS M WHERE  M.idjeux=J.id AND M.idusers= ? AND M.possede="oui" and M.fini IS NULL  ORDER BY J.difficulte,J.temps LIMIT 1',[$this->user_id]);
+        $req = $this->_db->query('SELECT * FROM jeux AS J,maintable AS M WHERE  M.idjeux=J.id AND M.idusers= ? AND M.possede="oui" and M.fini IS NULL AND J.difficulte!=0 AND J.difficulte IS NOT NULL  ORDER BY J.difficulte,J.temps LIMIT 1',[$this->user_id]);
         while ($donnees = $req->fetch(PDO::FETCH_ASSOC))
         {
         $jeux = new Jeux();

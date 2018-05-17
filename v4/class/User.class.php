@@ -99,20 +99,19 @@ class User
         session_start();
         unset($_SESSION['auth']);
         session_destroy();
-        //unset($_SESSION['user_session']);
-        //unset($_SESSION['login']);
-        //unset($_SESSION['page']);
+       
         return true;
    }
    public function getListUser()
    {    
     require 'userl.class.php';
     $userl = array();
-    $q = $this->db->query('SELECT * FROM users ORDER BY login');
+    $q = $this->db->query('SELECT * FROM users where confirmed_at IS NOT NULL ORDER BY login');
     while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     {
     $userl = new USERL();
     $userl->hydrate($donnees);
+    
     echo '<div><input type="checkbox" name="user[]" value="'.$userl->id().'"/> '.$userl->login().'</div>';
     }
     echo '<div>Possede <input type="checkbox" name="possede" value="oui"/> Fini <input type="checkbox" name="fini" value="oui"/></div>';

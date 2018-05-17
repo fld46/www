@@ -14,7 +14,7 @@ if(isset($_GET['id']) && isset($_GET['token'])){
                 $db->query('UPDATE users SET password = ?, reset_at = NULL, reset_token = NULL WHERE id =?',[$password,$_GET['id']]);
                 Session::getInstance()->setFlash('success',"Votre mot de passe a bien été modifié");
                 $auth->connect($user);
-                App::redirect('account.php');
+                App::redirect('account/account.php');
                 
             }
         }
@@ -33,7 +33,7 @@ if(isset($_GET['id']) && isset($_GET['token'])){
         <title>reinitialiser le mot de passe</title>
         <meta charset="UTF-8">
         
-        <link rel="stylesheet" href="style.css" type="text/css">
+        <link rel="stylesheet" href="../style.css" type="text/css">
     </head>
     <body >
         <div class="maincenter">

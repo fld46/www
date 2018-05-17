@@ -34,6 +34,8 @@
   }
   
   
+  
+  
 
 
 //Mutateurs
@@ -55,6 +57,7 @@
    }
   $this->_login = $login;
   }
+  
   
   public function makeFiltreConsole()
     {
@@ -95,8 +98,19 @@
                 $multi='J.multi="'.$_POST['multi'].'"';
             }
             }
+          if(!isset($_POST['nc'])){
+                $nc="";
+            }else{
+                if((isset($_POST['ps4']))OR(isset($_POST['ps3']))OR(isset($_POST['psvita']))OR(isset($_POST['multi']))){
+                $nc='AND J.difficulte>=1';  
+                }
+                else{            
+                $nc='J.difficulte>=1';
+            }
+            }
             
-        $_SESSION['filtrec']= $ps4.$ps3.$psvita.$multi;
+            
+        $_SESSION['filtrec']= $ps4.$ps3.$psvita.$multi.$nc;
         //var_dump($_SESSION['filtrec']);
         //if(($_SESSION['filtrec']=="")AND($_SESSION['filtreuser']!="")){
         //$_SESSION['filtreuser']='WHERE '.$_SESSION['filtreuser'];

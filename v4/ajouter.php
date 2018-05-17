@@ -11,7 +11,7 @@ $jeuxb = new Jeux();
 $jeuxb->hydrate($_POST);
 $jeuxb->setFini($_POST['fini']);
 $jeuxb->setPossede($_POST['possede']);
-var_dump($jeuxb);
+
 $manager->add($jeuxb, $_SESSION['auth']->id);
 
 }
@@ -43,14 +43,15 @@ $manager->add($jeuxb, $_SESSION['auth']->id);
         <td><input type="number" name="temps" step="1" min="0" max="10000"/></td>
         <td><input type="number" name="difficulte" step="1" min="0" max="10"/></td>
         <td>
-            <p><label>oui</label><input type="radio" name="multi" value="oui" /> <br>
-                <label>non</label><input type="radio" name="multi" value="non" /> </p>
+            <label for="oui">oui</label><input type="radio" id="oui" name="multi" value="oui" />
+            <label for="non">non</label><input type="radio" id="non" name="multi" value="non" /> 
             
         </td>
-        <td>
-            <label>Psvita</label><input type="checkbox" name="psvita" value="oui" /><br>
-            <label>Ps3</label><input type="checkbox" name="ps3" value="oui" /><br>
-            <label>Ps4</label><input type="checkbox" name="ps4" value="oui" />
+        <td class="radios">
+            <div class="radios"><label>Psvita</label><br><label>Ps3</label><br><label>Ps4</label></div>
+            <div><input  type="checkbox" name="psvita" value="oui" /><br>
+                <input type="checkbox" name="ps3" value="oui" /><br>
+            <input type="checkbox" name="ps4" value="oui" /></div>
         
         </td>
         </tr>

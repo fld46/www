@@ -18,6 +18,7 @@ $manager = new JeuxManager($db);
                 <div><input type="checkbox" name="ps3"  value="oui" /> Ps3</div>
                 <div><input type="checkbox" name="psvita"  value="oui" /> Psvita</div>
                 <div><input type="checkbox" name="multi"  value="oui" /> Multi</div>
+                <div><input type="checkbox" name="nc"  value="oui" /> Enlever les vides</div>
             </fieldset>
             <fieldset><legend>Users</legend>
           
