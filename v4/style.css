@@ -356,7 +356,7 @@ tr.titre, tr.titre td{
   }
   .perdu{
     font-size: 12px;
-    float:right;
+    float:left;
   }
   .register{
       font-size: 12px;
@@ -369,4 +369,9 @@ tr.titre, tr.titre td{
       display:inline-block;
       float:left;
       width:10px;
+  }
+  .remember{
+    display:inline-block;
+    font-size:10px;
+      
   }

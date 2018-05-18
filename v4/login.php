@@ -17,8 +17,6 @@ $session = session::getInstance();
     $session->setFlash('danger', 'Identifiant ou mot de passe incorrecte' );
     }
 }
-
-
 $manager = new JeuxManager($db);
 ?>
 
@@ -40,10 +38,10 @@ $manager = new JeuxManager($db);
  <div > 
  <input class="formin" type="text"  name="username" placeholder="Username" />
  <input class="formin" type="password"  name="password" placeholder="Your Password" />
- </div>
- <div class="register"><a  href="account/register.php" target="register">register</a></div>
- <div class="perdu"><a  href="account/perdumdp.php" target="perdu">perdu mon mdp</a></div>
-  <button type="submit" name="btn-login" >&nbsp;LOGIN</button>
+ </div><div class="remember"><input type="checkbox" name="remember" value="1">Se souvenir de moi</div><br>
+ <button type="submit" name="btn-login" >&nbsp;LOGIN</button><br>
+ <div class="register"><a  href="account/register.php" target="register">Creer un compte</a></div><br>
+ <div class="perdu"><a  href="account/perdumdp.php" target="perdu">J'ai oublié mon mot de passe</a></div>
  <br/>
  </fieldset>
  </form>

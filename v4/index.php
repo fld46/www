@@ -14,10 +14,10 @@ if(isset($_SESSION['auth']) AND $_SESSION['auth']->droits=="A"){
 }
 
 ?>
-
+<!DOCTYPE html>
 <html>
     <head>
-        <title>test de presentation</title>
+        <title>Collection de jeux</title>
         <meta charset="UTF-8">
         
         <link rel="stylesheet" href="/style.css" type="text/css">
@@ -35,12 +35,7 @@ if(isset($_SESSION['auth']) AND $_SESSION['auth']->droits=="A"){
                 }else{
                 include($_SESSION['page']);    
                 }
-                
-                //if(!isset($_SESSION['page'])){
-                //include('login.php');
-                //}else{
-                //include($_SESSION['page']);    
-                //}
+                               
                 ?>
         </div>
         </div>
