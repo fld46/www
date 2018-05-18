@@ -1,5 +1,5 @@
 <?php
- class USERL
+ class Userl
  {
   Private $_id;
   Private $_login;
@@ -157,7 +157,7 @@
         //echo $_SESSION['filtreuser'];
         
     }
-    public function makeTri(){
+  public function makeTri(){
         if((!isset($_POST['tri']))or($_POST['tri']=='')){
                 $tri=' ORDER BY titre';
                  }else{
@@ -187,7 +187,7 @@
           } 
         
     }
-    public function makeVarTriFiltre(){
+  public function makeVarTriFiltre(){
         if(($_SESSION['filtrec']!="")and($_SESSION['filtreuser'])==''){
         $_SESSION['trifiltre']='SELECT * FROM jeux AS J WHERE  '.$_SESSION['filtrec'].$_SESSION['tri'].$_SESSION['ordretri'];    
         }
@@ -205,4 +205,6 @@
         }
         //var_dump($_SESSION['trifiltre']);
         }
-}
+  
+        
+        }

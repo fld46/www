@@ -1,4 +1,8 @@
 <?php
+if(!isset($_SESSION['auth']->droits)){
+    require "inc/bootstrap.php";
+    App::redirectr('/v4/index.php');
+}
 
 //session_start();
 

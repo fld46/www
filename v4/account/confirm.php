@@ -8,6 +8,7 @@ $user=$db->query('SELECT * FROM users WHERE id= ?',[$user_id] )->fetch();
 if(App::getAuth()->confirm($db,$_GET['id'],$_GET['token'], Session::getInstance())) {
     
     Session::getInstance()->setFlash('success', "Votre compte a bien été validé");
+     $_SESSION['menu']=4;
     App::redirect('account/account.php');
     
     
@@ -17,4 +18,4 @@ if(App::getAuth()->confirm($db,$_GET['id'],$_GET['token'], Session::getInstance(
      App::redirect('login.php');
 }
 
-?>
+

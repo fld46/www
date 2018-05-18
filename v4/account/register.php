@@ -17,14 +17,13 @@ if (!empty($_POST)){
         $validator->isUniq('email', $db, 'users','Cet e-mail est deja utilisé pour un autre compte');
     }
     $validator->isConfirmed('password', 'Vous devez rentrer un mot de passe valide');
-    //var_dump($validator);
-    //var_dump($validator->isValid());
+    
      
     if($validator->isValid()){
         
         App::getAuth()->register($db,$_POST['login'], $_POST['password'], $_POST['email']);
        Session::getInstance()->setFlash('success', "Un email de confirmation vous a été envoyé pour valider votre compte" );
-        App::redirect('login.php');
+        App::redirectr('/account/register.php');
     }else{
        $errors = $validator->getErrors(); 
     }

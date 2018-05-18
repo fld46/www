@@ -13,7 +13,7 @@ $this->setDb($db);
 public function add(Jeux $jeux, $user_id)
 {
  $q3=$this->_db->query('SELECT * FROM jeux WHERE titre="'.$jeux->titre().'"');
-  $exist=$q3->rowCount();
+ $exist=$q3->rowCount();
  
  if($exist==0)
  {
@@ -354,7 +354,7 @@ public function getList()
     $jeux = array();
     $q = $this->_db->query($_SESSION['trifiltre']);
     $_SESSION['result']=$q->rowCount();
-    if(($_SESSION['result']>=13)OR(!isset($_SESSION['result']))){
+    if(($_SESSION['result']>=11)OR(!isset($_SESSION['result']))){
         $tableb='fixeb';
         echo'<div class="droite">';
     }else{

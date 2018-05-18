@@ -41,5 +41,64 @@ class Accountstat {
         return $jeux->titre();
              
         }   
-}
+    }
+    public function getNbjeux(){
+        $req = $this->_db->query('SELECT * FROM jeux ');
+        $nbjeux=$req->rowCount();
+        return $nbjeux;
+                
+    }
+     public function getNbjeuxNC(){
+        $req = $this->_db->query('SELECT * FROM jeux  WHERE difficulte IS NULL OR difficulte=0 OR temps IS NULL OR temps=0  ');
+        $nbjeuxnc=$req->rowCount();
+        return $nbjeuxnc;
+        }   
+   
+    public function getLastjeux(){
+        $req = $this->_db->query('SELECT * FROM jeux ORDER BY id DESC LIMIT 5');
+        while ($donnees = $req->fetch(PDO::FETCH_ASSOC))
+        {
+        $jeux = new Jeux();
+        $jeux->hydrate($donnees);
+        
+        if (($jeux->multi())=="oui"){
+        $multi='oui.png';
+        }else{
+        $multi='non.png';
+        }
+        if(($jeux->ps4())=="oui"){
+        $ps4='<div class="ps4">&nbsp;PS4&nbsp;</div>';
+        }
+        else{
+        $ps4=''; 
+        }
+        if(($jeux->ps3())=="oui"){
+        $ps3='<div class="ps3">&nbsp;PS3&nbsp;</div>';
+        }
+        else{
+        $ps3=''; 
+        }
+        if(($jeux->psvita())=="oui"){
+        $psvita='<div class="psvita"> &nbsp;VITA&nbsp;</div>';
+        }
+        else{
+        $psvita=''; 
+        }
+        if($jeux->liens()==""){
+        $liens=$jeux->titre();
+        }else{
+        $liens= '<a href='.$jeux->liens().' target="new"><img src="guide.png" class="validg" alt=""/>'.$jeux->titre().'</a>';
+        }
+        echo "<tr>
+            <td class=\"titre\">".$liens."</td>
+            <td>".$jeux->temps()."</td>
+            <td>".$jeux->difficulte()."</td>
+            <td ><img src=".$multi." class=\"valid\"/></td>
+            <td>".$ps4.$ps3.$psvita."</td>
+            </tr>";
+             
+        }
+    }
+
+    
 }

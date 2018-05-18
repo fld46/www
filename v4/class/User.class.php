@@ -123,6 +123,38 @@ class User
 
     
     }
+    public function getListUserselect()
+   {    
+    require 'userl.class.php';
+    $userl = array();
+    $q = $this->db->query('SELECT * FROM users ORDER BY login');
+    while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+    {
+    $userl = new USERL();
+    $userl->hydrate($donnees);
+    echo '<option value="'.$userl->login().'">'.$userl->id();
+    }
+      
+    return $userl;
+
+    
+    }
+    public function getListUserselectsafari()
+   {    
+    require 'userl.class.php';
+    $userl = array();
+    $q = $this->db->query('SELECT * FROM users ORDER BY login');
+    while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
+    {
+    $userl = new USERL();
+    $userl->hydrate($donnees);
+    echo '<option value="'.$userl->login().'">'.$userl->login().'</option>';
+    }
+     
+    return $userl;
+
+    
+    }
     
 }
 

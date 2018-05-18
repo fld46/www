@@ -1,4 +1,8 @@
 <?php
+if(!isset($_SESSION['auth']->droits)or $_SESSION['auth']->droits!="A"){
+    require "inc/bootstrap.php";
+    App::redirectr('/v4/index.php');
+}
 $db = App::getDatabase();
 $manager = new JeuxManager($db);
 if(isset($_POST['selectj']))

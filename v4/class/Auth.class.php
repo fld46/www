@@ -29,16 +29,33 @@ class Auth {
     public function register($db,$username, $password, $email){
         $password= $this->hashPassword($password);
         $token=Str::random(60);
-        $db->query('INSERT INTO users SET login = ?, password= ?, email = ?, confirmation_token = ?',[
+        $db->query('INSERT INTO users SET login = ?, password= ?, email = ?, confirmation_token = ?, droits="N"',[
             $username,
             $password,
             $email,
             $token
                 ]);
         $user_id= $db->lastInsertId();
-        mail($email, 'Confirmation de votre inscription', "Afin de completer votre inscription, merci de cliquer sur ce liens : \n\n http://192.168.0.1/v4/account/confirm.php?id=".$user_id."&token=".$token."");
+        $message_txt="Afin de completer votre inscription, merci de cliquer sur ce liens : \n\n http://192.168.0.1/account/confirm.php?id=".$user_id."&token=".$token."";
+        $message_html="<html><head></head><body><b>Bonjour</b>,<p>Afin de completer votre inscription, merci de cliquer sur ce liens :</p><p><a href=\"http://192.168.0.1/account/confirm.php?id=".$user_id."&token=".$token."\">Cliquez ici</a></p></body></html>";
+        //mail($email, 'Confirmation de votre inscription', "Afin de completer votre inscription, merci de cliquer sur ce liens : \n\n http://192.168.0.1/v4/account/confirm.php?id=".$user_id."&token=".$token."");
+        $mail = new mail();
+        $mail->createMail($email, 'collection','fld46@wanadoo.fr','Confirmation de votre inscription', $message_txt, $message_html);
         
+    }
+    public function deleteNC($db){
+               
+        $db->query('DELETE FROM users WHERE confirmed_at IS NULL OR confirmed_at="0000-00-00 00:00:00"');
+                
+    }
+    
+    public function deleteu($db, $login){
+        $user=$db->query('SELECT * FROM users WHERE login = ?',[$login])->fetch();
+        $id_user=$user->id;
+        $db->query('DELETE FROM maintable WHERE idusers= ?',[$id_user]);
+        $db->query('DELETE FROM users WHERE id= ?',[$id_user]);
         
+                
     }
     public function confirm($db,$user_id,$token){
         
@@ -66,6 +83,7 @@ class Auth {
          }
          return $this->session->read('auth');
     }
+    
     public function connect($user){
       
      $this->session->write('auth', $user);
@@ -128,7 +146,13 @@ class Auth {
         
         $reset_token = Str::random(60);
         $db->query('UPDATE users SET reset_token = ?, reset_at = NOW() WHERE id = ?',[$reset_token, $user->id]);
-        mail($_POST['email'], 'Réinitiatilisation de votre mot de passe', "Afin de réinitialiser votre mot de passe merci de cliquer sur ce lien\n\nhttp://192.168.0.1/sitev3/reset.php?id={$user->id}&token=$reset_token");
+        
+        $message_txt="Afin de réinitialiser votre mot de passe merci de cliquer sur ce lien : \n\n http://192.168.0.1/account/reset.php?id=".$user->id."&token=".$reset_token."";
+        $message_html="<html><head></head><body><b>Bonjour</b>,<p>Afin de réinitialiser votre mot de passe merci de cliquer sur ce lien :</p><p><a href=\"http://192.168.0.1/account/reset.php?id=".$user->id."&token=".$reset_token."\">Cliquez ici</a></p></body></html>";
+        //mail($email, 'Confirmation de votre inscription', "Afin de completer votre inscription, merci de cliquer sur ce liens : \n\n http://192.168.0.1/v4/account/confirm.php?id=".$user_id."&token=".$token."");
+        $mail = new mail();
+        $mail->createMail($email, 'collection','fld46@wanadoo.fr','Réinitiatilisation de votre mot de passe', $message_txt, $message_html);
+        //mail($_POST['email'], 'Réinitiatilisation de votre mot de passe', "Afin de réinitialiser votre mot de passe merci de cliquer sur ce lien\n\nhttp://192.168.0.1/sitev3/reset.php?id={$user->id}&token=$reset_token");
         return $user;
         }
         return false;
@@ -139,6 +163,6 @@ class Auth {
         return $db->query('SELECT * FROM users WHERE id = ? AND reset_token IS NOT NULL AND reset_token = ? AND reset_at > DATE_SUB(NOW(), INTERVAL 30 MINUTE)',[$user_id, $token])->fetch();
          
      }
-    
+     
     
   }

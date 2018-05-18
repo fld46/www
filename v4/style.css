@@ -67,7 +67,7 @@ body{
 
 .droite{
   width:896px;
-  height:700px;
+  height:600px;
   position:relative;
   left:205px;
   overflow:hidden;
@@ -103,7 +103,20 @@ body{
     right: -15px; /* Il faut varier cette variable en fonction du navigateur utilisé (la barre de défilement n'a pas toujours la même largeur) */
     overflow: auto;
 }
-
+.droiteaccountb{
+  width:896px;
+  height:105px;
+  position:relative;
+  top: 105px;
+  overflow:hidden;
+  }
+  .droiteaccountc{
+  width:896px;
+  height:724px;
+  position:relative;
+  top: 105px;
+  overflow:hidden;
+  }
 /* formulaire login */
     .form_ident {
     
@@ -254,6 +267,43 @@ tr.titre, tr.titre td{
 }
 .titreaccount th, .titreaccount td, .bodyaccount td {
     width:297px;
+ }
+ .bodyaccountb{
+    display:block;
+    position:absolute;
+    top:50px;
+    width:  893px;
+    border:1px solid black;  
+}
+.titreaccountb{
+    
+    position:fixed;
+    z-index: 3;
+    width: 895px;
+   
+}
+.titreaccountb th, .titreaccountb td, .bodyaccountb td {
+    width:446px;
+ }
+ .bodyaccountc{
+    display:block;
+    position:absolute;
+    top:50px;
+    width:  893px;
+    border:1px solid black;  
+}
+.titreaccountc{
+    
+    position:fixed;
+    z-index: 3;
+    width: 895px;
+   
+}
+.titreaccountc th.titre , .bodyaccountc td.titre {
+    width:450px;
+ }
+.titreaccountc th, .titreaccountc td, .bodyaccountc td {
+    width:112px;
  }
 
  img.valid{
