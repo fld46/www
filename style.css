@@ -7,6 +7,9 @@ and open the template in the editor.
     Created on : 2 mai 2018, 19:17:37
     Author     : fld
 */
+textarea{
+  resize: none;
+}
 a.bouton-relief {
     border-radius:12px 0 0 0;
     background: #000000;

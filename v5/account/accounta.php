@@ -1,0 +1,67 @@
+<?php
+if(!isset($_SESSION['auth']->droits)or$_SESSION['auth']->droits!="A"){
+    require "../inc/bootstrap.php";
+    App::redirectr('/v4/index.php');
+}
+$auth=App::getAuth()->restrict();
+$db=App::getDatabase();
+$stats = new Accountstat($db, $_SESSION['auth']->id);
+?>
+   <div class="menu_gauche">
+       <div class="liens_account">
+           <p><a href="changemdps.php">Changer de mot de passe</a></p>
+           <p><a href="Users.php">Utilisateurs</a></p>
+       </div>
+   </div>    
+   <div class="droiteaccount">
+      <table class="droit">
+        <thead class="titreaccount">
+                <tr class="titre">
+                    <th>Nombre de jeux possédés</th>
+                    <th>Nombre de jeux finis</th>
+                    <th>Jeu Suggéré</th>
+                </tr>
+        </thead>
+        <tbody class="bodyaccount">
+        <tr>
+            <td><?php echo $stats->getNbjeuxPossede();?></td>
+            <td><?php echo $stats->getNbjeuxFini();?></td>
+            <td><?php echo $stats->getNbjeuxSuggere();?></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="droiteaccountb">
+       <table class="droit">
+        <thead class="titreaccountb">
+                <tr class="titre">
+                    <th>Nombre de jeux </th>
+                    <th>Nombre de jeux non renseignés</th>
+                </tr>
+        </thead>
+        <tbody class="bodyaccountb">
+        <tr>
+            <td><?php echo $stats->getNbjeux();?></td>
+            <td><?php echo $stats->getNbjeuxNC();?></td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="droiteaccountc">
+       <table class="droit">
+        <thead class="titreaccountc">
+                <tr class="titre">
+                    <th class="titre">Titre</th>
+                    <th>Temps</th>
+                    <th>Difficulte</th>
+                    <th>Multi</th>
+                    <th>Console</th>
+                </tr>
+        </thead>
+        <tbody class="bodyaccountc">
+        <?php $stats->getLastjeux();?>
+        </tbody>
+    </table>
+    </div>
+</div> 
+   
+   

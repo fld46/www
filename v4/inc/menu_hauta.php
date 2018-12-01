@@ -1,4 +1,5 @@
 <?php
+//menu du haut de l'administrateur en fonction de la variable i.
         switch ($i) {
         case 0:
             ?><a class="onglet-actif" href="accueils.php">Accueil</a> <!-- onglet actif -->

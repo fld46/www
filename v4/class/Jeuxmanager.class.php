@@ -14,10 +14,14 @@ public function add(Jeux $jeux, $user_id)
 {
  $q3=$this->_db->query('SELECT * FROM jeux WHERE titre="'.$jeux->titre().'"');
  $exist=$q3->rowCount();
- 
+ if($jeux->comments()!="Commentaire"){
+     $comm=$jeux->comments();
+ }else{
+     $comm="";
+ }
  if($exist==0)
  {
- $this->_db->query('INSERT INTO jeux SET titre = ?, temps = ?, difficulte = ?, multi = ?,  ps4 = ?, ps3 = ?, psvita= ?, liens = ?',[$jeux->titre(),$jeux->temps(),$jeux->difficulte(),$jeux->multi(), $jeux->ps4(),$jeux->ps3(),$jeux->psvita(),$jeux->liens()]);
+ $this->_db->query('INSERT INTO jeux SET titre = ?, temps = ?, difficulte = ?, multi = ?,  ps4 = ?, ps3 = ?, psvita= ?, liens = ?, comments = ?',[$jeux->titre(),$jeux->temps(),$jeux->difficulte(),$jeux->multi(), $jeux->ps4(),$jeux->ps3(),$jeux->psvita(),$jeux->liens(),$comm]);
  $q3=$this->_db->query('SELECT * FROM jeux WHERE titre="'.$jeux->titre().'"');
 
     while ($donnees = $q3->fetch(PDO::FETCH_ASSOC))
@@ -100,13 +104,19 @@ public function verifRadio(Jeux $radioj,$input)
 if ($radioj->$input() == "oui")
     {
     echo'
-    <input type="radio" name="'.$input.'" value="oui" checked required/>Oui<input type="radio" name="'.$input.'" value="non" required/>Non
+    <input type="radio" name="'.$input.'" value="oui" checked required/>Oui<input type="radio" name="'.$input.'" value="non" r/>Non
     ';    
     }
-if(($radioj->$input() == "non")||($radioj->$input() == ""))
+if($radioj->$input() == "non")
     {
     echo'
-    <input type="radio" name="'.$input.'" value="oui" required/>Oui<input type="radio" name="'.$input.'" value="non" checked required/>Non
+    <input type="radio" name="'.$input.'" value="oui" />Oui<input type="radio" name="'.$input.'" value="non" checked />Non
+    ';    
+    }
+if($radioj->$input() == "")
+    {
+    echo'
+    <input type="radio" name="'.$input.'" value="oui" />Oui<input type="radio" name="'.$input.'" value="non"  />Non
     ';    
     }
 }
@@ -192,8 +202,9 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
         </thead>
         <tbody class="fixec">
         <tr>
-        
+        <td class="img"></td><td class="img"></td>
         <td class="titre"><input type="text" name="titrejeux" readonly value="'.$jeux->titre().'"></td>
+        <td class="img"></td>
         <td>'.$jeux->temps().'</td>
         <td>'.$jeux->difficulte().'</td>
         <td><img src='.$multi.' class="valid">
@@ -201,7 +212,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
         <td>'.$ps4.$ps3.$psvita.'</td>
         
         </tr>
-        <tr><td colspan="5"><button type="submit" class="delete" name="supj" >Delete</button></td></tr>
+        <tr><td colspan="8"><button type="submit" class="delete" name="supj" >Delete</button></td></tr>
         </tbody>
     </table>
     
@@ -257,6 +268,11 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     else{
        $psvita=''; 
     }
+    if(($jeux->comments())==""){
+        $comm='Commentaire';
+    }else{
+        $comm=$jeux->comments();
+    }
     //var_dump($jeux);
     echo'
     
@@ -289,8 +305,9 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
         </thead>
         <tbody class="fixec">
         <tr>
-        
+        <td class="img"></td><td class="img"></td>
         <td class="titre"><br><input type="text" name="titre" value="'.$jeux->titre().'"><br><input type="text" name="liens" value="'.$jeux->liens().'"></td>
+        <td class="img"></td>
         <td><input type="number" name="temps" value="'.$jeux->temps().'"></td>
         <td><input type="number" name="difficulte" value="'.$jeux->difficulte().'"></td>
         <td>';
@@ -306,13 +323,19 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
         
         </tr>
         
-        <tr><td classe="titre">
+        
+        <tr>
+            <td colspan="8"><TEXTAREA  name="comment" rows="1" cols="50">'.$comm.'</textarea></td>  
+        </tr>
+        <tr>
+        <td class="img"></td><td class="img"></td>
+        <td classe="titre">
         Possede ';
         $this->verifChkbox($jeux, 'possede');
         echo 'Fini :';
         $this->verifChkbox($jeux, 'fini');
         echo'
-        </td><td colspan="4"><button type="submit" class="delete" name="modifierj" >Modifier</button></td>
+        </td><td class="img"></td><td colspan="4"><button type="submit" class="delete" name="modifierj" >Modifier</button></td>
         </tr>
         </tbody>
     </table>
@@ -340,12 +363,17 @@ $q = $this->_db->query('SELECT * FROM jeux  WHERE titre=? ',[$idj]);
     $jeuxad->hydrate($donnees);
     
     }
+    if ($_POST['comment']!="Commentaire"){
+        $comm=$_POST['comment'];
+    }else{
+        $comm="";
+    }
 if($testv->rowCount() =='0'){
 $this->_db->query('INSERT INTO maintable SET possede = ?, fini = ?, idjeux= ? ,idusers= ? ',[$_POST['possede'],$_POST['fini'],$jeuxad->id(),$_SESSION['auth']->id]);
 }else{
 $this->_db->query('UPDATE maintable SET possede = ?, fini =? WHERE idjeux= ? AND idusers= ? ',[$_POST['possede'],$_POST['fini'],$jeuxad->id(),$_SESSION['auth']->id]);  
 }
-$this->_db->query('UPDATE jeux SET titre = ?, temps = ?, difficulte = ?, multi = ?,  ps4 = ?, ps3 = ?, psvita= ?, liens = ? WHERE id= ?',[$_POST['titre'],$_POST['temps'],$_POST['difficulte'],$_POST['multi'],$_POST['ps4'],$_POST['ps3'],$_POST['psvita'],$_POST['liens'],$jeuxad->id()]);
+$this->_db->query('UPDATE jeux SET titre = ?, temps = ?, difficulte = ?, multi = ?,  ps4 = ?, ps3 = ?, psvita= ?, liens = ?, comments = ? WHERE id= ?',[$_POST['titre'],$_POST['temps'],$_POST['difficulte'],$_POST['multi'],$_POST['ps4'],$_POST['ps3'],$_POST['psvita'],$_POST['liens'],$comm,$jeuxad->id()]);
 }
 
 public function getList()
@@ -366,10 +394,10 @@ public function getList()
             <table class="droit">
                 <thead class="fixe">
                     <tr class="titre">
-                        <th class="titre" scope="col" >TITRE</th>
+                        <th  class="titre" scope="col" >TITRE</th>
                         <th class="temps" >Temps</th>
                         <th class="difficulte" >Difficulte</th>
-                        <th class="multi" >Multi</th>
+                        
                         <th class="console" >Console</th>
                     </tr>
                 </thead>
@@ -382,9 +410,9 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     $jeux->hydrate($donnees);
    
     if (($jeux->multi())=="oui"){
-        $multi='oui.png';
+        $multi='<img src="online.png" class="valido" alt="" />';
     }else{
-        $multi='non.png';
+        $multi='';
     }
     if(($jeux->ps4())=="oui"){
         $ps4='<div class="ps4">&nbsp;PS4&nbsp;</div>';
@@ -404,21 +432,37 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     else{
        $psvita=''; 
     }
-    if($jeux->liens()==""){
-        $liens=$jeux->titre();
+   
+    //if(($jeux->comments()=="")&&($jeux->liens()=="")){
+    //    $liens='<img src="" class="validg" alt="" />'.$jeux->titre();
+    //}elseif(($jeux->comments()=="")&&($jeux->liens()!="")){
+    //   $liens= '<a href='.$jeux->liens().' target="new"><img src="guide.png" class="validg" alt="" /><img src="" class="validg" alt="" />'.$jeux->titre().'</a>';
+    //}elseif(($jeux->comments()!="")&&($jeux->liens()!="")){
+     //  $liens= '<a href='.$jeux->liens().' target="new"><img src="guide.png" class="validg" alt="" /><span title="'.$jeux->comments().'"><img src="comments.png" class="validg" alt="" /></span>'.$jeux->titre().'</a>';
+    //}else{
+    //   $liens= '<span title="'.$jeux->comments().'"><img src="comments.png" class="validg" alt="" />'.$jeux->titre().'</span></a>'; 
+    //}
+    if($jeux->comments()!=""){
+       $comments= '<span title="'.$jeux->comments().'"><img src="comments.png" class="validg" alt="" /></span>';
     }else{
-       $liens= '<a href='.$jeux->liens().' target="new"><img src="guide.png" class="validg" alt=""/>'.$jeux->titre().'</a>';
+       $comments=''; 
     }
+    if($jeux->liens()!=""){
+       $guide= '<a href='.$jeux->liens().' target="new"><img src="guide.png" class="validg" alt="" /></a>';
+    }else{
+       $guide=''; 
+    }
+    
     echo 
     '
     
        
     <tr>
-     <td class="titre">'.$liens.'</td>
+     <td class="img">'.$guide.'</td><td class="img">'.$comments.'</td><td class="titre">'.$jeux->titre().'</td><td class="img">'.$multi.'</td>
      <td class="temps">'.$jeux->temps().'</td>
      <td class="difficulte">'.$jeux->difficulte().'</td>
-     <td class="multi"><img src='.$multi.' class="valid"/></td>
-     <td class="console">'.$ps4.'
+     
+    <td class="console">'.$ps4.'
      '.$ps3.'
      '.$psvita.'</td>
      </tr>
@@ -444,8 +488,10 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
    
     if (($jeux->multi())=="oui"){
         $multi='oui.png';
+        $multit = "oui";
     }else{
         $multi='non.png';
+        $multit = "non";
     }
     if(($jeux->ps4())=="oui"){
         $ps4='<div class="ps4">&nbsp;PS4 &nbsp;</div>';
@@ -476,7 +522,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
      <td class="titre">'.$liens.'</td>
      <td>'.$jeux->temps().'</td>
      <td>'.$jeux->difficulte().'</td>
-     <td><img src='.$multi.' class="valid"></td>
+     <td><img src='.$multi.' class="valid" alt='.$multit.'></td>
      <td>'.$ps4.''.$ps3.''.$psvita.'
      <!--<td></td>-->
      </tr>

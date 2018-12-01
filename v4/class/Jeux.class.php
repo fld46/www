@@ -12,6 +12,7 @@
   Private $_ps3;
   Private $_psvita;
   Private $_liens;
+  Private $_comments;
   
 
 
@@ -75,6 +76,10 @@
   Public function possede()
   {
   return $this->_possede;
+  }
+   Public function comments()
+  {
+  return $this->_comments;
   }
 
 
@@ -147,6 +152,10 @@
   Public function setPossede($possede)
   {
   return $this->_possede = $possede;
+  }
+  Public function setComments($comment)
+  {
+  return $this->_comments = $comment;
   }
 }
 

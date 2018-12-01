@@ -2,7 +2,7 @@
 class Datalist {
     
     public function verifNav(){
-        $db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
+        $db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root','et2tcmdp' );
         $manager = new JeuxManager($db);
         
         if ( preg_match('/Mac/i', $_SERVER['HTTP_USER_AGENT'])){
@@ -18,7 +18,7 @@ class Datalist {
      }   
     }
     public function verifNavu(){
-        $db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root' );
+        $db = new PDO('mysql:host=localhost;dbname=sitejeuxv2', 'root','et2tcmdp' );
         $user = new User($db);
         
         if ( preg_match('/Mac/i', $_SERVER['HTTP_USER_AGENT'])){

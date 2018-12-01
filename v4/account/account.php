@@ -10,6 +10,9 @@ $stats = new Accountstat($db, $_SESSION['auth']->id);
    <div class="menu_gauche">
        <div class="liens_account">
            <p><a href="changemdps.php">Changer de mot de passe</a></p>
+           <p><a href="prochjeuxafinirs.php">Prochains jeux a finir</a></p>
+           <p><a href="jeuxssguide.php">Jeux sans guide</a></p>
+           <p><a href="vljeux.php">Votre liste de jeux</a></p>
        </div>
    </div>    
    <div class="droiteaccount">

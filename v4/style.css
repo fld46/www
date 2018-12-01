@@ -1,3 +1,7 @@
+textArea{
+    resize: none;
+    background-color: #EEEFF1;
+}
 .onglet { /* style des onglets inactifs */
   border:solid 1px black ; /* encadrement */
   margin:0px 0px 0px 0px ; /* marge extérieure */
@@ -177,6 +181,7 @@ table.droit {
     width: 895px;
     border-collapse: collapse;
     
+    
 }
 table.droit tr:nth-child(odd) {
     background-color: #E6E7E7;
@@ -194,7 +199,7 @@ table.droit thead{
     
 }
 table.droit thead th {
-    padding: 5px;
+    padding: 0px;
     height: 50px;
     
     
@@ -229,9 +234,24 @@ tr.titre, tr.titre td{
     width:112px;
    
 }
-.fixe th.titre, .fixeb td.titre, .fixec td.titre{
+th.console, td.console {
+  width:224px;  
+}
+.fixe th.titre{
     width:450px;
 }
+.fixeb td.titre, .fixec td.titre{
+    width:360px;
+}
+
+
+
+
+.fixe td.img, .fixeb td.img, .fixec td.img, .bodyaccountc td.img{
+ width:30px;   
+}
+ 
+
 .fixeb{
     display:block;
     position:relative;
@@ -266,7 +286,7 @@ tr.titre, tr.titre td{
    
 }
 .titreaccount th, .titreaccount td, .bodyaccount td {
-    width:297px;
+    width:300px;
  }
  .bodyaccountb{
     display:block;
@@ -283,7 +303,7 @@ tr.titre, tr.titre td{
    
 }
 .titreaccountb th, .titreaccountb td, .bodyaccountb td {
-    width:446px;
+    width:449px;
  }
  .bodyaccountc{
     display:block;
@@ -299,11 +319,18 @@ tr.titre, tr.titre td{
     width: 895px;
    
 }
-.titreaccountc th.titre , .bodyaccountc td.titre {
+.titreaccountc th.titre {
     width:450px;
  }
+ .bodyaccountc td.titre {
+   width:360px;  
+ }
+ 
 .titreaccountc th, .titreaccountc td, .bodyaccountc td {
     width:112px;
+ }
+ .titreaccountc th.console, .bodyaccountc td.console{
+    width:224px;
  }
 
  img.valid{
@@ -315,6 +342,14 @@ tr.titre, tr.titre td{
       display:block;
       position:relative;
       float:left;
+      max-width:30px;
+      max-height:20px;
+      
+  }
+  img.valido{
+      display:block;
+      position:relative;
+      float:right;
       max-width:30px;
       max-height:20px;
       

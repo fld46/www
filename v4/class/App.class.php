@@ -19,7 +19,7 @@ class App {
     
     static function getDatabase(){
         if(!self::$db){
-        self::$db = new Database('root', '', 'sitejeuxv2');
+        self::$db = new Database('root', 'et2tcmdp', 'sitejeuxv2','localhost');
         }
         return self::$db;
         
