@@ -25,7 +25,7 @@ if(isset($_POST['modifierj']))
  
  
  //Session::setFlash('update','Update ok');
- //App::redirect('modifier.php');
+ //App::redirect('jeux.php');
 } 
 }
 //formulaire si aucun jeux selectionné
