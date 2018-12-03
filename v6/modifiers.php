@@ -4,7 +4,7 @@ $user= new Auth(Session::getInstance());
 if($user->user())
 {
 
-$_SESSION['menu']=2;
+$_SESSION['menu']=4;
 App::redirect('modifier.php');
 }
 else{

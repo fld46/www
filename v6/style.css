@@ -208,6 +208,7 @@ table.droit thead th.titre {
     width: 50%;
     
 }
+
 table.droit tr{
     height: 50px;
     
@@ -234,6 +235,15 @@ tr.titre, tr.titre td{
     width:112px;
    
 }
+.fixe th.titrejeux{
+    width:895px;
+   
+}
+.fixec td.titrejeux{
+    width:895px;
+   
+}
+
 th.console, td.console {
   width:224px;  
 }

@@ -4,7 +4,7 @@ $user= new Auth(Session::getInstance());
 if($user->user())
 {
 
-$_SESSION['menu']=1;
+$_SESSION['menu']=4;
 App::redirect('ajouter.php');
 }
 else{

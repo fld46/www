@@ -355,9 +355,11 @@ public function updateJeuxGestion(Jeux $jeux)
            Session::setFlash("add", "Valeur ajouté a la bdd ");
        }
     }
-    $this->_db->query('DELETE FROM maintable WHERE idjeux = ? AND idusers = ? AND possede = ? AND fini = ? ',[$_SESSION['idjam'],$_SESSION['auth']->id,"non","non"]);
+    $testvide=$this->_db->query('SELECT * FROM maintable WHERE idjeux = ? AND idusers = ? AND possede = ? AND fini = ? ',[$_SESSION['idjam'],$_SESSION['auth']->id,"non","non"]);   
+    if($testvide->rowcount()>0){
+       $this->_db->query('DELETE FROM maintable WHERE idjeux = ? AND idusers = ? AND possede = ? AND fini = ? ',[$_SESSION['idjam'],$_SESSION['auth']->id,"non","non"]);
        Session::setFlash("del", "Le jeu est enlevé a la bdd");
-   
+       }
    }
  
 
@@ -504,7 +506,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     echo 
     '
         <tr>
-     <td class="titre">'.$liens.'</td>
+     <td class="img"></td><td class="img"></td><td class="titre">'.$jeux->titre().'</td><td class="img"></td>
      <td>'.$jeux->temps().'</td>
      <td>'.$jeux->difficulte().'</td>
      <td><img src='.$multi.' class="valid" alt='.$multit.'></td>
@@ -565,30 +567,22 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     <table class="droit">
         <thead class="fixe">
                 <tr class="titre">
-                    <th class="titre">TITRE</th>
-                    <th>Temps</th>
+                    <th class="titrejeux">TITRE</th>
+                    <!--<th>Temps</th>
                     <th>Difficulte</th>
                     <th>Multi</th>
-                    <th>Console</th>
+                    <th>Console</th>-->
                     <!--<th>User</th>-->
                 </tr>
         </thead>
         <tbody class="fixec">
         <tr>
-        <td class="img"></td><td class="img"></td>
-        <td class="titre"><br><di>'.$jeux->titre().'</div></td>
-        <td class="img"></td>
-        <td><div>'.$jeux->temps().'</div></td>
-        <td><div>'.$jeux->difficulte().'</div></td>
-        <td><img src="'.$multi.'" class="valid">
-                                      
-        </td>
-        <td></td>
+        <td  class="titrejeux"><br><h1>'.$jeux->titre().'</h1></td>
         </tr>'
               .$this->getConsole($jeux).'
                   
         <tr>
-        <td colspan="8"><button type="submit" class="delete" name="modifierj" >Modifier</button></td>
+        <td colspan="8"><button type="submit" class="delete" name="modifierj" >Ok</button></td>
         </tr>
         </tbody>
     </table>

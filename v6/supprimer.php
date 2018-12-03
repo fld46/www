@@ -75,12 +75,13 @@ if(!isset($_POST['selectj'])){
 
 }
 if(Session::getInstance()->hasFlashes()): ?>
+    <?php $alert="";?>
     <?php foreach (Session::getInstance()->getFlashes() as $type => $message):?>
-        <div class="alert-danger">
-            <?= $message;?>
-        </div>
-<?php endforeach;?>
-<?php endif; 
+    <?php $alert =$alert.'\n'.$message;?>
+    <?php endforeach;?>
+    <script>alert('<?= $alert;?>')</script>
+    <?php endif;
+
 
 
 

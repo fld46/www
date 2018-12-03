@@ -519,7 +519,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     echo 
     '
         <tr>
-     <td class="titre">'.$liens.'</td>
+     <td class="titre" >'.$liens.'</td>
      <td>'.$jeux->temps().'</td>
      <td>'.$jeux->difficulte().'</td>
      <td><img src='.$multi.' class="valid" alt='.$multit.'></td>

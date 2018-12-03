@@ -2,7 +2,7 @@
 //Verification que l'utilisateur est loggé sinon redirection.
 if(!isset($_SESSION['auth']->droits)){
     require "inc/bootstrap.php";
-    App::redirectr('/v4/index.php');
+    App::redirectr('/v6/index.php');
 }
 //recuperation de la base de donnée et on la passe aux objet user et jeuxmanager.
 $db = App::getDatabase();

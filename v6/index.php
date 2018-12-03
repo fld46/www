@@ -45,6 +45,14 @@ if(isset($_SESSION['auth']) AND $_SESSION['auth']->droits=="A"){
         </div>
         </div>
         </div>
-   
+   <?php
+    if(Session::getInstance()->hasFlashes()): ?>
+    <?php $alert="";?>
+    <?php foreach (Session::getInstance()->getFlashes() as $type => $message):?>
+    <?php $alert =$alert.$message;?>
+    <?php endforeach;?>
+    <script>alert('<?= $alert;?>')</script>
+    <?php endif;?> 
     </body>
 </html>
+

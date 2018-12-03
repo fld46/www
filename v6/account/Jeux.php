@@ -53,11 +53,11 @@ if(!isset($_POST['selectj'])){
         <table class="droit">
         <thead class="fixe">
                 <tr class="titre">
-                    <th class="titre">TITRE</th>
-                    <th>Temps</th>
+                    <th class="titrejeux">TITRE</th>
+                    <!--<th>Temps</th>
                     <th>Difficulte</th>
                     <th>Multi</th>
-                    <th>Console</th>
+                    <th>Console</th>-->
                 </tr>
         </thead>
         <tbody class="fixec">
@@ -83,12 +83,13 @@ if(!isset($_POST['selectj'])){
  <?php
 }
 
-if(Session::getInstance()->hasFlashes()): ?>
+
+    if(Session::getInstance()->hasFlashes()): ?>
+    <?php $alert="";?>
     <?php foreach (Session::getInstance()->getFlashes() as $type => $message):?>
-        <div class="alert-danger">
-            <?= $message;?>
-        </div>
-<?php endforeach;?>
-<?php endif; 
+    <?php $alert =$alert.'\n'.$message;?>
+    <?php endforeach;?>
+    <script>alert('<?= $alert;?>')</script>
+    <?php endif;
 
 
