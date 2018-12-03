@@ -359,10 +359,7 @@ public function updateJeuxGestion(Jeux $jeux)
        Session::setFlash("del", "Le jeu est enlevé a la bdd");
    
    }
-   
-       
-  
-
+ 
 
 public function getList()
 {
@@ -607,24 +604,35 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
 //return $jeux;
 }
 public function getConsole(jeux $jeux){
+    $console=$this->_db->query('SELECT * FROM consoles')->fetchall();
+    $idjeux=$jeux->id();
+    $chkbox="";
+    foreach ($console as $key => $value) {
+      $jeuxgestion=$this->_db->query('SELECT * FROM jeux WHERE '.$value->console.'="oui" AND id = ? ',[$idjeux])->fetch();
+      if($jeuxgestion){
+      $chkbox=$chkbox.'<tr><td colspan="8">'.$value->console.' : Possede :'.$this->verifChkboxGestion($jeux, 'possede', $value->id).' fini :'.$this->verifChkboxGestion($jeux, 'fini', $value->id).'</td></tr>';    
+      }
+     
+    }
+    return $chkbox;
     
-    if ($jeux->psvita()=="oui"){
-        
-        $vita='<tr><td colspan="8">Psvita : Possede :'.$this->verifChkboxGestion($jeux, 'possede', 2).' fini :'.$this->verifChkboxGestion($jeux, 'fini', 2).'</td></tr>';
-        }else{
-        $vita="";  
-        }
-    if ($jeux->ps3()=="oui"){
-        $ps3='<tr><td colspan="8">Ps3 : Possede :'.$this->verifChkboxGestion($jeux, "possede",1).' fini :'.$this->verifChkboxGestion($jeux, "fini",1).'</td></tr>';
-    }else{
-        $ps3="";  
-        }
-    if ($jeux->ps4()=="oui"){
-        $ps4='<tr><td colspan="8">Ps4 : Possede :'.$this->verifChkboxGestion($jeux, 'possede',3).' fini :'.$this->verifChkboxGestion($jeux, 'fini',3).'</td></tr>';
-    }else{
-        $ps4="";  
-        }
-   return $vita.$ps3.$ps4; 
+    //if ($jeux->psvita()=="oui"){
+    //    
+    //    $vita='<tr><td colspan="8">Psvita : Possede :'.$this->verifChkboxGestion($jeux, 'possede', 2).' fini :'.$this->verifChkboxGestion($jeux, 'fini', 2).'</td></tr>';
+    //    }else{
+    //    $vita="";  
+    //    }
+    //if ($jeux->ps3()=="oui"){
+    //    $ps3='<tr><td colspan="8">Ps3 : Possede :'.$this->verifChkboxGestion($jeux, "possede",1).' fini :'.$this->verifChkboxGestion($jeux, "fini",1).'</td></tr>';
+    //}else{
+    //    $ps3="";  
+    //    }
+    //if ($jeux->ps4()=="oui"){
+    //    $ps4='<tr><td colspan="8">Ps4 : Possede :'.$this->verifChkboxGestion($jeux, 'possede',3).' fini :'.$this->verifChkboxGestion($jeux, 'fini',3).'</td></tr>';
+    //}else{
+    //    $ps4="";  
+    //    }
+   //return $vita.$ps3.$ps4; 
 }
 
 }
