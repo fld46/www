@@ -361,7 +361,15 @@ public function updateJeuxGestion(Jeux $jeux)
        Session::setFlash("del", "Le jeu est enlevé a la bdd");
        }
    }
- 
+
+public function affJeux($id){
+ $q = $this->_db->query('SELECT * FROM jeux  WHERE id= ?',[$id]);
+ while ($donnees = $q->fetch(PDO::FETCH_ASSOC)){
+ $jeux = new Jeux();
+ $jeux->hydrate($donnees);
+ }
+ return $donnees;
+}
 
 public function getList()
 {
@@ -445,7 +453,7 @@ while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     
        
     <tr>
-     <td class="img">'.$guide.'</td><td class="img">'.$comments.'</td><td class="titre">'.$jeux->titre().'</td><td class="img">'.$multi.'</td>
+     <td class="img">'.$guide.'</td><td class="img">'.$comments.'</td><td class="titre"><a href="AffJeux.php?id='.$jeux->id().'" target="new">'.$jeux->titre().'</a></td><td class="img">'.$multi.'</td>
      <td class="temps">'.$jeux->temps().'</td>
      <td class="difficulte">'.$jeux->difficulte().'</td>
      
