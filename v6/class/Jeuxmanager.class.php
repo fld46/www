@@ -310,38 +310,52 @@ public function updateJeux($idj)
 public function updateJeuxGestion(Jeux $jeux)
 {
   
-    $console=$this->_db->query('SELECT * FROM consoles')->fetchall();
+    $console=$this->_db->query('SELECT id FROM consoles')->fetchall();
     
     
   
   foreach ($console as $key => $value) {
-      $jeuxgestion=$this->_db->query('SELECT * FROM jeux WHERE '.$value->console.'="oui" AND id = ? ',[$_SESSION['idjam']])->fetch();
-      //var_dump($jeuxgestion);
-      if($jeux->possede()==''){
-       $jeux->setPossede([]);   
+      $jeuxgestion=$this->_db->query('SELECT * FROM jeux WHERE '.$value->id.'="oui" AND id = ? ',[$_SESSION['idjam']])->fetch();
+      
+      if($jeux->possede()==NULL){
+          $jeux->setPossede([]);
       }
-      if($jeux->fini()==''){
-       $jeux->setFini([]);   
+      if($jeux->fini()==NULL){
+          $jeux->setFini([]);
       }
-     if((!isset($jeux->possede()[$key+1]))&&(!isset($jeux->fini()[$key+1]))&&($jeuxgestion)){
-          Session::setFlash("del", 'del idcons'.($key+1));
-       }elseif((!isset($jeux->fini()[$key+1]))&&($jeuxgestion)){
-           $jeux->setFini($jeux->fini()+[$key+1=>""]);
+      if (!array_key_exists($value->id, $jeux->possede())){
+         $jeux->setPossede($jeux->possede()+[$value->id=>"non"]); 
+      }
+      if (!array_key_exists($value->id, $jeux->fini())){
+          $jeux->setFini($jeux->fini()+[$value->id=>"non"]);
+      }
+      
+          
+      
+      
+      //if((!isset($jeux->possede()[$value->id]))&&(!isset($jeux->fini()[$value->id]))&&($jeuxgestion)){
+      //    Session::setFlash("del", 'del idcons'.($value->id));
+      // }
+      // elseif((!isset($jeux->fini()[$value->id]))&&($jeuxgestion)){
+      //    $jeux->setFini($jeux->fini()+[$value->id=>"non"]);
            //var_dump($jeux->fini());
-            Session::setFlash('fini','creation fini vide'.$jeux->fini()[$key+1]);
+      //     Session::setFlash('fini','creation fini vide'.$jeux->fini()[$key+1]);
            
-       }elseif((!isset($jeux->possede()[$key+1]))&&($jeuxgestion)){
-           $jeux->setPossede($jeux->possede()+[$key+1=>""]);
+      // }
+      // elseif((!isset($jeux->possede()[$value->id]))&&($jeuxgestion)){
+      //     $jeux->setPossede($jeux->possede()+[$value->id=>"non"]);
            //var_dump($jeux->possede());
-            Session::setFlash('possede','creation possede vide'.$jeux->possede()[$key+1]);
+      //      Session::setFlash('possede','creation possede vide'.$jeux->possede()[$key+1]);
            
-       }
-       
-   
-  }
+       //}
   
+  }
+  var_dump($jeux->possede());
+
+ 
   if(($jeux->possede()!='')||($jeux->fini()!='')){ 
-    foreach ($jeux->possede() as $key=> $value){
+    if($jeux->possede()!=''){
+      foreach ($jeux->possede() as $key=> $value){
        $plt=$this->_db->query('SELECT * FROM maintable  WHERE  idjeux =? AND idconsole =? AND idusers= ?',[$_SESSION['idjam'],$key,$_SESSION['auth']->id])->fetch();
        if (!empty($plt)){
            $idu=$this->_db->query('SELECT id FROM maintable  WHERE  idjeux= ? AND idconsole =? AND idusers= ?',[$_SESSION['idjam'],$key,$_SESSION['auth']->id])->fetch();
@@ -353,6 +367,8 @@ public function updateJeuxGestion(Jeux $jeux)
            Session::setFlash("add", "Le jeu est ajouté a la bdd");
        }
     }
+    }
+    if($jeux->fini()!=''){
     foreach ($jeux->fini() as $key=> $value){
        $plt=$this->_db->query('SELECT * FROM maintable  WHERE  idjeux = ? AND idconsole =? AND idusers= ? ',[$_SESSION['idjam'],$key,$_SESSION['auth']->id])->fetch();
        if (!empty($plt)){
@@ -365,18 +381,19 @@ public function updateJeuxGestion(Jeux $jeux)
            Session::setFlash("addf", "Le jeu est ajouté a la bdd f");
        }
     }
-   
+    }
    // //$this->_db->query('UPDATE jeux SET titre = ?, temps = ?, difficulte = ?, multi = ?,  ps4 = ?, ps3 = ?, psvita= ?, liens = ?, image = ?, crosssav = ?, crosstrophy = ?, crossmulti = ? WHERE id= ?',[$_POST['titre'],$_POST['temps'],$_POST['difficulte'],$_POST['multi'],$_POST['ps4'],$_POST['ps3'],$_POST['psvita'],$_POST['liens'],$_FILES['image']['name'],$_POST['crosssav'],$_POST['crosstrophy'],$_POST['crossmulti'],$idj]);
    //Session::setFlash("update", "Le jeu est modifié");
    }else{
        
-       $this->_db->query('DELETE FROM maintable WHERE idjeux = ? AND idusers = ? AND idconsole = ?',[$_SESSION['idjam'],$_SESSION['auth']->id,$key]);
+       $this->_db->query('DELETE FROM maintable WHERE idjeux = ? AND idusers = ? ',[$_SESSION['idjam'],$_SESSION['auth']->id]);
        Session::setFlash("del", "Le jeu est enlevé a la bdd");
        
     //delete l'entree
        
    }
    }
+
 
 public function getList()
 {
