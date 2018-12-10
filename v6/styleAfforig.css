@@ -1,0 +1,97 @@
+img{
+    width:30px;
+}
+body{
+   
+    font-size: 16px;
+    text-shadow: 0px 0px 1px #000000;
+    
+}
+li{
+list-style:none;    
+}
+#total{
+  max-width:900px;
+  margin:auto;
+  padding:5px;
+  background-color: #E6E6E6;
+  border:2px solid black;
+  border-radius: 10px;
+  
+}
+#header{
+margin:auto;
+text-align: center;
+
+}
+#main{
+  margin:auto;
+  
+  
+}
+#img{
+ 
+ float:left;
+ width:400px;
+   
+}
+#contenu{
+ 
+ background-color: #E6E6E6;
+ margin-left:425px;
+ 
+ 
+}
+#footer{
+ 
+ text-align:center;
+ clear:both;   
+}
+.titre{
+   text-align: center;
+    font-size: 40px;
+    text-shadow: 0px 0px 1px #000000;
+}
+.valido{
+    width:20px;
+}
+
+.imgaff{
+    width:350px;
+    
+}
+.droite{
+   
+    
+    
+}
+.ps4{
+      display:inline-block;
+      width: 50px;
+      margin: auto;
+      font-size: 14px;
+      background-color: #00A2FF;
+      color: white;
+      border-radius: 10px;
+      text-align: center;
+  }
+.ps3{
+      display:inline-block;
+      width: 50px;
+      margin: auto;
+      font-size: 14px;
+      background-color:#000;
+      color: white;
+      border-radius: 10px;
+      text-align: center;
+  }
+ .psvita{
+      display:inline-block;
+      width: 50px;
+      margin: auto;
+      font-size: 14px;
+      background-color:#100BFF;
+      color: white;
+      border-radius: 10px;
+      text-align: center;
+  }
